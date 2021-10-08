@@ -1,2 +1,2 @@
 # ZeldaLike
-Le Jeu de IBO Mathys et ARISTIDE-LADAL Tidiane
+Le Jeu de IBO Mathys, DYLAS William et ARISTIDE-LADAL Tidiane
