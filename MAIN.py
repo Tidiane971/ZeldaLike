@@ -1,4 +1,6 @@
 #Code principal jeu
+from TestMap import *
+from fonction import *
 import pygame
 import random
 import time
@@ -49,13 +51,8 @@ def lecture_objet():
 
     return objet
 
-#Code principal jeu
-#testjjkjk
-#modifier par tidiane
 # Initialisation Jeu
 pygame.init()
-
-
 
 # Nom du jeu
 pygame.display.set_caption("L'épopée_de_Lynk.exe")
@@ -64,14 +61,14 @@ pygame.display.set_caption("L'épopée_de_Lynk.exe")
 largeur=840
 hauteur=550
 fenetre=pygame.display.set_mode((largeur,hauteur))
+
 objet = lecture_objet()
+
 # lecture de l'image du perso
-
 perso = perso(objet["perso"],fenetre)
-
-# creation d'un rectangle pour positioner l'image du personnage
 perso.rect.x = 60
 perso.rect.y = 80
+
 # Appel horloge
 temps=pygame.time.Clock()
 
@@ -83,15 +80,11 @@ while Play:
 	print(i)
 	i+=1
 
-
-
-
 	# Lecture clavier
 	touches=pygame.key.get_pressed();
 
 	# rafraichissement
 	perso.afficher()
-
 	perso.deplacement_perso(touches)
 
 
@@ -101,7 +94,6 @@ while Play:
 	for event in pygame.event.get():
 		if event.type==pygame.QUIT:
 			Play=False
-
 	pass
 
 # Fin programme
