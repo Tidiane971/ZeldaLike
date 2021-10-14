@@ -1,6 +1,6 @@
 #Code principal jeu
-from TestMap import *
 from Fonction import *
+from Map import *
 import pygame
 import random
 import time
