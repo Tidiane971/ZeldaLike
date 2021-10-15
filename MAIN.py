@@ -16,7 +16,7 @@ pygame.display.set_caption("L'épopée_de_Lynk.exe")
 objet = lecture_objet()
 
 # lecture de l'image du perso
-perso = perso(objet["perso"],fenetre)
+perso = perso(objet["perso_stand_bas"],fenetre)
 perso.rect.x = 60
 perso.rect.y = 80
 

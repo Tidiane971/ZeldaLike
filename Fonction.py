@@ -65,21 +65,22 @@ def lecture_objet():
 
     perso = pygame.image.load("perso.png").convert_alpha()
     objet["perso"]=perso
-    link_r0=pygame.image.load("source\link\link_r0.png").convert_alpha()
-    objet["link_r0"]=link_r0
-    link_r1=pygame.image.load("source\link\link_r1.png").convert_alpha()
-    objet["link_r1"]=link_r0
-    link_r2=pygame.image.load("source\link\link_r2.png").convert_alpha()
-    objet["link_r2"]=link_r0
-    link_r3=pygame.image.load("source\link\link_r3.png").convert_alpha()
-    objet["link_r3"]=link_r0
-    link_r4=pygame.image.load("source\link\link_r4.png").convert_alpha()
-    objet["link_r4"]=link_r0
-    link_r5=pygame.image.load("source\link\link_r5.png").convert_alpha()
-    objet["link_r5"]=link_r0
-    link_r6=pygame.image.load("source\link\link_r6.png").convert_alpha()
-    objet["link_r6"]=link_r0
-    link_r7=pygame.image.load("source\link\link_r7.png").convert_alpha()
-    objet["link_r7"]=link_r0
+    perso_walk_gauche=pygame.image.load("Source\Lynk\Lynk_walk_gauche.png").convert_alpha()
+    objet["perso_walk_gauche"]=perso_walk_gauche
+    perso_walk_droite=pygame.image.load("Source\Lynk\Lynk_walk_droite.png").convert_alpha()
+    objet["perso_walk_droite"]=perso_walk_droite
+    perso_walk_haut=pygame.image.load("Source\Lynk\Lynk_walk_haut.png").convert_alpha()
+    objet["perso_walk_haut"]=perso_walk_haut
+    perso_walk_bas=pygame.image.load("Source\Lynk\Lynk_walk.png").convert_alpha()
+    objet["perso_walk_bas"]=perso_walk_bas
+    perso_stand_gauche=pygame.image.load("Source\Lynk\Lynk_stand_gauche.png").convert_alpha()
+    objet["perso_stand_gauche"]=perso_stand_gauche
+    perso_stand_droite=pygame.image.load("Source\Lynk\Lynk_stand_droite.png").convert_alpha()
+    objet["perso_stand_droite"]=perso_stand_droite
+    perso_stand_haut=pygame.image.load("Source\Lynk\Lynk_stand_haut.png").convert_alpha()
+    objet["perso_stand_haut"]=perso_stand_haut
+    perso_stand_bas=pygame.image.load("Source\Lynk\Lynk_stand_bas.png").convert_alpha()
+    objet["perso_stand_bas"]=perso_stand_bas
+
 
     return objet
