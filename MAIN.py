@@ -50,7 +50,7 @@ while Play:
 	###########################
 	###########MENU############
 	###########################
-	
+
 
 	if Menu:
 		menu_background.afficher()
@@ -71,7 +71,7 @@ while Play:
 	if enJeu:
 		# rafraichissement
 		menu_background.afficher() #Background temporaire pour voir la diff entre menu et enJeu
-		perso.afficher()
+		perso.afficher(touches)
 		perso.deplacement_perso(touches)
 		pygame.display.flip()
 

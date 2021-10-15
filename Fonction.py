@@ -23,6 +23,12 @@ class perso(elementgraphique):
     def __init__(self,image,fenetre):
         elementgraphique.__init__(self,image,fenetre)
 
+    def afficher(self,touches):
+        elementgraphique.afficher(self)
+        # if touches[pygame.K_RIGHT]:
+            #self.image=self(objet["link_r0"],fenetre)
+            #self.fenetre.blit(self.image, self.rect)
+
 
     def deplacement_perso(self,touches):
         largeur, hauteur = self.fenetre.get_size()
@@ -59,5 +65,21 @@ def lecture_objet():
 
     perso = pygame.image.load("perso.png").convert_alpha()
     objet["perso"]=perso
+    link_r0=pygame.image.load("source\link\link_r0.png").convert_alpha()
+    objet["link_r0"]=link_r0
+    link_r1=pygame.image.load("source\link\link_r1.png").convert_alpha()
+    objet["link_r1"]=link_r0
+    link_r2=pygame.image.load("source\link\link_r2.png").convert_alpha()
+    objet["link_r2"]=link_r0
+    link_r3=pygame.image.load("source\link\link_r3.png").convert_alpha()
+    objet["link_r3"]=link_r0
+    link_r4=pygame.image.load("source\link\link_r4.png").convert_alpha()
+    objet["link_r4"]=link_r0
+    link_r5=pygame.image.load("source\link\link_r5.png").convert_alpha()
+    objet["link_r5"]=link_r0
+    link_r6=pygame.image.load("source\link\link_r6.png").convert_alpha()
+    objet["link_r6"]=link_r0
+    link_r7=pygame.image.load("source\link\link_r7.png").convert_alpha()
+    objet["link_r7"]=link_r0
 
     return objet
