@@ -1,5 +1,6 @@
 #Ici seront faites le modifs pour le perso/ennemi
 import pygame
+#import random
 
 class elementgraphique:
     def __init__(self,image,fenetre):
@@ -18,7 +19,7 @@ class elementgraphique:
         return False
 
 
-
+#class du personnage
 class perso(elementgraphique):
     def __init__(self,image,fenetre):
         elementgraphique.__init__(self,image,fenetre)
@@ -59,27 +60,58 @@ class button(elementgraphique):
         if pygame.mouse.get_pressed()[0] and self.rect.collidepoint(pygame.mouse.get_pos()):
             self.isClicked = True
 
+#class des ennemi
+class ennemi(elementgraphique):
+    def __init__(self,image,fenetre):
+        elementgraphique.__init__(self,image,fenetre)
+        self.vie=0
+        self.spawn=False
+        self.use=False
+    def vitesse(self):
+        self.dx=1
+        self.dy=1
+
+    def deplacement(self):
+        largeur, hauteur = self.fenetre.get_size()
+
+        self.rect.x+=self.dx
+        self.rect.y+=self.dy
+
+        if self.rect.y<0 or self.rect.y> hauteur - self.rect.h:
+            self.dy*=-1
+
+        if self.rect.x<0 or self.rect.x> largeur - self.rect.w:
+            self.dx*= -1
+
+#def creation_ennemi(x,y):
+    #ENNEMI=[]
+    #if ROLE=1:
+        #ennemi = ennemi(objet["ennemi"],window)
+        #ennemi.rect.x = random.randint(ennemi.rect.w,largeur-ennemi.rect.w)
+        #ennemi.rect.y = random.randint(ennemi.rect.h,hauteur-ennemi.rect.h)
+        #ENNEMI.append(ennemi)
 
 def lecture_objet():
     objet={}
 
     perso = pygame.image.load("perso.png").convert_alpha()
     objet["perso"]=perso
-    link_r0=pygame.image.load("source\link\link_r0.png").convert_alpha()
-    objet["link_r0"]=link_r0
-    link_r1=pygame.image.load("source\link\link_r1.png").convert_alpha()
-    objet["link_r1"]=link_r0
-    link_r2=pygame.image.load("source\link\link_r2.png").convert_alpha()
-    objet["link_r2"]=link_r0
-    link_r3=pygame.image.load("source\link\link_r3.png").convert_alpha()
-    objet["link_r3"]=link_r0
-    link_r4=pygame.image.load("source\link\link_r4.png").convert_alpha()
-    objet["link_r4"]=link_r0
-    link_r5=pygame.image.load("source\link\link_r5.png").convert_alpha()
-    objet["link_r5"]=link_r0
-    link_r6=pygame.image.load("source\link\link_r6.png").convert_alpha()
-    objet["link_r6"]=link_r0
-    link_r7=pygame.image.load("source\link\link_r7.png").convert_alpha()
-    objet["link_r7"]=link_r0
+    perso_walk_gauche=pygame.image.load("Source\Lynk\Lynk_walk_gauche.png").convert_alpha()
+    objet["perso_walk_gauche"]=perso_walk_gauche
+    perso_walk_droite=pygame.image.load("Source\Lynk\Lynk_walk_droite.png").convert_alpha()
+    objet["perso_walk_droite"]=perso_walk_droite
+    perso_walk_haut=pygame.image.load("Source\Lynk\Lynk_walk_haut.png").convert_alpha()
+    objet["perso_walk_haut"]=perso_walk_haut
+    perso_walk_bas=pygame.image.load("Source\Lynk\Lynk_walk.png").convert_alpha()
+    objet["perso_walk_bas"]=perso_walk_bas
+    perso_stand_gauche=pygame.image.load("Source\Lynk\Lynk_stand_gauche.png").convert_alpha()
+    objet["perso_stand_gauche"]=perso_stand_gauche
+    perso_stand_droite=pygame.image.load("Source\Lynk\Lynk_stand_droite.png").convert_alpha()
+    objet["perso_stand_droite"]=perso_stand_droite
+    perso_stand_haut=pygame.image.load("Source\Lynk\Lynk_stand_haut.png").convert_alpha()
+    objet["perso_stand_haut"]=perso_stand_haut
+    perso_stand_bas=pygame.image.load("Source\Lynk\Lynk_stand_bas.png").convert_alpha()
+    objet["perso_stand_bas"]=perso_stand_bas
+
 
     return objet

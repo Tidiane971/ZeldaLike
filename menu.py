@@ -4,7 +4,7 @@ from Map import *
 from constantes import *
 
 #CREATION DE L'IMAGE DE FOND
-background_img = pygame.image.load("MENU/background.jpg").convert_alpha()
+background_img = pygame.image.load("MENU/Menu.png").convert_alpha()
 background_img = pygame.transform.scale(background_img, (largeur,hauteur))
 menu_background = elementgraphique(background_img, fenetre)
 
