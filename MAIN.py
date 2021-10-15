@@ -4,19 +4,14 @@ from Map import *
 import pygame
 import random
 import time
-
-
-
+from menu import *
+from constantes import *
 # Initialisation Jeu
 pygame.init()
 
 # Nom du jeu
 pygame.display.set_caption("L'épopée_de_Lynk.exe")
 
-# Définition fenêtre (à changer si besoin)
-largeur=840
-hauteur=550
-fenetre=pygame.display.set_mode((largeur,hauteur))
 
 objet = lecture_objet()
 
@@ -28,8 +23,13 @@ perso.rect.y = 80
 # Appel horloge
 temps=pygame.time.Clock()
 
+#Definition de l'etat
+Menu, enJeu = 1,0
 i=0
 Play=True
+
+
+
 while Play:
 
 	temps.tick(30)
@@ -39,18 +39,45 @@ while Play:
 	# Lecture clavier
 	touches=pygame.key.get_pressed();
 
-	# rafraichissement
-	perso.afficher()
-	perso.deplacement_perso(touches)
-
-
-	pygame.display.flip()
 	if touches[pygame.K_ESCAPE]: # Échap / Quitter
 		Play=False
 	for event in pygame.event.get():
 		if event.type==pygame.QUIT:
 			Play=False
 	pass
+
+
+	###########################
+	###########MENU############
+	###########################
+	
+
+	if Menu:
+		menu_background.afficher()
+		play_button.afficher()
+		play_button.click()
+
+		if play_button.isClicked:
+			Menu = 0
+			enJeu = 1
+			pygame.display.flip()
+		pygame.display.flip()
+
+
+	############################
+	############JEU#############
+	############################
+
+	if enJeu:
+		# rafraichissement
+		menu_background.afficher() #Background temporaire pour voir la diff entre menu et enJeu
+		perso.afficher()
+		perso.deplacement_perso(touches)
+		pygame.display.flip()
+
+
+
+
 
 # Fin programme
 pygame.quit()

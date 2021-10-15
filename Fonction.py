@@ -5,14 +5,19 @@ class elementgraphique:
     def __init__(self,image,fenetre):
         self.image = image
         self.rect = image.get_rect()
+        self.rect.x = 0
+        self.rect.y = 0
         self.fenetre = fenetre
 
     def afficher(self):
         self.fenetre.blit(self.image, self.rect)
+
     def collide(self, other):
         if self.rect.colliderect(other.rect):
             return True
         return False
+
+
 
 class perso(elementgraphique):
     def __init__(self,image,fenetre):
@@ -39,10 +44,20 @@ class perso(elementgraphique):
         elif self.rect.x>largeur-self.rect.w:
             self.rect.x=largeur-self.rect.w
 
+class button(elementgraphique):
+    def __init__(self,image,fenetre):
+        elementgraphique.__init__(self,image,fenetre)
+        self.isClicked = False
+
+    def click(self):
+        if pygame.mouse.get_pressed()[0] and self.rect.collidepoint(pygame.mouse.get_pos()):
+            self.isClicked = True
+
+
 def lecture_objet():
     objet={}
 
-    image = pygame.image.load("perso.png").convert_alpha()
-    objet["perso"]=image
+    perso = pygame.image.load("perso.png").convert_alpha()
+    objet["perso"]=perso
 
     return objet
