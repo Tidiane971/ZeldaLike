@@ -3,6 +3,11 @@ from Fonction import *
 from Map import *
 from constantes import *
 
+#CREATION DE L'IMAGE D'INTRO
+background_intro = pygame.image.load("Source/Écran/TiMaWy.png").convert_alpha()
+background_intro = pygame.transform.scale(background_intro, (largeur,hauteur))
+intro_background = elementgraphique(background_intro, fenetre)
+
 #CREATION DE L'IMAGE DE FOND
 background_img = pygame.image.load("MENU/Menu.png").convert_alpha()
 background_img = pygame.transform.scale(background_img, (largeur,hauteur))

@@ -1,11 +1,12 @@
 #Code principal jeu
+from constantes import *
 from Fonction import *
+from menu import *
 from Map import *
 import pygame
 import random
 import time
-from menu import *
-from constantes import *
+
 # Initialisation Jeu
 pygame.init()
 
@@ -15,7 +16,7 @@ pygame.display.set_caption("L'épopée_de_Lynk.exe")
 
 objet = lecture_objet()
 
-# lecture de l'image du perso
+# Image Personnages
 perso = perso(objet["perso_stand_bas"],fenetre)
 perso.rect.x = 60
 perso.rect.y = 80
@@ -23,18 +24,21 @@ perso.rect.y = 80
 # Appel horloge
 temps=pygame.time.Clock()
 
+#Définition musique
+#sonJEU=pygame.mixer.Sound("Source/Musique_&_Son/Village.ogg")
+
 #Definition de l'etat
-Menu, enJeu = 1,0
 i=0
 Play=True
+Intro,Menu, enJeu = 1,0,0
 
 
-
+#Boucle jeu
 while Play:
 
-	temps.tick(30)
-	print(i)
 	i+=1
+	#print(i)
+	temps.tick(30)
 
 	# Lecture clavier
 	touches=pygame.key.get_pressed();
@@ -46,6 +50,19 @@ while Play:
 			Play=False
 	pass
 
+	###########################
+	###########INTRO############
+	###########################
+
+
+	if Intro:
+		intro_background.afficher()
+
+		if i>=55:
+			Intro = 0
+			Menu = 1
+			pygame.display.flip()
+		pygame.display.flip()
 
 	###########################
 	###########MENU############
@@ -69,12 +86,13 @@ while Play:
 	############################
 
 	if enJeu:
-		# rafraichissement
+		#Musique 
+		#sonJEU.play()
 		menu_background.afficher() #Background temporaire pour voir la diff entre menu et enJeu
 		perso.afficher(touches)
 		perso.deplacement_perso(touches)
+		# rafraichissement
 		pygame.display.flip()
-
 
 
 
