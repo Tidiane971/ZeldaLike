@@ -6,7 +6,7 @@ from Map import *
 import pygame
 import random
 import time
-
+import pygame.mixer
 # Initialisation Jeu
 pygame.init()
 
@@ -25,9 +25,8 @@ perso.rect.y = 80
 temps=pygame.time.Clock()
 
 #Définition musique
-#sonJEU=pygame.mixer.Sound("Source/Musique_&_Son/Village.ogg")
+pygame.mixer.music.load("Source/Musique_&_Son/Village.ogg")
 
-#Definition de l'etat
 i=0
 Play=True
 Intro,Menu, enJeu = 1,0,0
@@ -58,6 +57,7 @@ while Play:
 	if Intro:
 		intro_background.afficher()
 
+
 		if i>=55:
 			Intro = 0
 			Menu = 1
@@ -77,6 +77,7 @@ while Play:
 		if play_button.isClicked:
 			Menu = 0
 			enJeu = 1
+			pygame.mixer.music.play()
 			pygame.display.flip()
 		pygame.display.flip()
 
@@ -86,13 +87,16 @@ while Play:
 	############################
 
 	if enJeu:
-		#Musique 
-		#sonJEU.play()
+		#Musique
+
+		#Definition de l'etat
 		menu_background.afficher() #Background temporaire pour voir la diff entre menu et enJeu
+
 		perso.afficher(touches)
 		perso.deplacement_perso(touches)
 		# rafraichissement
 		pygame.display.flip()
+
 
 
 
