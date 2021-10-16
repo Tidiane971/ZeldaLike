@@ -25,7 +25,7 @@ perso.rect.y = 80
 temps=pygame.time.Clock()
 
 #Définition musique
-pygame.mixer.music.load("Source/Musique_&_Son/intro_version_longue.ogg")
+pygame.mixer.music.load("Source/Musique_&_Son/intro_theme1.ogg")
 
 i=0
 Play=True
@@ -56,11 +56,11 @@ while Play:
 
 	if Intro:
 		intro_background.afficher()
-		pygame.mixer.music.play()
 
 		if i>=55:
 			Intro = 0
 			Menu = 1
+			pygame.mixer.music.play()
 			pygame.display.flip()
 		pygame.display.flip()
 
