@@ -110,7 +110,7 @@ def lecture_objet():
     objet["perso_stand_droite"]=perso_stand_droite
     perso_stand_haut=pygame.image.load("Source\Lynk\Lynk_stand_haut.png").convert_alpha()
     objet["perso_stand_haut"]=perso_stand_haut
-    perso_stand_bas=pygame.image.load("Source\Lynk\Lynk_stand_bas.png").convert_alpha()
+    perso_stand_bas=pygame.image.load("Source\Lynk\LINK(2).png").convert_alpha()
     objet["perso_stand_bas"]=perso_stand_bas
 
 
