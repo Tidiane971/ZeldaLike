@@ -96,21 +96,21 @@ def lecture_objet():
 
     perso = pygame.image.load("perso.png").convert_alpha()
     objet["perso"]=perso
-    perso_walk_gauche=pygame.image.load("Source\Lynk\Lynk_walk_gauche.png").convert_alpha()
+    perso_walk_gauche=pygame.image.load("Source/Lynk/Lynk_walk_gauche.png").convert_alpha()
     objet["perso_walk_gauche"]=perso_walk_gauche
-    perso_walk_droite=pygame.image.load("Source\Lynk\Lynk_walk_droite.png").convert_alpha()
+    perso_walk_droite=pygame.image.load("Source/Lynk/Lynk_walk_droite.png").convert_alpha()
     objet["perso_walk_droite"]=perso_walk_droite
-    perso_walk_haut=pygame.image.load("Source\Lynk\Lynk_walk_haut.png").convert_alpha()
+    perso_walk_haut=pygame.image.load("Source/Lynk/Lynk_walk_haut.png").convert_alpha()
     objet["perso_walk_haut"]=perso_walk_haut
-    perso_walk_bas=pygame.image.load("Source\Lynk\Lynk_walk.png").convert_alpha()
+    perso_walk_bas=pygame.image.load("Source/Lynk/Lynk_walk.png").convert_alpha()
     objet["perso_walk_bas"]=perso_walk_bas
-    perso_stand_gauche=pygame.image.load("Source\Lynk\Lynk_stand_gauche.png").convert_alpha()
+    perso_stand_gauche=pygame.image.load("Source/Lynk/Lynk_stand_gauche.png").convert_alpha()
     objet["perso_stand_gauche"]=perso_stand_gauche
-    perso_stand_droite=pygame.image.load("Source\Lynk\Lynk_stand_droite.png").convert_alpha()
+    perso_stand_droite=pygame.image.load("Source/Lynk/Lynk_stand_droite.png").convert_alpha()
     objet["perso_stand_droite"]=perso_stand_droite
-    perso_stand_haut=pygame.image.load("Source\Lynk\Lynk_stand_haut.png").convert_alpha()
+    perso_stand_haut=pygame.image.load("Source/Lynk/Lynk_stand_haut.png").convert_alpha()
     objet["perso_stand_haut"]=perso_stand_haut
-    perso_stand_bas=pygame.image.load("Source\Lynk\LINK(2).png").convert_alpha()
+    perso_stand_bas=pygame.image.load("Source/Lynk/Lynk_stand_bas.png").convert_alpha()
     objet["perso_stand_bas"]=perso_stand_bas
 
 

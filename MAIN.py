@@ -74,7 +74,7 @@ while Play:
 		play_button.afficher()
 		play_button.click()
 
-		if play_button.isClicked:
+		if play_button.isClicked or touches[pygame.K_RETURN]:
 			Menu = 0
 			enJeu = 1
 			pygame.mixer.music.load("Source/Musique_&_Son/Village.ogg")
@@ -91,8 +91,7 @@ while Play:
 		#Musique
 
 		#Definition de l'etat
-		menu_background.afficher() #Background temporaire pour voir la diff entre menu et enJeu
-
+		Village.afficher() #Background temporaire pour voir la diff entre menu et enJeu
 		perso.afficher(touches)
 		perso.deplacement_perso(touches)
 		# rafraichissement
