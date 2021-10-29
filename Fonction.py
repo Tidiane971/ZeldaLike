@@ -18,9 +18,24 @@ class elementgraphique:
             return True
         return False
 
+class element_anime(elementgraphique):
+
+    def __init__(self, images, fen, x, y):
+        super().__init__(images[0],fen, x, y)
+        self.images = images
+        self.delai = 2
+        self.num_image = 0
+        self.timer = 0
+
+class element_anime_dir(element_anime):
+    def __init__(self, images, fen, x, y):
+        super().__init__(images[0],fen, x, y)
+
+
+
 
 #class du personnage
-class perso(elementgraphique):
+class perso(element_anime_dir):
     def __init__(self,image,fenetre):
         elementgraphique.__init__(self,image,fenetre)
 
@@ -112,6 +127,32 @@ def lecture_objet():
     objet["perso_stand_haut"]=perso_stand_haut
     perso_stand_bas=pygame.image.load("Source/Lynk/Lynk_stand_bas.png").convert_alpha()
     objet["perso_stand_bas"]=perso_stand_bas
+
+    #imageBank["Lynk"] ={}
+    #imageBank["Lynk"]["droite"]=[]
+    #for i in range(4):
+      #image = pygame.image.load("Lynk_walk_droite"+str(i)+".png").convert_alpha()
+      #image = pygame.transform.scale(image, (48, 48))
+      #imageBank["Lynk"]["droite"].append(image)
+
+    #imageBank["Lynk"]["gauche"]=[]
+    #for i in range(4):
+      #image = pygame.image.load("Lynk_walk_gauche"+str(i)+".png").convert_alpha()
+      #image = pygame.transform.scale(image, (48, 48))
+      #imageBank["Lynk"]["gauche"].append(image)
+
+    #imageBank["Lynk"]["haut"]=[]
+    #for i in range(4):
+      #image = pygame.image.load("Lynk_walk_haut"+str(i)+".png").convert_alpha()
+      #image = pygame.transform.scale(image, (48, 48))
+      #imageBank["Lynk"]["haut"].append(image)
+
+    #imageBank["Lynk"]["bas"]=[]
+    #for i in range(4):
+      #image = pygame.image.load("Lynk_walk_bas"+str(i)+".png").convert_alpha()
+      #image = pygame.transform.scale(image, (48, 48))
+      #imageBank["Lynk"]["bas"].append(image)
+
 
 
     return objet
