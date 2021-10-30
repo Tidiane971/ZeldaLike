@@ -17,9 +17,8 @@ pygame.display.set_caption("L'épopée_de_Lynk.exe")
 objet = lecture_objet()
 
 # Image Personnages
-perso = perso(objet["perso_stand_bas"],fenetre)
-perso.rect.x = 60
-perso.rect.y = 80
+perso = perso(objet["Lynk"],fenetre,x=60,y=80)
+
 
 # Appel horloge
 temps=pygame.time.Clock()
@@ -92,8 +91,8 @@ while Play:
 
 		#Definition de l'etat
 		Village.afficher() #Background temporaire pour voir la diff entre menu et enJeu
-		perso.afficher(touches)
-		perso.deplacement_perso(touches)
+		perso.afficher()
+		perso.deplacement()
 		# rafraichissement
 		pygame.display.flip()
 
