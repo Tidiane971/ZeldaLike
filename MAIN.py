@@ -70,7 +70,15 @@ while Play:
 
 	if Menu:
 		menu_background.afficher()
-		play_button.afficher()
+		#play_button.afficher()
+		#play_button.click()
+
+		if i<=35:
+			play_button.afficher()
+		
+		if i>=50:
+			i=0
+
 		play_button.click()
 
 		if play_button.isClicked or touches[pygame.K_RETURN]:
