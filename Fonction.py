@@ -44,7 +44,6 @@ class element_anime_dir(element_anime):
         self.direction = "bas"
         self.old_direction = "bas"
 
-
         super().__init__(images[self.direction],fenetre, x,y)
 
     def afficher(self):
@@ -66,33 +65,43 @@ class perso(element_anime_dir):
         self.vitesse=3
 
 
-
     def deplacement(self):
         largeur, hauteur = self.fenetre.get_size()
         touches = pygame.key.get_pressed()
-        #self.direction="stand"
+
         if touches[pygame.K_LEFT]:
             self.rect.x-=self.vitesse
             self.direction = "gauche"
+        elif self.direction=="gauche":
+            self.direction="stand_gauche"
+
         if touches[pygame.K_RIGHT]:
             self.rect.x+=self.vitesse
             self.direction = "droite"
+        elif self.direction=="droite":
+            self.direction="stand_droite"
+
         if touches[pygame.K_UP]:
             self.rect.y-=self.vitesse
             self.direction = "haut"
+        elif self.direction=="haut":
+            self.direction="stand_haut"
+
         if touches[pygame.K_DOWN]:
             self.rect.y+=self.vitesse
             self.direction = "bas"
+        elif self.direction=="bas":
+            self.direction="stand_bas"
 
-        #if self.direction=="stand":
-            #self.direction=self.old_direction.replace"stand" +"stand"
+        if touches[pygame.K_a] :
+            self.direction="hit_bas"
+
+        print(self.old_direction)
 
         if self.rect.x<0:
             self.rect.x=0
         elif self.rect.y<0:
             self.rect.y=0
-
-
 
         if self.rect.y>hauteur-self.rect.h:
             self.rect.y=hauteur-self.rect.h
@@ -142,66 +151,102 @@ class ennemi(elementgraphique):
 def lecture_objet():
     objet={}
 
+    #perso_stand_bas=pygame.image.load("Source/Lynk/Lynk_stand_bas_0.png").convert_alpha()
+    #objet["perso_stand_bas"]=perso_stand_bas
 
-    objet["Lynk"] ={}
+    #animation debout
+    #vers le bas
+    objet["Lynk"]={}
 
-    image = pygame.image.load("Source/Lynk/Lynk_stand_gauche.png").convert_alpha()
-    objet["Lynk"]["gauche_stand"]=image
-    image = pygame.image.load("Source/Lynk/Lynk_stand_droite.png").convert_alpha()
-    objet["Lynk"]["droite_stand"]=image
-    image = pygame.image.load("Source/Lynk/Lynk_stand_haut.png").convert_alpha()
-    objet["Lynk"]["haut_stand"]=image
-    image = pygame.image.load("Source/Lynk/Lynk_stand_bas_0.png").convert_alpha()
-    objet["Lynk"]["bas_stand"]=image
+    objet["Lynk"]["stand_bas"]=[]
+    for i in range(4):
+        image=pygame.image.load("Source/Lynk/Lynk_stand_bas_"+str(i)+".png").convert_alpha()
+        image = pygame.transform.scale(image, (48, 48))
+        objet["Lynk"]["stand_bas"].append(image)
+
+    #vers la droite
+        objet["Lynk"]["stand_droite"]=[]
+        for i in range(4):
+            image=pygame.image.load("Source/Lynk/Lynk_stand_droite_"+str(i)+".png").convert_alpha()
+            image = pygame.transform.scale(image, (48, 48))
+            objet["Lynk"]["stand_droite"].append(image)
+
+    #vers la gauche
+        objet["Lynk"]["stand_gauche"]=[]
+        for i in range(4):
+            image=pygame.image.load("Source/Lynk/Lynk_stand_gauche_"+str(i)+".png").convert_alpha()
+            image = pygame.transform.scale(image, (48, 48))
+            objet["Lynk"]["stand_gauche"].append(image)
+
+    #vers la haut
+        objet["Lynk"]["stand_haut"]=[]
+        for i in range(4):
+            image=pygame.image.load("Source/Lynk/Lynk_stand_haut_"+str(i)+".png").convert_alpha()
+            image = pygame.transform.scale(image, (48, 48))
+            objet["Lynk"]["stand_haut"].append(image)
+
+
+    #animation marche droite
     objet["Lynk"]["droite"]=[]
     for i in range(10):
       image = pygame.image.load("Source/Lynk/Lynk_walk_droite_"+str(i)+".png").convert_alpha()
       image = pygame.transform.scale(image, (48, 48))
       objet["Lynk"]["droite"].append(image)
 
+    #animation marche gauche
     objet["Lynk"]["gauche"]=[]
     for i in range(10):
       image = pygame.image.load("Source/Lynk/Lynk_walk_gauche_"+str(i)+".png").convert_alpha()
       image = pygame.transform.scale(image, (48, 48))
       objet["Lynk"]["gauche"].append(image)
 
+    #animation marche haut
     objet["Lynk"]["haut"]=[]
     for i in range(10):
       image = pygame.image.load("Source/Lynk/Lynk_walk_haut_"+str(i)+".png").convert_alpha()
       image = pygame.transform.scale(image, (48, 48))
       objet["Lynk"]["haut"].append(image)
 
+    #animation marche bas
     objet["Lynk"]["bas"]=[]
     for i in range(8):
       image = pygame.image.load("Source/Lynk/Lynk_walk_bas_"+str(i)+".png").convert_alpha()
       image = pygame.transform.scale(image, (48, 48))
       objet["Lynk"]["bas"].append(image)
 
-
+    #animation attaque épée
     objet["Lynk"]["hit_bas"]=[]
-    for i in range(8):
+    for i in range(6):
       image = pygame.image.load("Source/Lynk/Lynk_hit_"+str(i)+".png").convert_alpha()
       image = pygame.transform.scale(image, (48, 48))
       objet["Lynk"]["hit_bas"].append(image)
 
+    #animation attaque épée droite
     objet["Lynk"]["hit_droite"]=[]
-    for i in range(9):
+    for i in range(8):
       image = pygame.image.load("Source/Lynk/Lynk_hit_droite_"+str(i)+".png").convert_alpha()
       image = pygame.transform.scale(image, (48, 48))
       objet["Lynk"]["hit_droite"].append(image)
 
+    #animation attaque épée gauche
     objet["Lynk"]["hit_gauche"]=[]
-    for i in range(9):
+    for i in range(8):
       image = pygame.image.load("Source/Lynk/Lynk_hit_gauche_"+str(i)+".png").convert_alpha()
       image = pygame.transform.scale(image, (48, 48))
       objet["Lynk"]["hit_gauche"].append(image)
 
+    #animation attaque épée haut
     objet["Lynk"]["hit_haut"]=[]
-    for i in range(9):
+    for i in range(8):
       image = pygame.image.load("Source/Lynk/Lynk_hit_haut_"+str(i)+".png").convert_alpha()
       image = pygame.transform.scale(image, (48, 48))
       objet["Lynk"]["hit_haut"].append(image)
 
-
+    #animation mort
+    objet["Lynk"]["dead"]=[]
+    for i in range(4):
+        image = pygame.image.load("Source/Lynk/Lynk_dead_"+str(i)+".png").convert_alpha()
+        image = pygame.transform.scale(image, (48, 48))
+        objet["Lynk"]["dead"].append(image)
 
     return objet

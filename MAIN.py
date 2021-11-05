@@ -84,7 +84,7 @@ while Play:
 		if play_button.isClicked or touches[pygame.K_RETURN]:
 			Menu = 0
 			enJeu = 1
-			pygame.mixer.music.load("Source/Musique_&_Son/Village.ogg")
+			#pygame.mixer.music.load("Source/Musique_&_Son/Village.ogg")
 			pygame.mixer.music.play()
 			pygame.display.flip()
 		pygame.display.flip()
@@ -103,8 +103,6 @@ while Play:
 		perso.deplacement()
 		# rafraichissement
 		pygame.display.flip()
-
-
 
 
 
