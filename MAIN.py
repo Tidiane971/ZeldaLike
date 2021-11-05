@@ -75,7 +75,7 @@ while Play:
 
 		if i<=35:
 			play_button.afficher()
-		
+
 		if i>=50:
 			i=0
 
