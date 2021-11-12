@@ -61,9 +61,21 @@ class element_anime_dir(element_anime):
 class perso(element_anime_dir):
     def __init__(self,image,fenetre,x=0,y=0):
         super().__init__(image,fenetre,x,y)
+        self.attak=""
+        self.attak_fin=True
 
         self.vitesse=6
         self.vie=12
+
+    def afficher(self):
+        if self.attak!="" and self.num_image==len(self.images)-1:
+            self.attak_fin=True
+            self.direction=self.attak.replace("hit_", "stand_")
+            self.attak=""
+            print("fin attaque")
+            print(self.direction)
+        super().afficher()
+
 
     def deplacement(self):
         largeur, hauteur = self.fenetre.get_size()
@@ -94,18 +106,18 @@ class perso(element_anime_dir):
             self.direction="stand_bas"
 
         if touches[pygame.K_a] and self.direction=="stand_bas":
+            self.attak="hit_bas"
             self.direction="hit_bas"
+            self.attak_fin=False
 
-        if touches[pygame.K_a] and self.direction=="stand_haut":
-            self.direction="hit_haut"
+        #if touches[pygame.K_a] and self.direction=="stand_haut":
+            
 
-        if touches[pygame.K_a] and self.direction=="stand_gauche":
-            self.direction="hit_gauche"
+        #if touches[pygame.K_a] and self.direction=="stand_gauche":
+            
 
-        if touches[pygame.K_a] and self.direction=="stand_droite":
-            self.direction="hit_droite"
-
-        print(self.old_direction)
+        #if touches[pygame.K_a] and self.direction=="stand_droite":
+            
 
         if self.rect.x<0:
             self.rect.x=0
@@ -174,8 +186,7 @@ def lecture_objet():
     #perso_stand_bas=pygame.image.load("Source/Lynk/Lynk_stand_bas_0.png").convert_alpha()
     #objet["perso_stand_bas"]=perso_stand_bas
 
-    #animation debout
-    #vers le bas
+    #coeur
 
     image=pygame.image.load("Source/Lynk/heart/heart_0.png").convert_alpha()
     image = pygame.transform.scale(image, (48, 48))
@@ -193,6 +204,8 @@ def lecture_objet():
     image = pygame.transform.scale(image, (48, 48))
     objet["heart_4"]=image
 
+    #animation debout
+    #vers le bas
     objet["Lynk"]={}
 
     objet["Lynk"]["stand_bas"]=[]

@@ -1,4 +1,3 @@
-#Code principal jeu
 from constantes import *
 from Fonction import *
 from menu import *
@@ -7,6 +6,8 @@ import pygame
 import random
 import time
 import pygame.mixer
+
+#Code principal jeu
 # Initialisation Jeu
 pygame.init()
 
@@ -44,7 +45,7 @@ while Play:
 	temps.tick(30)
 
 	# Lecture clavier
-	touches=pygame.key.get_pressed();
+	touches=pygame.key.get_pressed()
 
 	if touches[pygame.K_ESCAPE]: # Échap / Quitter
 		Play=False
