@@ -18,6 +18,12 @@ objet = lecture_objet()
 
 # Image Personnages
 perso = perso(objet["Lynk"],fenetre,x=60,y=80)
+v=0
+tab_vie=[]
+for i in range(4):
+	vie= elementgraphique(objet["heart_"+str(v)],fenetre,x=10+30*i,y=10)
+	tab_vie.append(vie)
+
 
 # Appel horloge
 temps=pygame.time.Clock()
@@ -100,6 +106,8 @@ while Play:
 		Village.afficher() #Background temporaire pour voir la diff entre menu et enJeu
 		perso.afficher()
 		perso.deplacement()
+		for w in range(4):
+			tab_vie[w].afficher()
 		# rafraichissement
 		pygame.display.flip()
 

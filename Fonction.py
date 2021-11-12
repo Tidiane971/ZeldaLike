@@ -176,6 +176,23 @@ def lecture_objet():
 
     #animation debout
     #vers le bas
+
+    image=pygame.image.load("Source/Lynk/heart/heart_0.png").convert_alpha()
+    image = pygame.transform.scale(image, (48, 48))
+    objet["heart_0"]=image
+    image=pygame.image.load("Source/Lynk/heart/heart_1.png").convert_alpha()
+    image = pygame.transform.scale(image, (48, 48))
+    objet["heart_1"]=image
+    image=pygame.image.load("Source/Lynk/heart/heart_2.png").convert_alpha()
+    image = pygame.transform.scale(image, (48, 48))
+    objet["heart_2"]=image
+    image=pygame.image.load("Source/Lynk/heart/heart_3.png").convert_alpha()
+    image = pygame.transform.scale(image, (48, 48))
+    objet["heart_3"]=image
+    image=pygame.image.load("Source/Lynk/heart/heart_4.png").convert_alpha()
+    image = pygame.transform.scale(image, (48, 48))
+    objet["heart_4"]=image
+
     objet["Lynk"]={}
 
     objet["Lynk"]["stand_bas"]=[]
