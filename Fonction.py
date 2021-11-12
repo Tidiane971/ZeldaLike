@@ -19,7 +19,6 @@ class elementgraphique:
         return False
 
 class element_anime(elementgraphique):
-
     def __init__(self, images, fenetre, x=0, y=0):
         super().__init__(images[0],fenetre, x, y)
         self.images = images
@@ -61,11 +60,10 @@ class element_anime_dir(element_anime):
 class perso(element_anime_dir):
     def __init__(self,image,fenetre,x=0,y=0):
         super().__init__(image,fenetre,x,y)
-        self.attak=""
-        self.attak_fin=True
-
-        self.vitesse=6
         self.vie=12
+        self.vitesse=5.5
+        self.attak_fin=True
+        self.attak=""
 
     def afficher(self):
         if self.attak!="" and self.num_image==len(self.images)-1:
@@ -76,30 +74,33 @@ class perso(element_anime_dir):
             print(self.direction)
         super().afficher()
 
-
     def deplacement(self):
         largeur, hauteur = self.fenetre.get_size()
         touches = pygame.key.get_pressed()
 
         if touches[pygame.K_LEFT]:
+            self.delai = 1
             self.rect.x-=self.vitesse
             self.direction = "gauche"
         elif self.direction=="gauche":
             self.direction="stand_gauche"
 
         if touches[pygame.K_RIGHT]:
+            self.delai = 1
             self.rect.x+=self.vitesse
             self.direction = "droite"
         elif self.direction=="droite":
             self.direction="stand_droite"
 
         if touches[pygame.K_UP]:
+            self.delai = 2
             self.rect.y-=self.vitesse
             self.direction = "haut"
         elif self.direction=="haut":
             self.direction="stand_haut"
 
         if touches[pygame.K_DOWN]:
+            self.delai = 2
             self.rect.y+=self.vitesse
             self.direction = "bas"
         elif self.direction=="bas":
@@ -110,14 +111,20 @@ class perso(element_anime_dir):
             self.direction="hit_bas"
             self.attak_fin=False
 
-        #if touches[pygame.K_a] and self.direction=="stand_haut":
+        if touches[pygame.K_a] and self.direction=="stand_haut":
+            self.attak="hit_haut"
+            self.direction="hit_haut"
+            self.attak_fin=False
             
+        if touches[pygame.K_a] and self.direction=="stand_gauche":
+            self.attak="hit_gauche"
+            self.direction="hit_gauche"
+            self.attak_fin=False
 
-        #if touches[pygame.K_a] and self.direction=="stand_gauche":
-            
-
-        #if touches[pygame.K_a] and self.direction=="stand_droite":
-            
+        if touches[pygame.K_a] and self.direction=="stand_droite":
+            self.attak="hit_droite"
+            self.direction="hit_droite"
+            self.attak_fin=False
 
         if self.rect.x<0:
             self.rect.x=0
@@ -129,6 +136,7 @@ class perso(element_anime_dir):
         elif self.rect.x>largeur-self.rect.w:
             self.rect.x=largeur-self.rect.w
 
+#Fonction bouton graphique
 class button(elementgraphique):
     def __init__(self,image,fenetre):
         elementgraphique.__init__(self,image,fenetre)
@@ -142,7 +150,7 @@ class button(elementgraphique):
 class ennemi(elementgraphique):
     def __init__(self,image,fenetre):
         elementgraphique.__init__(self,image,fenetre)
-        self.vie=0
+        self.vie=3
         self.spawn=False
         self.use=False
     def vitesse(self):
@@ -169,6 +177,8 @@ class ennemi(elementgraphique):
         #ennemi.rect.y = random.randint(ennemi.rect.h,hauteur-ennemi.rect.h)
         #ENNEMI.append(ennemi)
 
+
+#Lecture du dictinnaire des images
 def lecture_objet():
     objet={}
 
@@ -183,11 +193,7 @@ def lecture_objet():
     #for i in range():
 
 
-    #perso_stand_bas=pygame.image.load("Source/Lynk/Lynk_stand_bas_0.png").convert_alpha()
-    #objet["perso_stand_bas"]=perso_stand_bas
-
     #coeur
-
     image=pygame.image.load("Source/Lynk/heart/heart_0.png").convert_alpha()
     image = pygame.transform.scale(image, (48, 48))
     objet["heart_0"]=image
@@ -203,6 +209,20 @@ def lecture_objet():
     image=pygame.image.load("Source/Lynk/heart/heart_4.png").convert_alpha()
     image = pygame.transform.scale(image, (48, 48))
     objet["heart_4"]=image
+
+    #coeur à ramasser
+    image=pygame.image.load("Source/Lynk/heart_object/life_object_0.png").convert_alpha()
+    image = pygame.transform.scale(image, (48, 48))
+    objet["vie_0"]=image
+    image=pygame.image.load("Source/Lynk/heart_object/life_object_1.png").convert_alpha()
+    image = pygame.transform.scale(image, (48, 48))
+    objet["vie_1"]=image
+    image=pygame.image.load("Source/Lynk/heart_object/life_object_2.png").convert_alpha()
+    image = pygame.transform.scale(image, (48, 48))
+    objet["vie_2"]=image
+    image=pygame.image.load("Source/Lynk/heart_object/life_object_3.png").convert_alpha()
+    image = pygame.transform.scale(image, (48, 48))
+    objet["vie_3"]=image
 
     #animation debout
     #vers le bas
@@ -234,7 +254,6 @@ def lecture_objet():
             image=pygame.image.load("Source/Lynk/Lynk_stand_haut_"+str(i)+".png").convert_alpha()
             image = pygame.transform.scale(image, (48, 48))
             objet["Lynk"]["stand_haut"].append(image)
-
 
     #animation marche droite
     objet["Lynk"]["droite"]=[]

@@ -2,6 +2,7 @@ from constantes import *
 from Fonction import *
 from menu import *
 from Map import *
+#from Film import *
 import pygame
 import random
 import time
@@ -15,16 +16,18 @@ pygame.init()
 pygame.display.set_caption("L'épopée_de_Lynk.exe")
 
 
+#---Lectures des images
 objet = lecture_objet()
 
-# Image Personnages
+# Image Lynk
 perso = perso(objet["Lynk"],fenetre,x=60,y=80)
+
+#Image coeurs
 v=0
 tab_vie=[]
 for i in range(4):
 	vie= elementgraphique(objet["heart_"+str(v)],fenetre,x=10+30*i,y=10)
 	tab_vie.append(vie)
-
 
 # Appel horloge
 temps=pygame.time.Clock()
@@ -32,11 +35,12 @@ temps=pygame.time.Clock()
 #Définition musique
 pygame.mixer.music.load("Source/Musique_&_Son/intro_theme1.ogg")
 
+#Variable utiles
 i=0
 Play=True
-Intro,Menu, enJeu = 1,0,0
+Intro, Menu, enJeu, GameOver = 1,0,0,0
 
-
+x=0
 #Boucle jeu
 while Play:
 
@@ -52,12 +56,10 @@ while Play:
 	for event in pygame.event.get():
 		if event.type==pygame.QUIT:
 			Play=False
-	pass
 
 	###########################
 	###########INTRO############
 	###########################
-
 
 	if Intro:
 		intro_background.afficher()
@@ -69,10 +71,14 @@ while Play:
 			pygame.display.flip()
 		pygame.display.flip()
 
+	#Intro vidéo
+	#if not visionneuse:
+		#Intro=1
+
+
 	###########################
 	###########MENU############
 	###########################
-
 
 	if Menu:
 		menu_background.afficher()
@@ -93,6 +99,7 @@ while Play:
 			pygame.mixer.music.load("Source/Musique_&_Son/Village.ogg")
 			pygame.mixer.music.play()
 			pygame.display.flip()
+
 		pygame.display.flip()
 
 
@@ -101,17 +108,37 @@ while Play:
 	############################
 
 	if enJeu:
-		#Musique
+		x+=1
+		#Son du jeu
 
 		#Definition de l'etat
-		Village.afficher() #Background temporaire pour voir la diff entre menu et enJeu
+		Village.afficher() 
 		perso.afficher()
 		perso.deplacement()
 		for w in range(4):
 			tab_vie[w].afficher()
+
+		if x>=100:
+			GameOver=1
+			enJeu = 0
 		# rafraichissement
 		pygame.display.flip()
 
+
+	##################################
+	############GAME OVER#############
+	##################################
+
+	if GameOver:
+		GAMEOVER.afficher()
+		if touches[pygame.K_RETURN]:
+			enJeu=1
+			GameOver=0
+		elif touches[pygame.K_SPACE]:
+			GameOver=0
+			Play=False
+		# rafraichissement
+		pygame.display.flip()
 
 
 # Fin programme
