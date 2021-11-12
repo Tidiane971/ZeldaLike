@@ -62,6 +62,7 @@ class perso(element_anime_dir):
     def __init__(self,image,fenetre,x=0,y=0):
         super().__init__(image,fenetre,x,y)
         self.vitesse=3
+        self.vie=12
 
 
     def deplacement(self):
@@ -151,13 +152,24 @@ class ennemi(elementgraphique):
 #def creation_ennemi(x,y):
     #ENNEMI=[]
     #if ROLE=1:
-        #ennemi = ennemi(objet["ennemi"],window)
+        #ennemi = ennemi(objet["ennemi"][random.randint("sauteur","octorok")],window)
         #ennemi.rect.x = random.randint(ennemi.rect.w,largeur-ennemi.rect.w)
         #ennemi.rect.y = random.randint(ennemi.rect.h,hauteur-ennemi.rect.h)
         #ENNEMI.append(ennemi)
 
 def lecture_objet():
     objet={}
+
+    #image ennemie
+    #objet["ennemi"]={}
+    #objet["ennemi"]["octorok"]={}
+    #objet["ennemi"]["octorok"]["stand_bas"]=[]
+    #for i in range():
+
+    #objet["ennemi"]["sauteur"]={}
+    #objet["ennemi"]["sauteur"]["stand_bas"]=[]
+    #for i in range():
+
 
     #perso_stand_bas=pygame.image.load("Source/Lynk/Lynk_stand_bas_0.png").convert_alpha()
     #objet["perso_stand_bas"]=perso_stand_bas
