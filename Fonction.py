@@ -61,7 +61,7 @@ class element_anime_dir(element_anime):
 class perso(element_anime_dir):
     def __init__(self,image,fenetre,x=0,y=0):
         super().__init__(image,fenetre,x,y)
-        self.vitesse=3
+        self.vitesse=6
 
 
     def deplacement(self):
