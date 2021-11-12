@@ -57,7 +57,6 @@ class element_anime_dir(element_anime):
 
 
 
-
 #class du personnage
 class perso(element_anime_dir):
     def __init__(self,image,fenetre,x=0,y=0):
@@ -93,8 +92,17 @@ class perso(element_anime_dir):
         elif self.direction=="bas":
             self.direction="stand_bas"
 
-        if touches[pygame.K_a] :
+        if touches[pygame.K_a] and self.direction=="stand_bas":
             self.direction="hit_bas"
+
+        if touches[pygame.K_a] and self.direction=="stand_haut":
+            self.direction="hit_haut"
+
+        if touches[pygame.K_a] and self.direction=="stand_gauche":
+            self.direction="hit_gauche"
+
+        if touches[pygame.K_a] and self.direction=="stand_droite":
+            self.direction="hit_droite"
 
         print(self.old_direction)
 

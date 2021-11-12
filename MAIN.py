@@ -19,7 +19,6 @@ objet = lecture_objet()
 # Image Personnages
 perso = perso(objet["Lynk"],fenetre,x=60,y=80)
 
-
 # Appel horloge
 temps=pygame.time.Clock()
 
@@ -84,7 +83,7 @@ while Play:
 		if play_button.isClicked or touches[pygame.K_RETURN]:
 			Menu = 0
 			enJeu = 1
-			#pygame.mixer.music.load("Source/Musique_&_Son/Village.ogg")
+			pygame.mixer.music.load("Source/Musique_&_Son/Village.ogg")
 			pygame.mixer.music.play()
 			pygame.display.flip()
 		pygame.display.flip()
