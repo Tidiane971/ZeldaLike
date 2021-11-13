@@ -1,6 +1,8 @@
 from PIL import Image
 
-im = Image.open('bongrid.png')
+path = input("Entrer le chemin du fichier : ")
+
+im = Image.open(path)
 pix = im.load()
 
 
