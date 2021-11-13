@@ -1,6 +1,5 @@
 import pygame
 from Fonction import *
-from Map import *
 from constantes import *
 
 #CREATION DE L'IMAGE D'INTRO

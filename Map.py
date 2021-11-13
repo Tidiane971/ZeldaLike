@@ -1,8 +1,11 @@
 import pygame
 from constantes import *
-from Fonction import elementgraphique
+
 
 #Image village
-Village = pygame.image.load("bg.jpg").convert_alpha()
-Village = pygame.transform.scale(Village, (2520,1650))
-Village = elementgraphique(Village, fenetre)
+Village = pygame.image.load("bonbg.png").convert_alpha()
+Village_rect = Village.get_rect()
+Village_rect.x = 0
+Village_rect.y = 0
+CameraX=0
+CameraY=0

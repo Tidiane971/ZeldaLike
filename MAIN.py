@@ -7,7 +7,7 @@ import pygame
 import random
 import time
 import pygame.mixer
-
+import mapgrid
 #Code principal jeu
 # Initialisation Jeu
 pygame.init()
@@ -20,7 +20,7 @@ pygame.display.set_caption("L'épopée_de_Lynk.exe")
 objet = lecture_objet()
 
 # Image Lynk
-perso = perso(objet["Lynk"],fenetre,x=60,y=80)
+perso = perso(objet["Lynk"],fenetre,x=largeur//2+120,y=hauteur//2,camerax=CameraX,cameray=CameraY)
 
 #Image coeurs
 v=0
@@ -41,6 +41,8 @@ Play=True
 Intro, Menu, enJeu, GameOver = 1,0,0,0
 
 x=0
+
+
 #Boucle jeu
 while Play:
 
@@ -108,13 +110,16 @@ while Play:
 	############################
 
 	if enJeu:
-		x+=1
+		print("POS : ", perso.rect.x, perso.rect.y, ", CAM : ", perso.camerax, perso.cameray)
+		#print("POS : ", mapgrid.T[275//64][400//64])
+		#x+=1
 		#Son du jeu
 
 		#Definition de l'etat
-		Village.afficher() 
+		fenetre.blit(Village,(Village_rect.x-perso.camerax,Village_rect.y-perso.cameray))
 		perso.afficher()
 		perso.deplacement()
+
 		for w in range(4):
 			tab_vie[w].afficher()
 
