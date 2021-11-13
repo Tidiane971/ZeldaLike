@@ -4,6 +4,8 @@ import mapgrid
 #import random
 import Map
 import copy
+
+#créeation d'une image
 class elementgraphique:
     def __init__(self,image,fenetre,x=0,y=0):
         self.image = image
@@ -20,6 +22,8 @@ class elementgraphique:
             return True
         return False
 
+
+#Class element animé
 class element_anime(elementgraphique):
     def __init__(self, images, fenetre, x=0, y=0):
         super().__init__(images[0],fenetre, x, y)
@@ -39,6 +43,8 @@ class element_anime(elementgraphique):
 
         super().afficher()
 
+
+#Classe direction d'animation
 class element_anime_dir(element_anime):
     def __init__(self, images, fenetre, x=0, y=0):
         self.dico_images = images
@@ -68,7 +74,6 @@ class perso(element_anime_dir):
         self.attak=""
         self.camerax = camerax
         self.cameray = cameray
-
 
 
     def afficher(self):
@@ -102,8 +107,6 @@ class perso(element_anime_dir):
                 self.image=self.images[self.num_image]
 
             self.fenetre.blit(self.image, (self.rect.x-self.camerax, self.rect.y-self.cameray))
-
-
 
 
     def deplacement(self):
@@ -163,8 +166,6 @@ class perso(element_anime_dir):
             print("BLOQUER")
 
 
-
-
         if touches[pygame.K_a] and self.direction=="stand_bas":
             self.attak="hit_bas"
             self.direction="hit_bas"
@@ -192,7 +193,6 @@ class perso(element_anime_dir):
 
 
 
-
 #Fonction bouton graphique
 class button(elementgraphique):
     def __init__(self,image,fenetre):
@@ -202,6 +202,8 @@ class button(elementgraphique):
     def click(self):
         if pygame.mouse.get_pressed()[0] and self.rect.collidepoint(pygame.mouse.get_pos()):
             self.isClicked = True
+
+
 
 #class des ennemi
 class ennemi(elementgraphique):
@@ -225,6 +227,8 @@ class ennemi(elementgraphique):
 
         if self.rect.x<0 or self.rect.x> largeur - self.rect.w:
             self.dx*= -1
+
+
 
 #def creation_ennemi(x,y):
     #ENNEMI=[]
@@ -281,7 +285,7 @@ def lecture_objet():
     image = pygame.transform.scale(image, (62, 62))
     objet["vie_3"]=image
 
-    #animation debout
+    #animation Lynk
     #vers le bas
     objet["Lynk"]={}
 

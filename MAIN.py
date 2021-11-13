@@ -112,7 +112,7 @@ while Play:
 	if enJeu:
 		print("POS : ", perso.rect.x, perso.rect.y, ", CAM : ", perso.camerax, perso.cameray)
 		#print("POS : ", mapgrid.T[275//64][400//64])
-		#x+=1
+		#x+=1 #Game over programmer
 		#Son du jeu
 
 		#Definition de l'etat
