@@ -1,4 +1,7 @@
 import pygame
+import pygame.freetype
+
+pygame.init()
 # Définition fenêtre (à changer si besoin)
 largeur=840
 hauteur=550
@@ -7,6 +10,10 @@ fenetre=pygame.display.set_mode((largeur,hauteur))
 CameraX=0
 CameraY=0
 Warps = [[0],[0,0],[0]]
+DialogBoxes = [[0]]
+
+Intro, Menu, enJeu, GameOver = 1,0,0,0
+myfont = pygame.freetype.Font(None, 16)
 
 
 Transi = [pygame.image.load("Source/Transi/1.jpg").convert_alpha(),

@@ -4,6 +4,7 @@ import pygame
 import copy
 import time
 from constantes import *
+import pygame.freetype
 #créeation d'une image
 class elementgraphique:
     def __init__(self,image,fenetre,x=0,y=0):
@@ -34,6 +35,15 @@ class Warp(elementgraphique):
             if(WrapTo.inclinaison==2):
                 rect.x = WrapTo.rect.x + 64
                 rect.y = WrapTo.rect.y
+
+
+class DialogBox(elementgraphique):
+    def __init__(self,fenetre,x,y, text,image=pygame.image.load("Source/Map/warp.png").convert_alpha() ):
+        super().__init__(image,fenetre,x,y)
+        self.text = text
+
+
+
 
 
 class Map(elementgraphique):
@@ -251,14 +261,16 @@ class perso(element_anime_dir):
         elif self.rect.y<0:
             self.rect.y=0
 
+
+        limitex,limitey= self.map[3]
         if self.cameray< 0:
             self.cameray =0
         if self.camerax < 0:
             self.camerax =0
-        if self.camerax > 5056-largeur:
-            self.camerax = 5056 - largeur
-        if self.cameray > 3264-hauteur:
-            self.cameray = 3264 - hauteur
+        if self.camerax > limitex-largeur:
+            self.camerax = limitex - largeur
+        if self.cameray > limitey-hauteur:
+            self.cameray = limitey - hauteur
 
 
 
@@ -298,6 +310,50 @@ class ennemi(elementgraphique):
 
         if self.rect.x<0 or self.rect.x> largeur - self.rect.w:
             self.dx*= -1
+
+class dialog(elementgraphique):
+    def __init__(self,fenetre,text, map,perso,x=80,y=400):
+        self.image = pygame.image.load("Source/Autre/dialog_box.png")
+        self.image = pygame.transform.scale(self.image, (715,144))
+        self.text = text
+        self.inDialog = False
+        self.pressed = False
+        self.map = map
+        self.perso = perso
+        super().__init__(self.image,fenetre,x,y)
+
+    def afficher(self,DB):
+        touches = pygame.key.get_pressed()
+        rect_provisoire = copy.copy(self.perso.rect)
+
+        if(touches[pygame.K_s]):
+            if not self.pressed:
+                self.pressed = True
+        if(touches[pygame.K_q]):
+            if self.inDialog:
+                self.pressed = False
+                self.inDialog = False
+
+
+        if self.pressed:
+            if(self.perso.direction == "stand_haut"):
+                if self.map[2][(rect_provisoire.y-64)//64][(rect_provisoire.x)//64]==3:
+                    self.inDialog = True
+                    rect_provisoire.y-=64
+                    for dialog in DB:
+                        for d in dialog:
+                            print("touches")
+                            textSurface = myfont.render("BONJOUR", False, (255,255,255))
+
+                            self.fenetre.blit(self.image, self.rect)
+                            myfont.render_to(self.fenetre, (130,430), d.text[0], (0,0,0))
+                            if len(d.text)>1:
+                                myfont.render_to(self.fenetre, (130,460), d.text[1], (0,0,0))
+                            if len(d.text)>2:
+                                myfont.render_to(self.fenetre, (130,490), d.text[2], (0,0,0))
+
+
+
 
 
 

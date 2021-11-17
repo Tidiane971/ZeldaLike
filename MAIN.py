@@ -3,15 +3,19 @@ from Fonction import *
 from menu import *
 from Map import *
 from Warp import *
+from textBank import *
 #from Film import *
 import pygame
 import random
 import time
 import pygame.mixer
 import mapgrid
+import pygame.freetype
+
 #Code principal jeu
 # Initialisation Jeu
-pygame.init()
+
+
 
 # Nom du jeu
 pygame.display.set_caption("L'épopée_de_Lynk.exe")
@@ -20,9 +24,11 @@ pygame.display.set_caption("L'épopée_de_Lynk.exe")
 #---Lectures des images
 objet = lecture_objet()
 
+
 # Image Lynk
 perso = perso(objet["Lynk"],fenetre,x=152,y=203,camerax=CameraX,cameray=CameraY,map = actual_map, map_id = 0 )
 
+a = dialog(fenetre, ["bonjour", "je suis", "tidians"], map = actual_map, perso = perso)
 #Image coeurs
 v=0
 tab_vie=[]
@@ -39,7 +45,7 @@ pygame.mixer.music.load("Source/Musique_&_Son/intro_theme1.ogg")
 #Variable utiles
 i=0
 Play=True
-Intro, Menu, enJeu, GameOver = 1,0,0,0
+
 
 x=0
 
@@ -113,6 +119,7 @@ while Play:
 
 	if enJeu:
 
+
 		if(touches[pygame.K_SPACE]):
 			perso.vitesse = 16
 		else:
@@ -131,8 +138,9 @@ while Play:
 
 		perso.map[0].afficher(perso.camerax,perso.cameray)
 		perso.afficher()
-
-		perso.deplacement(warps = Warps)
+		if(not a.inDialog):
+			perso.deplacement(warps = Warps)
+		a.afficher(DB = DialogBoxes)
 
 
 
