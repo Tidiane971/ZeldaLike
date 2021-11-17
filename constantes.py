@@ -10,7 +10,8 @@ fenetre=pygame.display.set_mode((largeur,hauteur))
 CameraX=0
 CameraY=0
 Warps = [[0],[0,0],[0]]
-DialogBoxes = [[0]]
+
+DialogBoxes = [ [0,0] ]
 
 Intro, Menu, enJeu, GameOver = 1,0,0,0
 myfont = pygame.freetype.Font(None, 16)

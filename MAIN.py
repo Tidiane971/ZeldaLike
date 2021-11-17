@@ -28,7 +28,7 @@ objet = lecture_objet()
 # Image Lynk
 perso = perso(objet["Lynk"],fenetre,x=152,y=203,camerax=CameraX,cameray=CameraY,map = actual_map, map_id = 0 )
 
-a = dialog(fenetre, ["bonjour", "je suis", "tidians"], map = actual_map, perso = perso)
+a = dialog(fenetre, ["bonjour", "je suis", "tidians"], perso = perso)
 #Image coeurs
 v=0
 tab_vie=[]
@@ -133,6 +133,7 @@ while Play:
 
 		actual_map = Maps[perso.map_id]
 		perso.map = actual_map
+
 		pygame.display.flip()
 		#Definition de l'etat
 

@@ -312,17 +312,18 @@ class ennemi(elementgraphique):
             self.dx*= -1
 
 class dialog(elementgraphique):
-    def __init__(self,fenetre,text, map,perso,x=80,y=400):
+    def __init__(self,fenetre,text,perso,x=80,y=400):
         self.image = pygame.image.load("Source/Autre/dialog_box.png")
         self.image = pygame.transform.scale(self.image, (715,144))
         self.text = text
         self.inDialog = False
         self.pressed = False
-        self.map = map
         self.perso = perso
+        self.map = self.perso.map
         super().__init__(self.image,fenetre,x,y)
 
     def afficher(self,DB):
+        self.map = self.perso.map
         touches = pygame.key.get_pressed()
         rect_provisoire = copy.copy(self.perso.rect)
 
@@ -342,15 +343,13 @@ class dialog(elementgraphique):
                     rect_provisoire.y-=64
                     for dialog in DB:
                         for d in dialog:
-                            print("touches")
-                            textSurface = myfont.render("BONJOUR", False, (255,255,255))
-
-                            self.fenetre.blit(self.image, self.rect)
-                            myfont.render_to(self.fenetre, (130,430), d.text[0], (0,0,0))
-                            if len(d.text)>1:
-                                myfont.render_to(self.fenetre, (130,460), d.text[1], (0,0,0))
-                            if len(d.text)>2:
-                                myfont.render_to(self.fenetre, (130,490), d.text[2], (0,0,0))
+                            if(rect_provisoire.colliderect(d.rect)):
+                                self.fenetre.blit(self.image, self.rect)
+                                myfont.render_to(self.fenetre, (130,430), d.text[0], (0,0,0))
+                                if len(d.text)>1:
+                                    myfont.render_to(self.fenetre, (130,460), d.text[1], (0,0,0))
+                                if len(d.text)>2:
+                                    myfont.render_to(self.fenetre, (130,490), d.text[2], (0,0,0))
 
 
 
