@@ -2,7 +2,8 @@
 import pygame
 #import random
 import copy
-
+import time
+from constantes import *
 #créeation d'une image
 class elementgraphique:
     def __init__(self,image,fenetre,x=0,y=0):
@@ -95,6 +96,7 @@ class perso(element_anime_dir):
         self.cameray = cameray
         self.map = map
         self.map_id = map_id
+        self.fenetre = fenetre
 
 
 
@@ -153,7 +155,7 @@ class perso(element_anime_dir):
         if touches[pygame.K_RIGHT]:
             self.delai = 1
 
-            rect_provisoire.x+=5.5
+            rect_provisoire.x+=self.vitesse
             cameraxprovisoire+=self.vitesse
 
             self.direction = "droite"
@@ -194,13 +196,24 @@ class perso(element_anime_dir):
                 for warp in warps:
                     for w in warp:
                         if(rect_provisoire.colliderect(w.rect)):
+                            for fondu in Transi:
+                                self.fenetre.blit(fondu, (0,0))
+                                pygame.display.flip()
+                                time.sleep(0.05)
+
                             self.map_id = w.destination[0]
                             ToWarp = warps[w.destination[0]][w.destination[1]]
                             self.rect.x = ToWarp.rect.x
                             self.rect.y = ToWarp.rect.y
 
+                            if(ToWarp.inclinaison==1):
+                                self.rect.y -= 64
+                            if(ToWarp.inclinaison==2):
+                                self.rect.x += 64
                             if(ToWarp.inclinaison==3):
                                 self.rect.y += 64
+                            if(ToWarp.inclinaison==4):
+                                self.rect.x -= 64
 
                             self.camerax = self.rect.x-(largeur//2)
                             self.cameray = self.rect.y-(hauteur//2)
@@ -242,6 +255,10 @@ class perso(element_anime_dir):
             self.cameray =0
         if self.camerax < 0:
             self.camerax =0
+        if self.camerax > 5056-largeur:
+            self.camerax = 5056 - largeur
+        if self.cameray > 3264-hauteur:
+            self.cameray = 3264 - hauteur
 
 
 

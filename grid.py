@@ -1,6 +1,6 @@
 from PIL import Image
 def collision_grid():
-    path = "grid/labyrinthegrid.png"
+    path = "grid/home_grid.png"
 
     im = Image.open(path)
     pix = im.load()
