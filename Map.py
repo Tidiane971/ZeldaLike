@@ -1,11 +1,15 @@
 import pygame
 from constantes import *
-
-
+from Fonction import *
+from mapgrid import *
 #Image village
-Village = pygame.image.load("Source/Map/bonbg.png").convert_alpha()
-Village_rect = Village.get_rect()
-Village_rect.x = 0
-Village_rect.y = 0
-CameraX=0
-CameraY=0
+
+
+Village_bg = Map(pygame.image.load("Source/Map/Village/bg.png").convert_alpha(), fenetre)
+Village_front = Map(pygame.image.load("Source/Map/Village/front.png").convert_alpha(), fenetre)
+
+Labyrinthe_bg = Map(pygame.image.load("Source/Map/labyrinthe.png").convert_alpha(), fenetre)
+Labyrinthe_front = Map(pygame.image.load("Source/Map/Village/front.png").convert_alpha(), fenetre)
+
+Maps = [[Village_bg,Village_front,T], [Labyrinthe_bg,Labyrinthe_front,L]]
+actual_map = Maps[0]

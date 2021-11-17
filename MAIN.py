@@ -2,6 +2,7 @@ from constantes import *
 from Fonction import *
 from menu import *
 from Map import *
+from Warp import *
 #from Film import *
 import pygame
 import random
@@ -20,7 +21,7 @@ pygame.display.set_caption("L'épopée_de_Lynk.exe")
 objet = lecture_objet()
 
 # Image Lynk
-perso = perso(objet["Lynk"],fenetre,x=largeur//2+120,y=hauteur//2,camerax=CameraX,cameray=CameraY)
+perso = perso(objet["Lynk"],fenetre,x=largeur//2+120,y=hauteur//2,camerax=CameraX,cameray=CameraY,map = actual_map, map_id = 0 )
 
 #Image coeurs
 v=0
@@ -110,15 +111,25 @@ while Play:
 	############################
 
 	if enJeu:
+
 		print("POS : ", perso.rect.x, perso.rect.y, ", CAM : ", perso.camerax, perso.cameray)
-		#print("POS : ", mapgrid.T[275//64][400//64])
+		#print("POS : ", mapgrid.X[perso.rect.y//64][perso.rect.x//64])
 		#x+=1 #Game over programmer
 		#Son du jeu
 
+
+		actual_map = Maps[perso.map_id]
+		perso.map = actual_map
+		pygame.display.flip()
 		#Definition de l'etat
-		fenetre.blit(Village,(Village_rect.x-perso.camerax,Village_rect.y-perso.cameray))
+
+		perso.map[0].afficher(perso.camerax,perso.cameray)
 		perso.afficher()
-		perso.deplacement()
+		if perso.deplacement(warps= Warps)==1:
+			print(perso.deplacement())
+
+
+
 
 		for w in range(4):
 			tab_vie[w].afficher()

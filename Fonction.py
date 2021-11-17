@@ -1,8 +1,6 @@
 #Ici seront faites le modifs pour le perso/ennemi
 import pygame
-import mapgrid
 #import random
-import Map
 import copy
 
 #créeation d'une image
@@ -22,6 +20,27 @@ class elementgraphique:
             return True
         return False
 
+class Warp(elementgraphique):
+    def __init__(self,fenetre,x,y, inclinaison, destination, lock,image=pygame.image.load("Source/Map/warp.png").convert_alpha() ):
+        super().__init__(image,fenetre,x,y)
+        self.inclinaison = inclinaison
+        self.destination = destination
+        self.lock = lock
+
+    def warping(self,rect):
+        WrapTo = self.destination
+        if not self.lock:
+            if(WrapTo.inclinaison==2):
+                rect.x = WrapTo.rect.x + 64
+                rect.y = WrapTo.rect.y
+
+
+class Map(elementgraphique):
+    def __init__(self,image,fenetre,x=0,y=0):
+        super().__init__(image,fenetre,x,y)
+
+    def afficher(self, camerax, cameray):
+        self.fenetre.blit(self.image, (self.rect.x-camerax, self.rect.y -cameray))
 
 #Class element animé
 class element_anime(elementgraphique):
@@ -66,7 +85,7 @@ class element_anime_dir(element_anime):
 
 #class du personnage
 class perso(element_anime_dir):
-    def __init__(self,image,fenetre,camerax,cameray,x=0,y=0):
+    def __init__(self,image,fenetre,camerax,cameray,map,map_id,x=0,y=0 ):
         super().__init__(image,fenetre,x,y)
         self.vie=12
         self.vitesse=5.5
@@ -74,6 +93,10 @@ class perso(element_anime_dir):
         self.attak=""
         self.camerax = camerax
         self.cameray = cameray
+        self.map = map
+        self.map_id = map_id
+
+
 
 
     def afficher(self):
@@ -109,7 +132,7 @@ class perso(element_anime_dir):
             self.fenetre.blit(self.image, (self.rect.x-self.camerax, self.rect.y-self.cameray))
 
 
-    def deplacement(self):
+    def deplacement(self,warps):
         largeur, hauteur = self.fenetre.get_size()
         touches = pygame.key.get_pressed()
 
@@ -153,17 +176,41 @@ class perso(element_anime_dir):
         elif self.direction=="bas":
             self.direction="stand_bas"
 
-        if(mapgrid.T[rect_provisoire.y//64][rect_provisoire.x//64]==0 and
-           mapgrid.T[rect_provisoire.y//64][(rect_provisoire.x+52)//64]==0 and
-           mapgrid.T[(rect_provisoire.y+52)//64][rect_provisoire.x//64]==0 and
-           mapgrid.T[(rect_provisoire.y+52)//64][(rect_provisoire.x+52)//64]==0):
+        if(self.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==0 and
+           self.map[2][rect_provisoire.y//64][(rect_provisoire.x+52)//64]==0 and
+           self.map[2][(rect_provisoire.y+52)//64][rect_provisoire.x//64]==0 and
+           self.map[2][(rect_provisoire.y+52)//64][(rect_provisoire.x+52)//64]==0):
 
             self.rect = rect_provisoire
 
             self.camerax = self.rect.x-(largeur//2)
             self.cameray = self.rect.y-(hauteur//2)
+
+
+        elif(self.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==2 or
+           self.map[2][rect_provisoire.y//64][(rect_provisoire.x+52)//64]==2 or
+           self.map[2][(rect_provisoire.y+52)//64][rect_provisoire.x//64]==2 or
+           self.map[2][(rect_provisoire.y+52)//64][(rect_provisoire.x+52)//64]==2):
+                for warp in warps:
+                    for w in warp:
+                        if(rect_provisoire.colliderect(w.rect)):
+                            self.map_id = w.destination[0]
+                            ToWarp = warps[w.destination[0]][w.destination[1]]
+                            self.rect.x = ToWarp.rect.x
+                            self.rect.y = ToWarp.rect.y
+
+                            if(ToWarp.inclinaison==3):
+                                self.rect.y += 64
+
+                            self.camerax = self.rect.x-(largeur//2)
+                            self.cameray = self.rect.y-(hauteur//2)
+
         else:
             print("BLOQUER")
+
+
+
+
 
 
         if touches[pygame.K_a] and self.direction=="stand_bas":
@@ -190,6 +237,13 @@ class perso(element_anime_dir):
             self.rect.x=0
         elif self.rect.y<0:
             self.rect.y=0
+
+        if self.cameray< 0:
+            self.cameray =0
+        if self.camerax < 0:
+            self.camerax =0
+
+
 
 
 
