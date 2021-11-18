@@ -165,9 +165,9 @@ while Play:
 		actual_map = Maps[perso.map_id]
 		perso.map = actual_map
 
-		if perso.map_id in map_having_pnj:
-			for pnj in pnj_liste[perso.map_id]:
-				pnj.afficher(perso=perso)
+		pygame.display.flip()
+
+
 
 		#Affichage perso
 		perso.map[0].afficher(perso.camerax,perso.cameray)

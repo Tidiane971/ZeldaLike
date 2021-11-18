@@ -187,7 +187,7 @@ class perso(element_anime_dir):
             self.delai = 1 #Vitesse animation
             self.direction="droite" #Direction perso
             rect_provisoire.x+=self.vitesse #Déplacement Focus
-            cameraxprovisoire+=self.vitesse #Vitesse Déplacement Focus
+
         elif self.direction=="droite":
             self.direction="stand_droite"
             self.delai=3
@@ -321,11 +321,11 @@ class perso(element_anime_dir):
                         for d in dialog:
                             if(rect_provisoire.colliderect(d.rect)):
                                 self.fenetre.blit(boxImage, rectBox)
-                                myfont.render_to(self.fenetre, (130,430), d.text[0], (0,0,0))
+                                myfont.render_to(self.fenetre, (158,458), d.text[0], (0,0,0))
                                 if len(d.text)>1:
-                                    myfont.render_to(self.fenetre, (130,460), d.text[1], (0,0,0))
+                                    myfont.render_to(self.fenetre, (158,460), d.text[1], (0,0,0))
                                 if len(d.text)>2:
-                                    myfont.render_to(self.fenetre, (130,490), d.text[2], (0,0,0))
+                                    myfont.render_to(self.fenetre, (158,490), d.text[2], (0,0,0))
 
     def talk(self, PNG):
         rectBox = (80,400)
@@ -365,11 +365,11 @@ class perso(element_anime_dir):
                     for p in pnj:
                         if(rect_provisoire.colliderect(p.rect)):
                             self.fenetre.blit(boxImage, rectBox)
-                            myfont.render_to(self.fenetre, (130,430), p.text[0], (0,0,0))
+                            myfont.render_to(self.fenetre, (158,458), p.text[0], (0,0,0))
                             if len(p.text)>1:
-                                myfont.render_to(self.fenetre, (130,460), p.text[1], (0,0,0))
+                                myfont.render_to(self.fenetre, (158,460), p.text[1], (0,0,0))
                             if len(p.text)>2:
-                                myfont.render_to(self.fenetre, (130,490), p.text[2], (0,0,0))
+                                myfont.render_to(self.fenetre, (158,490), p.text[2], (0,0,0))
 #------------------------------------------------------------------------------------------------------------------#
 
 
