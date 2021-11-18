@@ -27,13 +27,6 @@ class elementgraphique:
         return False
 
 
-#Gestion Dialogue
-class DialogBox(elementgraphique):
-    def __init__(self,fenetre,x,y, text,image=pygame.image.load("Source/Map/warp.png").convert_alpha() ):
-        super().__init__(image,fenetre,x,y)
-        self.text = text
-
-
 #Espace cliquable
 class button(elementgraphique):
     def __init__(self,image,fenetre):
@@ -44,6 +37,29 @@ class button(elementgraphique):
     def click(self):
         if pygame.mouse.get_pressed()[0] and self.rect.collidepoint(pygame.mouse.get_pos()):
             self.isClicked = True
+
+
+#Créeation PNJ
+class pnj(elementgraphique):
+    def __init__(self,fenetre,image,x,y, text, inclinaison):
+        image = pygame.transform.scale(image, (58,58))
+        super().__init__(image,fenetre,x,y)
+        self.text = text
+
+    def afficher(self,perso):
+        self.fenetre.blit(self.image, (self.rect.x - perso.camerax, self.rect.y - perso.cameray))
+
+
+
+class DialogBox(elementgraphique):
+    def __init__(self,fenetre,x,y, text,image=pygame.image.load("Source/Map/warp.png").convert_alpha() ):
+        super().__init__(image,fenetre,x,y)
+        self.text = text
+
+
+    def afficher(self,perso):
+        self.fenetre.blit(self.image, (self.rect.x - perso.camerax, self.rect.y - perso.cameray))
+
 
 
 #MAP / ChangementMap
@@ -60,18 +76,6 @@ class Warp(elementgraphique):
         self.inclinaison = inclinaison
         self.destination = destination
         self.lock = lock
-
-
-
-#Créeation PNJ
-class pnj(elementgraphique):
-    def __init__(self,fenetre,image,x,y, text, inclinaison):
-        image = pygame.transform.scale(image, (58,58))
-        super().__init__(image,fenetre,x,y)
-        self.text = text
-
-    def afficher(self,perso):
-        self.fenetre.blit(self.image, (self.rect.x - perso.camerax, self.rect.y - perso.cameray))
 
 
 
@@ -115,10 +119,9 @@ class element_anime_dir(element_anime):
             super().afficher()
 
 
-
-#Class Perso
+#class du personnage
 class perso(element_anime_dir):
-    def __init__(self, image, fenetre, camerax, cameray, map, map_id, x=0, y=0 ):
+    def __init__(self,image,fenetre,camerax,cameray,map,map_id,x=0,y=0 ):
         super().__init__(image,fenetre,x,y)
         self.vie=12
         self.vitesse=5.5
@@ -132,7 +135,8 @@ class perso(element_anime_dir):
         self.inDialog = False
         self.pressed = False
 
-    #Affichage
+
+    #Affichage Perso
     def afficher(self):
         if self.attak!="" and self.num_image==len(self.images)-1:
             self.attak_fin=True
@@ -142,8 +146,6 @@ class perso(element_anime_dir):
             print(self.direction)
 
         if self.direction == self.old_direction :
-            self.fenetre.blit(self.image, (self.rect.x-self.camerax, self.rect.y-self.cameray))
-
             self.timer += 1
             if self.timer > self.delai:
                 self.timer=0
@@ -152,6 +154,7 @@ class perso(element_anime_dir):
                     self.num_image = 0
                 self.image=self.images[self.num_image]
 
+            self.fenetre.blit(self.image, (self.rect.x-self.camerax, self.rect.y-self.cameray))
         else :
             self.images = self.dico_images[self.direction]
             self.num_image = 0
@@ -164,7 +167,7 @@ class perso(element_anime_dir):
                     self.num_image = 0
                 self.image=self.images[self.num_image]
 
-                self.fenetre.blit(self.image, (self.rect.x-self.camerax, self.rect.y-self.cameray))
+            self.fenetre.blit(self.image, (self.rect.x-self.camerax, self.rect.y-self.cameray))
 
 
     #Déplacement Perso/Focus
@@ -208,30 +211,6 @@ class perso(element_anime_dir):
             self.direction="stand_bas"
             self.delai=3
 
-        #Perso attaque
-        if touches[pygame.K_a] and self.direction=="stand_bas":
-            self.attak="hit_bas"
-            self.direction="hit_bas"
-            self.attak_fin=False
-
-        if touches[pygame.K_a] and self.direction=="stand_haut":
-            self.attak="hit_haut"
-            self.direction="hit_haut"
-            self.attak_fin=False
-
-        if touches[pygame.K_a] and self.direction=="stand_gauche":
-            self.attak="hit_gauche"
-            self.direction="hit_gauche"
-            self.attak_fin=False
-
-        if touches[pygame.K_a] and self.direction=="stand_droite":
-            self.attak="hit_droite"
-            self.direction="hit_droite"
-            self.attak_fin=False
-
-#------------------------------------------GESTION FOCUS----------------------------------------------------#
-
-        #Gesion Perso & Focus dans ChangementMap
         if(self.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==0 and
            self.map[2][rect_provisoire.y//64][(rect_provisoire.x+58)//64]==0 and
            self.map[2][(rect_provisoire.y+58)//64][rect_provisoire.x//64]==0 and
@@ -275,8 +254,33 @@ class perso(element_anime_dir):
         #else:
             #print("BLOQUER")
 
+        #Perso attaque
+        if touches[pygame.K_a] and self.direction=="stand_bas":
+            self.attak="hit_bas"
+            self.direction="hit_bas"
+            self.attak_fin=False
 
-        #Gestion CrossMapping (Camera)
+        if touches[pygame.K_a] and self.direction=="stand_haut":
+            self.attak="hit_haut"
+            self.direction="hit_haut"
+            self.attak_fin=False
+
+        if touches[pygame.K_a] and self.direction=="stand_gauche":
+            self.attak="hit_gauche"
+            self.direction="hit_gauche"
+            self.attak_fin=False
+
+        if touches[pygame.K_a] and self.direction=="stand_droite":
+            self.attak="hit_droite"
+            self.direction="hit_droite"
+            self.attak_fin=False
+
+        if self.rect.x<0:
+            self.rect.x=0
+        elif self.rect.y<0:
+            self.rect.y=0
+
+
         limitex,limitey= self.map[3]
         if self.cameray< 0:
             self.cameray =0
@@ -286,11 +290,6 @@ class perso(element_anime_dir):
             self.camerax = limitex - largeur
         if self.cameray > limitey-hauteur:
             self.cameray = limitey - hauteur
-
-        if self.rect.x<0:
-            self.rect.x=0
-        elif self.rect.y<0:
-            self.rect.y=0
 
 #---------------------------------------------DIALOGUE---------------------------------------------------#
 #UTILISE LE MODULE KEYBOARD @Tidiane
@@ -303,7 +302,6 @@ class perso(element_anime_dir):
         touches = pygame.key.get_pressed()
         rect_provisoire = copy.copy(self.rect)
 
-
         if(touches[pygame.K_s]):
             if not self.pressed:
                 self.pressed = True
@@ -313,7 +311,7 @@ class perso(element_anime_dir):
                 self.inDialog = False
 
         if self.pressed:
-            if self.direction=="stand_haut":
+            if(self.direction == "stand_haut"):
                 if self.map[2][(rect_provisoire.y-64)//64][(rect_provisoire.x)//64]==3:
                     self.inDialog = True
                     rect_provisoire.y-=64
@@ -327,7 +325,8 @@ class perso(element_anime_dir):
                                 if len(d.text)>2:
                                     myfont.render_to(self.fenetre, (130,490), d.text[2], (0,0,0))
 
-    def talk(self, PNG):
+    def talk(self,PNG):
+
         rectBox = (80,400)
         boxImage = pygame.image.load("Source/Autre/dialog_box.png")
         boxImage = pygame.transform.scale(boxImage, (715,144))
@@ -341,6 +340,7 @@ class perso(element_anime_dir):
             if self.inDialog:
                 self.pressed = False
                 self.inDialog = False
+
 
         if self.pressed:
             pnj_case = 0
