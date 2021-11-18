@@ -16,6 +16,6 @@ def dBox(num, T):
                     return coord
 
 
-papi = pnj(fenetre,image = pygame.image.load("Source/PNJ/USE/Papi_stand_bas.png") ,x= dBox(1,Home_grid)[0]*64, y = dBox(1,Home_grid)[1]*64)
+papi = pnj(fenetre,image = pygame.image.load("Source/PNJ/USE/Papi_stand_bas.png") ,x= dBox(1,Home_grid)[0]*64, y = dBox(1,Home_grid)[1]*64,text = ["Bonjour jeune homme"], inclinaison = 3)
 
 pnj_liste[0][0] = papi

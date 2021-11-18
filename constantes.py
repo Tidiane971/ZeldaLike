@@ -15,8 +15,7 @@ pnj_liste = [ [0] ]
 
 Intro, Menu, enJeu, GameOver = 1,0,0,0
 myfont = pygame.freetype.Font(None, 15)
-
-
+map_having_pnj = [0]
 Transi = [pygame.image.load("Source/Transi/1.jpg").convert_alpha(),
           pygame.image.load("Source/Transi/2.jpg").convert_alpha(),
           pygame.image.load("Source/Transi/3.jpg").convert_alpha(),

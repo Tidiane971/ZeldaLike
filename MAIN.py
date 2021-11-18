@@ -139,13 +139,15 @@ while Play:
 
 		perso.map[0].afficher(perso.camerax,perso.cameray)
 		perso.afficher()
-		perso.read(DB = DialogBoxes)
-		for pnjInMap in pnj_liste:
-			for pnj in pnjInMap:
+
+		if perso.map_id in map_having_pnj:
+			for pnj in pnj_liste[perso.map_id]:
 				pnj.afficher(perso= perso)
-				
+
 		if(not perso.inDialog):
 			perso.deplacement(warps = Warps)
+		perso.read(DB = DialogBoxes)
+		perso.talk(PNG = pnj_liste)
 
 
 
