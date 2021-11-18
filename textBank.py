@@ -15,11 +15,9 @@ def dBox(num, T):
                     coord[1] = i
                     return coord
 
-biblio = DialogBox(fenetre, x= dBox(1,Home_grid)[0]*64, y = dBox(1,Home_grid)[1]*64, text =["Ce sont des jolies livres", "Qui sont beau", "Tidiane"])
+biblio = DialogBox(fenetre, x= dBox(1,Home_grid)[0]*64, y = dBox(1,Home_grid)[1]*64, text =["Ce sont des jolies livres Qui sont beau Tidiane"])
 
 cheminée = DialogBox(fenetre, x=dBox(2,Home_grid)[0]*64, y= dBox(2,Home_grid)[1]*64, text = ["C'est une cheminée. Attention c'est chaud ! "])
-
-
 
 
 DialogBoxes[0][0] = biblio

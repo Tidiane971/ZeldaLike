@@ -29,18 +29,25 @@ class Warp(elementgraphique):
         self.destination = destination
         self.lock = lock
 
-    def warping(self,rect):
-        WrapTo = self.destination
-        if not self.lock:
-            if(WrapTo.inclinaison==2):
-                rect.x = WrapTo.rect.x + 64
-                rect.y = WrapTo.rect.y
 
 
 class DialogBox(elementgraphique):
     def __init__(self,fenetre,x,y, text,image=pygame.image.load("Source/Map/warp.png").convert_alpha() ):
         super().__init__(image,fenetre,x,y)
         self.text = text
+
+class pnj(elementgraphique):
+    def __init__(self,fenetre,image,x,y):
+        image = pygame.transform.scale(image, (52,52))
+        super().__init__(image,fenetre,x,y)
+
+
+    def afficher(self,perso):
+        self.fenetre.blit(self.image, (self.rect.x - perso.camerax, self.rect.y - perso.cameray))
+
+
+
+
 
 
 
@@ -107,6 +114,8 @@ class perso(element_anime_dir):
         self.map = map
         self.map_id = map_id
         self.fenetre = fenetre
+        self.inDialog = False
+        self.pressed = False
 
 
 
@@ -273,6 +282,46 @@ class perso(element_anime_dir):
             self.cameray = limitey - hauteur
 
 
+    def read(self,DB):
+
+        rectBox = (80,400)
+        boxImage = pygame.image.load("Source/Autre/dialog_box.png")
+        boxImage = pygame.transform.scale(boxImage, (715,144))
+
+
+
+
+        touches = pygame.key.get_pressed()
+        rect_provisoire = copy.copy(self.rect)
+
+        if(touches[pygame.K_s]):
+            if not self.pressed:
+                self.pressed = True
+        if(touches[pygame.K_q]):
+            if self.inDialog:
+                self.pressed = False
+                self.inDialog = False
+
+
+        if self.pressed:
+            if(self.direction == "stand_haut"):
+                if self.map[2][(rect_provisoire.y-64)//64][(rect_provisoire.x)//64]==3:
+                    self.inDialog = True
+                    rect_provisoire.y-=64
+                    for dialog in DB:
+                        for d in dialog:
+                            if(rect_provisoire.colliderect(d.rect)):
+                                self.fenetre.blit(boxImage, rectBox)
+                                myfont.render_to(self.fenetre, (130,430), d.text[0], (0,0,0))
+                                if len(d.text)>1:
+                                    myfont.render_to(self.fenetre, (130,460), d.text[1], (0,0,0))
+                                if len(d.text)>2:
+                                    myfont.render_to(self.fenetre, (130,490), d.text[2], (0,0,0))
+
+
+
+
+
 
 
 
@@ -310,47 +359,6 @@ class ennemi(elementgraphique):
 
         if self.rect.x<0 or self.rect.x> largeur - self.rect.w:
             self.dx*= -1
-
-class dialog(elementgraphique):
-    def __init__(self,fenetre,text,perso,x=80,y=400):
-        self.image = pygame.image.load("Source/Autre/dialog_box.png")
-        self.image = pygame.transform.scale(self.image, (715,144))
-        self.text = text
-        self.inDialog = False
-        self.pressed = False
-        self.perso = perso
-        self.map = self.perso.map
-        super().__init__(self.image,fenetre,x,y)
-
-    def afficher(self,DB):
-        self.map = self.perso.map
-        touches = pygame.key.get_pressed()
-        rect_provisoire = copy.copy(self.perso.rect)
-
-        if(touches[pygame.K_s]):
-            if not self.pressed:
-                self.pressed = True
-        if(touches[pygame.K_q]):
-            if self.inDialog:
-                self.pressed = False
-                self.inDialog = False
-
-
-        if self.pressed:
-            if(self.perso.direction == "stand_haut"):
-                if self.map[2][(rect_provisoire.y-64)//64][(rect_provisoire.x)//64]==3:
-                    self.inDialog = True
-                    rect_provisoire.y-=64
-                    for dialog in DB:
-                        for d in dialog:
-                            if(rect_provisoire.colliderect(d.rect)):
-                                self.fenetre.blit(self.image, self.rect)
-                                myfont.render_to(self.fenetre, (130,430), d.text[0], (0,0,0))
-                                if len(d.text)>1:
-                                    myfont.render_to(self.fenetre, (130,460), d.text[1], (0,0,0))
-                                if len(d.text)>2:
-                                    myfont.render_to(self.fenetre, (130,490), d.text[2], (0,0,0))
-
 
 
 

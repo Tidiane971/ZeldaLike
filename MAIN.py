@@ -11,7 +11,7 @@ import time
 import pygame.mixer
 import mapgrid
 import pygame.freetype
-
+from pnj_gestion import *
 #Code principal jeu
 # Initialisation Jeu
 
@@ -28,7 +28,7 @@ objet = lecture_objet()
 # Image Lynk
 perso = perso(objet["Lynk"],fenetre,x=152,y=203,camerax=CameraX,cameray=CameraY,map = actual_map, map_id = 0 )
 
-a = dialog(fenetre, ["bonjour", "je suis", "tidians"], perso = perso)
+
 #Image coeurs
 v=0
 tab_vie=[]
@@ -139,9 +139,16 @@ while Play:
 
 		perso.map[0].afficher(perso.camerax,perso.cameray)
 		perso.afficher()
-		if(not a.inDialog):
+		perso.read(DB = DialogBoxes)
+		for pnjInMap in pnj_liste:
+			for pnj in pnjInMap:
+				pnj.afficher(perso= perso)
+				
+		if(not perso.inDialog):
 			perso.deplacement(warps = Warps)
-		a.afficher(DB = DialogBoxes)
+
+
+
 
 
 
