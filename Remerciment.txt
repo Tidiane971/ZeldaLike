@@ -1,4 +1,4 @@
-OpeGameArt pour les images sources (gfx.zip)
+OpeGameArt pour les images sources (gfx.zip et tileset de donjon)
 NicepngCom pour la feuille d'image de link (A link to the past)
 Barubary pour la feuille d'image de Toon Link (Minish Cap)
 Bruce Juice pour la feuille d'image des ennemis (A link to the past)
