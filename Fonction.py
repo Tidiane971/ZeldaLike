@@ -181,6 +181,7 @@ class perso(element_anime_dir):
             rect_provisoire.x-=self.vitesse #Déplacement Focus
         elif self.direction=="gauche":
             self.direction="stand_gauche"
+            self.delai=3
 
         if touches[pygame.K_RIGHT]:
             self.delai = 1 #Vitesse animation
@@ -189,6 +190,7 @@ class perso(element_anime_dir):
             cameraxprovisoire+=self.vitesse #Vitesse Déplacement Focus
         elif self.direction=="droite":
             self.direction="stand_droite"
+            self.delai=3
 
         if touches[pygame.K_UP]:
             self.delai = 2 #Vitesse animation
@@ -196,6 +198,7 @@ class perso(element_anime_dir):
             rect_provisoire.y-=self.vitesse #Déplacement Focus
         elif self.direction=="haut":
             self.direction="stand_haut"
+            self.delai=3
 
         if touches[pygame.K_DOWN]:
             self.delai = 2 #Vitesse animation
@@ -203,6 +206,7 @@ class perso(element_anime_dir):
             rect_provisoire.y+=self.vitesse #Déplacement Focus
         elif self.direction=="bas":
             self.direction="stand_bas"
+            self.delai=3
 
         #Perso attaque
         if touches[pygame.K_a] and self.direction=="stand_bas":
