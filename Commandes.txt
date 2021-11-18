@@ -1,1 +1,11 @@
 Découvrez les commande avant de lancer le jeu c'est mieux
+
+Fleche :diriger le personnage
+
+A: attaquer
+
+P: PLAY/PAUSE
+
+S: Dialoguer
+
+Q: quitter dialogue

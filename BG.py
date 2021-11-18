@@ -26,6 +26,15 @@ play_button = button(play_button_img,fenetre)
 play_button.rect.x = 135
 play_button.rect.y = 95
 
+#CREATION DES IMAGES DE PAUSE
+pause1 = pygame.image.load("Source/Autre/pause1.png").convert_alpha()
+pause1 = pygame.transform.scale(pause1, (largeur,hauteur))
+Pause1 = elementgraphique(pause1, fenetre)
+
+pause2 = pygame.image.load("Source/Autre/pause2.png").convert_alpha()
+pause2 = pygame.transform.scale(pause2, (largeur,hauteur))
+Pause2 = elementgraphique(pause2, fenetre)
+
 #CREATION DE L'IMAGE GAME OVER
 gameover = pygame.image.load("Source/Autre/GameOver.png").convert_alpha()
 gameover = pygame.transform.scale(gameover, (largeur,hauteur))

@@ -9,10 +9,14 @@ installer le module "keyboard" avec de lancer le programme
 
 Le cas echeant vous ne pourrez pas faire pause.
 
-------------------COMMANDE------------------
+------------------COMMANDES------------------
 
 Fleche :diriger le personnage
 
 A: attaquer
 
-P: PAUSE
+P: PLAY/PAUSE
+
+S: Dialoguer
+
+Q: quitter dialogue

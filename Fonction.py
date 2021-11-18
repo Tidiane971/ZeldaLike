@@ -1,11 +1,15 @@
-#Ici seront faites le modifs pour le perso/ennemi
+#Importation Fichier
+from constantes import *
+
+#Importation module
+import pygame.freetype
+import keyboard
 import pygame
 #import random
 import copy
 import time
-from constantes import *
-import pygame.freetype
-#créeation d'une image
+
+#Créeation image
 class elementgraphique:
     def __init__(self,image,fenetre,x=0,y=0):
         self.image = image
@@ -22,6 +26,34 @@ class elementgraphique:
             return True
         return False
 
+
+#Gestion Dialogue
+class DialogBox(elementgraphique):
+    def __init__(self,fenetre,x,y, text,image=pygame.image.load("Source/Map/warp.png").convert_alpha() ):
+        super().__init__(image,fenetre,x,y)
+        self.text = text
+
+
+#Espace cliquable
+class button(elementgraphique):
+    def __init__(self,image,fenetre):
+        elementgraphique.__init__(self,image,fenetre)
+        self.isClicked = False
+
+    #Clic ?
+    def click(self):
+        if pygame.mouse.get_pressed()[0] and self.rect.collidepoint(pygame.mouse.get_pos()):
+            self.isClicked = True
+
+
+#MAP / ChangementMap
+class Map(elementgraphique):
+    def __init__(self,image,fenetre,x=0,y=0):
+        super().__init__(image,fenetre,x,y)
+
+    def afficher(self, camerax, cameray):
+        self.fenetre.blit(self.image, (self.rect.x-camerax, self.rect.y -cameray))
+
 class Warp(elementgraphique):
     def __init__(self,fenetre,x,y, inclinaison, destination, lock,image=pygame.image.load("Source/Map/warp.png").convert_alpha() ):
         super().__init__(image,fenetre,x,y)
@@ -31,38 +63,19 @@ class Warp(elementgraphique):
 
 
 
-class DialogBox(elementgraphique):
-    def __init__(self,fenetre,x,y, text,image=pygame.image.load("Source/Map/warp.png").convert_alpha() ):
-        super().__init__(image,fenetre,x,y)
-        self.text = text
-
+#Créeation PNJ
 class pnj(elementgraphique):
     def __init__(self,fenetre,image,x,y, text, inclinaison):
         image = pygame.transform.scale(image, (58,58))
         super().__init__(image,fenetre,x,y)
         self.text = text
 
-
-
     def afficher(self,perso):
         self.fenetre.blit(self.image, (self.rect.x - perso.camerax, self.rect.y - perso.cameray))
 
 
 
-
-
-
-
-
-
-class Map(elementgraphique):
-    def __init__(self,image,fenetre,x=0,y=0):
-        super().__init__(image,fenetre,x,y)
-
-    def afficher(self, camerax, cameray):
-        self.fenetre.blit(self.image, (self.rect.x-camerax, self.rect.y -cameray))
-
-#Class element animé
+#Element animé
 class element_anime(elementgraphique):
     def __init__(self, images, fenetre, x=0, y=0):
         super().__init__(images[0],fenetre, x, y)
@@ -83,7 +96,7 @@ class element_anime(elementgraphique):
         super().afficher()
 
 
-#Classe direction d'animation
+#Direction d'animation
 class element_anime_dir(element_anime):
     def __init__(self, images, fenetre, x=0, y=0):
         self.dico_images = images
@@ -103,9 +116,9 @@ class element_anime_dir(element_anime):
 
 
 
-#class du personnage
+#Class Perso
 class perso(element_anime_dir):
-    def __init__(self,image,fenetre,camerax,cameray,map,map_id,x=0,y=0 ):
+    def __init__(self, image, fenetre, camerax, cameray, map, map_id, x=0, y=0 ):
         super().__init__(image,fenetre,x,y)
         self.vie=12
         self.vitesse=5.5
@@ -119,9 +132,7 @@ class perso(element_anime_dir):
         self.inDialog = False
         self.pressed = False
 
-
-
-
+    #Affichage
     def afficher(self):
         if self.attak!="" and self.num_image==len(self.images)-1:
             self.attak_fin=True
@@ -131,6 +142,8 @@ class perso(element_anime_dir):
             print(self.direction)
 
         if self.direction == self.old_direction :
+            self.fenetre.blit(self.image, (self.rect.x-self.camerax, self.rect.y-self.cameray))
+
             self.timer += 1
             if self.timer > self.delai:
                 self.timer=0
@@ -139,7 +152,6 @@ class perso(element_anime_dir):
                     self.num_image = 0
                 self.image=self.images[self.num_image]
 
-            self.fenetre.blit(self.image, (self.rect.x-self.camerax, self.rect.y-self.cameray))
         else :
             self.images = self.dico_images[self.direction]
             self.num_image = 0
@@ -152,53 +164,70 @@ class perso(element_anime_dir):
                     self.num_image = 0
                 self.image=self.images[self.num_image]
 
-            self.fenetre.blit(self.image, (self.rect.x-self.camerax, self.rect.y-self.cameray))
+                self.fenetre.blit(self.image, (self.rect.x-self.camerax, self.rect.y-self.cameray))
 
 
-    def deplacement(self,warps):
+    #Déplacement Perso/Focus
+    def deplacement(self, warps):
         largeur, hauteur = self.fenetre.get_size()
-        touches = pygame.key.get_pressed()
-
         rect_provisoire = copy.copy(self.rect)
         cameraxprovisoire = self.camerax
 
-
+        #Lecture Flèches
+        touches = pygame.key.get_pressed()
         if touches[pygame.K_LEFT]:
-            self.delai = 1
-
-            rect_provisoire.x-=self.vitesse
-
-
-            self.direction = "gauche"
+            self.delai = 1 #Vitesse animation
+            self.direction="gauche" #Direction perso
+            rect_provisoire.x-=self.vitesse #Déplacement Focus
         elif self.direction=="gauche":
             self.direction="stand_gauche"
 
         if touches[pygame.K_RIGHT]:
-            self.delai = 1
-
-            rect_provisoire.x+=self.vitesse
-            cameraxprovisoire+=self.vitesse
-
-            self.direction = "droite"
+            self.delai = 1 #Vitesse animation
+            self.direction="droite" #Direction perso
+            rect_provisoire.x+=self.vitesse #Déplacement Focus
+            cameraxprovisoire+=self.vitesse #Vitesse Déplacement Focus
         elif self.direction=="droite":
             self.direction="stand_droite"
 
         if touches[pygame.K_UP]:
-            self.delai = 2
-            rect_provisoire.y-=self.vitesse
-
-            self.direction = "haut"
+            self.delai = 2 #Vitesse animation
+            self.direction="haut" #Direction perso
+            rect_provisoire.y-=self.vitesse #Déplacement Focus
         elif self.direction=="haut":
             self.direction="stand_haut"
 
         if touches[pygame.K_DOWN]:
-            self.delai = 2
-            rect_provisoire.y+=self.vitesse
-
-            self.direction = "bas"
+            self.delai = 2 #Vitesse animation
+            self.direction="bas" #Direction perso
+            rect_provisoire.y+=self.vitesse #Déplacement Focus
         elif self.direction=="bas":
             self.direction="stand_bas"
 
+        #Perso attaque
+        if touches[pygame.K_a] and self.direction=="stand_bas":
+            self.attak="hit_bas"
+            self.direction="hit_bas"
+            self.attak_fin=False
+
+        if touches[pygame.K_a] and self.direction=="stand_haut":
+            self.attak="hit_haut"
+            self.direction="hit_haut"
+            self.attak_fin=False
+
+        if touches[pygame.K_a] and self.direction=="stand_gauche":
+            self.attak="hit_gauche"
+            self.direction="hit_gauche"
+            self.attak_fin=False
+
+        if touches[pygame.K_a] and self.direction=="stand_droite":
+            self.attak="hit_droite"
+            self.direction="hit_droite"
+            self.attak_fin=False
+
+#------------------------------------------GESTION FOCUS----------------------------------------------------#
+
+        #Gesion Perso & Focus dans ChangementMap
         if(self.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==0 and
            self.map[2][rect_provisoire.y//64][(rect_provisoire.x+58)//64]==0 and
            self.map[2][(rect_provisoire.y+58)//64][rect_provisoire.x//64]==0 and
@@ -239,40 +268,11 @@ class perso(element_anime_dir):
                             self.camerax = self.rect.x-(largeur//2)
                             self.cameray = self.rect.y-(hauteur//2)
 
-        else:
-            print("BLOQUER")
+        #else:
+            #print("BLOQUER")
 
 
-
-
-
-
-        if touches[pygame.K_a] and self.direction=="stand_bas":
-            self.attak="hit_bas"
-            self.direction="hit_bas"
-            self.attak_fin=False
-
-        if touches[pygame.K_a] and self.direction=="stand_haut":
-            self.attak="hit_haut"
-            self.direction="hit_haut"
-            self.attak_fin=False
-
-        if touches[pygame.K_a] and self.direction=="stand_gauche":
-            self.attak="hit_gauche"
-            self.direction="hit_gauche"
-            self.attak_fin=False
-
-        if touches[pygame.K_a] and self.direction=="stand_droite":
-            self.attak="hit_droite"
-            self.direction="hit_droite"
-            self.attak_fin=False
-
-        if self.rect.x<0:
-            self.rect.x=0
-        elif self.rect.y<0:
-            self.rect.y=0
-
-
+        #Gestion CrossMapping (Camera)
         limitex,limitey= self.map[3]
         if self.cameray< 0:
             self.cameray =0
@@ -283,14 +283,22 @@ class perso(element_anime_dir):
         if self.cameray > limitey-hauteur:
             self.cameray = limitey - hauteur
 
+        if self.rect.x<0:
+            self.rect.x=0
+        elif self.rect.y<0:
+            self.rect.y=0
 
-    def read(self,DB):
+#---------------------------------------------DIALOGUE---------------------------------------------------#
+#UTILISE LE MODULE KEYBOARD @Tidiane
 
+    #Chat avec PNJ
+    def read(self, DB):
         rectBox = (80,400)
         boxImage = pygame.image.load("Source/Autre/dialog_box.png")
         boxImage = pygame.transform.scale(boxImage, (715,144))
         touches = pygame.key.get_pressed()
         rect_provisoire = copy.copy(self.rect)
+
 
         if(touches[pygame.K_s]):
             if not self.pressed:
@@ -300,9 +308,8 @@ class perso(element_anime_dir):
                 self.pressed = False
                 self.inDialog = False
 
-
         if self.pressed:
-            if(self.direction == "stand_haut"):
+            if self.direction=="stand_haut":
                 if self.map[2][(rect_provisoire.y-64)//64][(rect_provisoire.x)//64]==3:
                     self.inDialog = True
                     rect_provisoire.y-=64
@@ -316,8 +323,7 @@ class perso(element_anime_dir):
                                 if len(d.text)>2:
                                     myfont.render_to(self.fenetre, (130,490), d.text[2], (0,0,0))
 
-    def talk(self,PNG):
-
+    def talk(self, PNG):
         rectBox = (80,400)
         boxImage = pygame.image.load("Source/Autre/dialog_box.png")
         boxImage = pygame.transform.scale(boxImage, (715,144))
@@ -331,7 +337,6 @@ class perso(element_anime_dir):
             if self.inDialog:
                 self.pressed = False
                 self.inDialog = False
-
 
         if self.pressed:
             pnj_case = 0
@@ -361,50 +366,34 @@ class perso(element_anime_dir):
                                 myfont.render_to(self.fenetre, (130,460), p.text[1], (0,0,0))
                             if len(p.text)>2:
                                 myfont.render_to(self.fenetre, (130,490), p.text[2], (0,0,0))
+#------------------------------------------------------------------------------------------------------------------#
 
 
 
-
-
-
-
-#Fonction bouton graphique
-class button(elementgraphique):
-    def __init__(self,image,fenetre):
-        elementgraphique.__init__(self,image,fenetre)
-        self.isClicked = False
-
-    def click(self):
-        if pygame.mouse.get_pressed()[0] and self.rect.collidepoint(pygame.mouse.get_pos()):
-            self.isClicked = True
-
-
-
-#class des ennemi
+#Class ennemi
 class ennemi(elementgraphique):
-    def __init__(self,image,fenetre):
-        elementgraphique.__init__(self,image,fenetre)
+    def __init__(self, image, fenetre):
+        elementgraphique.__init__(self, image, fenetre)
         self.vie=3
         self.spawn=False
         self.use=False
+
+    #Vitesse ennemi
     def vitesse(self):
         self.dx=1
         self.dy=1
 
+    #Déplacement ennemi
     def deplacement(self):
         largeur, hauteur = self.fenetre.get_size()
-
         self.rect.x+=self.dx
         self.rect.y+=self.dy
 
-        if self.rect.y<0 or self.rect.y> hauteur - self.rect.h:
+        #CrossMapping
+        if self.rect.y<0 or self.rect.y>hauteur-self.rect.h:
             self.dy*=-1
-
-        if self.rect.x<0 or self.rect.x> largeur - self.rect.w:
+        if self.rect.x<0 or self.rect.x>largeur-self.rect.w:
             self.dx*= -1
-
-
-
 
 
 #def creation_ennemi(x,y):
@@ -416,20 +405,9 @@ class ennemi(elementgraphique):
         #ENNEMI.append(ennemi)
 
 
-#Lecture du dictinnaire des images
+#Dictionnaire Images
 def lecture_objet():
     objet={}
-
-    #image ennemie
-    #objet["ennemi"]={}
-    #objet["ennemi"]["octorok"]={}
-    #objet["ennemi"]["octorok"]["stand_bas"]=[]
-    #for i in range():
-
-    #objet["ennemi"]["sauteur"]={}
-    #objet["ennemi"]["sauteur"]["stand_bas"]=[]
-    #for i in range():
-
 
     #coeur
     image=pygame.image.load("Source/Lynk/heart/heart_0.png").convert_alpha()
@@ -461,6 +439,7 @@ def lecture_objet():
     image=pygame.image.load("Source/Lynk/heart_object/life_object_3.png").convert_alpha()
     image = pygame.transform.scale(image, (58, 58))
     objet["vie_3"]=image
+
 
     #animation Lynk
     #vers le bas
@@ -555,5 +534,13 @@ def lecture_objet():
         image = pygame.image.load("Source/Lynk/Lynk_dead_"+str(i)+".png").convert_alpha()
         image = pygame.transform.scale(image, (58, 58))
         objet["Lynk"]["dead"].append(image)
+
+    #image ennemie
+    #objet["ennemi"]={}
+    #objet["ennemi"]["octorok"]={}
+    #objet["ennemi"]["octorok"]["stand_bas"]=[]
+    #for i in range():
+        #objet["ennemi"]["octorok"]={}
+        #objet["ennemi"]["octorok"]["stand_bas"]=[]
 
     return objet
