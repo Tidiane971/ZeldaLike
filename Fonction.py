@@ -692,11 +692,30 @@ def lecture_objet():
         objet["Lynk"]["dead"].append(image)
 
     #image ennemie
-    #objet["ennemi"]={}
-    #objet["ennemi"]["octorok"]={}
-    #objet["ennemi"]["octorok"]["stand_bas"]=[]
-    #for i in range():
-        #objet["ennemi"]["octorok"]={}
-        #objet["ennemi"]["octorok"]["stand_bas"]=[]
+    objet["ennemi"]={}
+    objet["ennemi"]["korogu"]={}
+    objet["ennemi"]["korogu"]["walk_bas"]=[]
+    for i in range(4):
+        image = pygame.image.load("Source/Enemy/korogu/korogu_walk_bas_"+str(i)+".png").convert_alpha()
+        image = pygame.transform.scale(image, (52, 52))
+        objet["ennemi"]["korogu"]["walk_bas"].append(image)
+
+    objet["ennemi"]["korogu"]["walk_haut"]=[]
+    for i in range(4):
+        image = pygame.image.load("Source/Enemy/korogu/korogu_walk_haut_"+str(i)+".png").convert_alpha()
+        image = pygame.transform.scale(image, (52, 52))
+        objet["ennemi"]["korogu"]["walk_haut"].append(image)
+
+    objet["ennemi"]["korogu"]["walk_droite"]=[]
+    for i in range(4):
+        image = pygame.image.load("Source/Enemy/korogu/korogu_walk_droite_"+str(i)+".png").convert_alpha()
+        image = pygame.transform.scale(image, (52, 52))
+        objet["ennemi"]["korogu"]["walk_droite"].append(image)
+
+    objet["ennemi"]["korogu"]["walk_gauche_"]=[]
+    for i in range(4):
+        image = pygame.image.load("Source/Enemy/korogu/korogu_walk_droite_"+str(i)+".png").convert_alpha()
+        image = pygame.transform.scale(image, (52, 52))
+        objet["ennemi"]["korogu"]["walk_droite"].append(image)
 
     return objet

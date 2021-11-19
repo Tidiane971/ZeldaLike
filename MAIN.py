@@ -47,7 +47,7 @@ perso = perso(objet["Lynk"],fenetre,x=152,y=243,camerax=CameraX,cameray=CameraY,
 #Image curseur
 Choix=elementgraphique(objet["select"],fenetre,x=190,y=400)
 
-
+korogu_tab=[]
 #----------VARIABLES UTILES
 i=0
 poz=True
@@ -215,6 +215,13 @@ while Play:
 		perso.warping()
 
 		perso.inventaire.afficher()
+
+		#gestion korogu
+		#if i%1000=0:
+		#	korogu = ennemi(objet["ennemi"][korogu],fenetre,x=152,y=243,)
+		#	korogu_tab.append(korogu)
+		#for i in korogu_tab:
+			#i.afficher()
 
 		#Gestion coeurs
 		for w in range(4):
