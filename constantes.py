@@ -9,7 +9,7 @@ fenetre=pygame.display.set_mode((largeur,hauteur))
 
 CameraX=0
 CameraY=0
-Warps = [[0],[0,0,0,0,0,0],[0], [0],[0],[0],[0]]
+
 DialogBoxes = [ [0,0] ]
 pnj_liste = [ [0] ]
 coffre_liste = [ [0],[0,0]]

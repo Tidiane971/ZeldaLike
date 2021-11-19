@@ -90,12 +90,12 @@ class Map(elementgraphique):
     def afficher(self, camerax, cameray):
         self.fenetre.blit(self.image, (self.rect.x-camerax, self.rect.y -cameray))
 
-class Warp(elementgraphique):
-    def __init__(self,fenetre,x,y, inclinaison, destination, lock,image=pygame.image.load("Source/Map/warp.png").convert_alpha() ):
-        super().__init__(image,fenetre,x,y)
-        self.inclinaison = inclinaison
-        self.destination = destination
-        self.lock = lock
+# class Warp(elementgraphique):
+#     def __init__(self,fenetre,x,y, inclinaison, destination, lock,image=pygame.image.load("Source/Map/warp.png").convert_alpha() ):
+#         super().__init__(image,fenetre,x,y)
+#         self.inclinaison = inclinaison
+#         self.destination = destination
+#         self.lock = lock
 
 
 class Inventaire(elementgraphique):
@@ -124,7 +124,7 @@ class Inventaire(elementgraphique):
         "slot12" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 525, y = 421),
         "slot13" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 522, y = 421),
         "slot14" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 638, y = 421),
-        "slot14" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 694, y = 421),
+        "slot15" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 694, y = 421),
         }
 
     def afficher(self):
@@ -242,7 +242,7 @@ class perso(element_anime_dir):
 
 
     #Déplacement Perso/Focus
-    def deplacement(self, warps):
+    def deplacement(self):
         largeur, hauteur = self.fenetre.get_size()
         rect_provisoire = copy.copy(self.rect)
         cameraxprovisoire = self.camerax
@@ -293,34 +293,6 @@ class perso(element_anime_dir):
             self.cameray = self.rect.y-(hauteur//2)
 
 
-        elif(self.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==2 or
-           self.map[2][rect_provisoire.y//64][(rect_provisoire.x+52)//64]==2 or
-           self.map[2][(rect_provisoire.y+52)//64][rect_provisoire.x//64]==2 or
-           self.map[2][(rect_provisoire.y+52)//64][(rect_provisoire.x+52)//64]==2):
-                for warp in warps:
-                    for w in warp:
-                        if(rect_provisoire.colliderect(w.rect)):
-                            for fondu in Transi:
-                                self.fenetre.blit(fondu, (0,0))
-                                pygame.display.flip()
-                                time.sleep(0.05)
-
-                            self.map_id = w.destination[0]
-                            ToWarp = warps[w.destination[0]][w.destination[1]]
-                            self.rect.x = ToWarp.rect.x
-                            self.rect.y = ToWarp.rect.y
-
-                            if(ToWarp.inclinaison==1):
-                                self.rect.y -= 64
-                            if(ToWarp.inclinaison==2):
-                                self.rect.x += 64
-                            if(ToWarp.inclinaison==3):
-                                self.rect.y += 64
-                            if(ToWarp.inclinaison==4):
-                                self.rect.x -= 64
-
-                            self.camerax = self.rect.x-(largeur//2)
-                            self.cameray = self.rect.y-(hauteur//2)
 
         #else:
             #print("BLOQUER")
@@ -364,6 +336,51 @@ class perso(element_anime_dir):
 
 #---------------------------------------------DIALOGUE---------------------------------------------------#
 #UTILISE LE MODULE KEYBOARD @Tidiane
+
+
+    def warping(self):
+        rect_provisoire = copy.copy(self.rect)
+        warp_case = 0
+        if(self.direction == "haut"):
+            warp_case = self.map[2][(rect_provisoire.y-64+52)//64][(rect_provisoire.x)//64]
+            rect_provisoire.y-=64
+        if(self.direction == "droite"):
+            warp_case = self.map[2][(rect_provisoire.y)//64][(rect_provisoire.x+64)//64]
+            rect_provisoire.x+=64
+        if(self.direction == "bas"):
+            warp_case = self.map[2][(rect_provisoire.y+64)//64][(rect_provisoire.x)//64]
+            rect_provisoire.y+=64
+        if(self.direction == "gauche"):
+            warp_case = self.map[2][(rect_provisoire.y)//64][(rect_provisoire.x-64)//64]
+            rect_provisoire.x-=64
+
+        print(self.direction, int(str(warp_case)[0]))
+        if int(str(warp_case)[0]) == 2:
+            print(self.direction, int(str(warp_case)[0]))
+            for fondu in Transi:
+                self.fenetre.blit(fondu, (0,0))
+                pygame.display.flip()
+                time.sleep(0.05)
+
+            self.map_id = int(str(warp_case)[1])
+            self.rect.x = int(str(warp_case)[2:4])*64
+            self.rect.y = int(str(warp_case)[4:6])*64
+            print(int(str(warp_case)[2:4]), int(str(warp_case)[4:6]))
+
+            inclinaison = int(str(warp_case)[6])
+
+            if(inclinaison==1):
+                self.rect.y -= 64
+            if(inclinaison==2):
+                self.rect.x += 64
+            if(inclinaison==3):
+                self.rect.y += 64
+            if(inclinaison==4):
+                self.rect.x -= 64
+
+            self.camerax = self.rect.x-(largeur//2)
+            self.cameray = self.rect.y-(hauteur//2)
+
 
     #Chat avec PNJ
     def read(self, DB):
@@ -425,8 +442,8 @@ class perso(element_anime_dir):
                 pnj_case = self.map[2][(rect_provisoire.y+64)//64][(rect_provisoire.x)//64]
                 rect_provisoire.y+=64
             if(self.direction == "stand_gauche"):
-                rect_provisoire.x-=64
                 pnj_case = self.map[2][(rect_provisoire.y)//64][(rect_provisoire.x-64)//64]
+                rect_provisoire.x-=64
 
 
             if pnj_case==4:

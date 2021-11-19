@@ -208,10 +208,11 @@ while Play:
 
 		#Gestion Dialogue
 		if(not perso.inDialog):
-			perso.deplacement(warps = Warps)
+			perso.deplacement()
 		perso.read(DB = DialogBoxes)
 		perso.talk(PNG = pnj_liste)
 		perso.open(COFFRES = coffre_liste)
+		perso.warping()
 
 		perso.inventaire.afficher()
 
