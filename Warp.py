@@ -20,7 +20,7 @@ home_sortie = Warp(fenetre, x=wWarp(1,Home_grid)[0]*64, y = wWarp(1, Home_grid)[
 
 
 grotte_entree = Warp(fenetre,x=wWarp(2,Village_grid)[0]*64,y=wWarp(2,Village_grid)[1]*64,inclinaison=3,destination = [2,0],lock=False)
-grotte_sortie = Warp(fenetre,x=wWarp(1,Grotte_grid)[0]*64,y=wWarp(1,Grotte_grid)[1]*64,inclinaison=1,destination = [1,1] , lock=False)
+grotte_sortie = Warp(fenetre,x=wWarp(1,Grotte_grid)[0]*64,y=wWarp(1,Grotte_grid)[1]*64+150,inclinaison=1,destination = [1,1] , lock=False)
 
 auberge_entree = Warp(fenetre,x=wWarp(1,Village_grid)[0]*64,y=wWarp(1,Village_grid)[1]*64,inclinaison=3,destination = [3,0],lock=False)
 auberge_sortie = Warp(fenetre,x=wWarp(1,Auberge_grid)[0]*64,y=wWarp(1,Auberge_grid)[1]*64,inclinaison=1,destination = [1,0] , lock=False)
