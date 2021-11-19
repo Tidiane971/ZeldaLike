@@ -36,4 +36,4 @@ Maps = [
 [Boutique_bg,Boutique_front,Boutique_grid,(1280,960)],
 [Witch_bg,Witch_front,Witch_grid,(1088,832)]
 ]
-actual_map = Maps[2]
+actual_map = Maps[0]

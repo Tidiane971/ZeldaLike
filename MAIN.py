@@ -35,7 +35,7 @@ pygame.mixer.music.load("Source/Musique_&_Son/intro_theme1.ogg")
 objet = lecture_objet()
 
 #Image Lynk
-perso = perso(objet["Lynk"],fenetre,x=152,y=243,camerax=CameraX,cameray=CameraY,map = actual_map, map_id = 2 )
+perso = perso(objet["Lynk"],fenetre,x=152,y=243,camerax=CameraX,cameray=CameraY,map = actual_map, map_id = 0 )
 
 #Image coeurs
 v=0
