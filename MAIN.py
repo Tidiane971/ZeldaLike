@@ -45,13 +45,14 @@ for i in range(4):
 perso = perso(objet["Lynk"],fenetre,x=152,y=243,camerax=CameraX,cameray=CameraY,map = actual_map, map_id = 0 )
 
 #Image curseur
-Choix=elementgraphique(objet["select"],fenetre,x=190,y=390)
+Choix=elementgraphique(objet["select"],fenetre,x=190,y=400)
 
 
 #----------VARIABLES UTILES
 i=0
+poz=True
 Play=True
-flipper,flipper2=0,0
+flipper=0
 Intro,Menu,enJeu,enPause,GameOver=1,0,0,0,0
 
 #Boucle jeu
@@ -136,14 +137,25 @@ while Play:
 			else:
 				flipper=0
 
-			#Animation curseur
-			if flipper<=75 and Bouj==True:
+			#Gestion curseur
+			if i<=625 and Bouj==True:
 				Choix.rect.x-=15
 				Bouj=False
-			elif flipper<=125 and Bouj==False:
+			elif i<=1250 and Bouj==False:
 				Choix.rect.x+=15
 				Bouj=True
+			else:
+				i=0
+
+			if touches[pygame.K_UP] and poz==True:
+				poz=False
+				Choix.rect.y-=35
+			elif touches[pygame.K_DOWN] and poz==False:
+				poz=True
+				Choix.rect.y+=35
+
 			Choix.afficher()
+			touches=pygame.key.get_pressed()
 
 
 			#Quitter Pause
@@ -152,8 +164,6 @@ while Play:
 				pygame.time.delay(190)
 
 			#Quitter Jeu
-			touches=pygame.key.get_pressed()
-
 			if touches[pygame.K_ESCAPE]:
 				enPause=0
 				Play=False
@@ -180,9 +190,6 @@ while Play:
 		#Gestion Map
 		actual_map = Maps[perso.map_id]
 		perso.map = actual_map
-
-		#pygame.display.flip()
-
 
 
 		#Affichage perso
