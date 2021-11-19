@@ -12,12 +12,12 @@ CameraY=0
 Warps = [[0],[0,0,0,0,0,0],[0], [0],[0],[0],[0]]
 DialogBoxes = [ [0,0] ]
 pnj_liste = [ [0] ]
-coffre_liste = [ [0],[0],[0] ]
+coffre_liste = [ [0],[0,0]]
 
 Intro, Menu, enJeu, GameOver = 1,0,0,0
 myfont = pygame.freetype.Font(None, 15)
 map_having_pnj = [0]
-map_having_coffre = [0,1,2]
+map_having_coffre = [0,1]
 
 Transi = [pygame.image.load("Source/Transi/1.jpg").convert_alpha(),
           pygame.image.load("Source/Transi/2.jpg").convert_alpha(),
