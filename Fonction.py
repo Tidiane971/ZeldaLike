@@ -42,7 +42,7 @@ class button(elementgraphique):
 #Créeation PNJ
 class pnj(elementgraphique):
     def __init__(self,fenetre,image,x,y, text, inclinaison):
-        image = pygame.transform.scale(image, (58,58))
+        image = pygame.transform.scale(image, (52,52))
         super().__init__(image,fenetre,x,y)
         self.text = text
 
@@ -114,19 +114,19 @@ class Inventaire(elementgraphique):
         self.slot = {
         "slot1" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 469, y = 319),
         "slot2" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 529, y = 319),
-        "slot3" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 582, y = 319),
+        "slot3" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 522, y = 319),
         "slot4" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 638, y = 319),
         "slot5" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 694, y = 319),
 
         "slot6" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 469, y = 370),
         "slot7" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 525, y = 370),
-        "slot8" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 582, y = 370),
+        "slot8" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 522, y = 370),
         "slot9" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 636, y = 370),
         "slot10" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 694, y = 370),
 
         "slot11" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 469, y = 421),
         "slot12" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 525, y = 421),
-        "slot13" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 582, y = 421),
+        "slot13" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 522, y = 421),
         "slot14" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 638, y = 421),
         "slot14" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 694, y = 421),
         }
@@ -288,9 +288,9 @@ class perso(element_anime_dir):
             self.delai=3
 
         if(self.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==0 and
-           self.map[2][rect_provisoire.y//64][(rect_provisoire.x+58)//64]==0 and
-           self.map[2][(rect_provisoire.y+58)//64][rect_provisoire.x//64]==0 and
-           self.map[2][(rect_provisoire.y+58)//64][(rect_provisoire.x+58)//64]==0):
+           self.map[2][rect_provisoire.y//64][(rect_provisoire.x+52)//64]==0 and
+           self.map[2][(rect_provisoire.y+52)//64][rect_provisoire.x//64]==0 and
+           self.map[2][(rect_provisoire.y+52)//64][(rect_provisoire.x+52)//64]==0):
 
             self.rect = rect_provisoire
 
@@ -299,9 +299,9 @@ class perso(element_anime_dir):
 
 
         elif(self.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==2 or
-           self.map[2][rect_provisoire.y//64][(rect_provisoire.x+58)//64]==2 or
-           self.map[2][(rect_provisoire.y+58)//64][rect_provisoire.x//64]==2 or
-           self.map[2][(rect_provisoire.y+58)//64][(rect_provisoire.x+58)//64]==2):
+           self.map[2][rect_provisoire.y//64][(rect_provisoire.x+52)//64]==2 or
+           self.map[2][(rect_provisoire.y+52)//64][rect_provisoire.x//64]==2 or
+           self.map[2][(rect_provisoire.y+52)//64][(rect_provisoire.x+52)//64]==2):
                 for warp in warps:
                     for w in warp:
                         if(rect_provisoire.colliderect(w.rect)):
@@ -395,11 +395,11 @@ class perso(element_anime_dir):
                         for d in dialog:
                             if(rect_provisoire.colliderect(d.rect)):
                                 self.fenetre.blit(boxImage, rectBox)
-                                myfont.render_to(self.fenetre, (158,458), d.text[0], (0,0,0))
+                                myfont.render_to(self.fenetre, (152,452), d.text[0], (0,0,0))
                                 if len(d.text)>1:
-                                    myfont.render_to(self.fenetre, (158,460), d.text[1], (0,0,0))
+                                    myfont.render_to(self.fenetre, (152,460), d.text[1], (0,0,0))
                                 if len(d.text)>2:
-                                    myfont.render_to(self.fenetre, (158,490), d.text[2], (0,0,0))
+                                    myfont.render_to(self.fenetre, (152,490), d.text[2], (0,0,0))
 
     def talk(self,PNG):
 
@@ -441,11 +441,11 @@ class perso(element_anime_dir):
                     for p in pnj:
                         if(rect_provisoire.colliderect(p.rect)):
                             self.fenetre.blit(boxImage, rectBox)
-                            myfont.render_to(self.fenetre, (158,458), p.text[0], (0,0,0))
+                            myfont.render_to(self.fenetre, (152,452), p.text[0], (0,0,0))
                             if len(p.text)>1:
-                                myfont.render_to(self.fenetre, (158,460), p.text[1], (0,0,0))
+                                myfont.render_to(self.fenetre, (152,460), p.text[1], (0,0,0))
                             if len(p.text)>2:
-                                myfont.render_to(self.fenetre, (158,490), p.text[2], (0,0,0))
+                                myfont.render_to(self.fenetre, (152,490), p.text[2], (0,0,0))
 
 
     def open(self,COFFRES):
@@ -489,7 +489,7 @@ class perso(element_anime_dir):
                                 if not c.open:
 
                                     self.fenetre.blit(boxImage, rectBox)
-                                    myfont.render_to(self.fenetre, (158,458),"Vous avez trouvé " + c.objet.nom+ " !", (0,0,0))
+                                    myfont.render_to(self.fenetre, (152,452),"Vous avez trouvé " + c.objet.nom+ " !", (0,0,0))
 
                                     if c.inclinaison ==3:
                                         c.image = pygame.image.load("Source/Autre/Chest/chest_open_bas.png")
@@ -550,33 +550,33 @@ def lecture_objet():
 
     #coeur
     image=pygame.image.load("Source/Lynk/heart/heart_0.png").convert_alpha()
-    image = pygame.transform.scale(image, (58, 58))
+    image = pygame.transform.scale(image, (52, 52))
     objet["heart_0"]=image
     image=pygame.image.load("Source/Lynk/heart/heart_1.png").convert_alpha()
-    image = pygame.transform.scale(image, (58, 58))
+    image = pygame.transform.scale(image, (52, 52))
     objet["heart_1"]=image
     image=pygame.image.load("Source/Lynk/heart/heart_2.png").convert_alpha()
-    image = pygame.transform.scale(image, (58, 58))
+    image = pygame.transform.scale(image, (52, 52))
     objet["heart_2"]=image
     image=pygame.image.load("Source/Lynk/heart/heart_3.png").convert_alpha()
-    image = pygame.transform.scale(image, (58, 58))
+    image = pygame.transform.scale(image, (52, 52))
     objet["heart_3"]=image
     image=pygame.image.load("Source/Lynk/heart/heart_4.png").convert_alpha()
-    image = pygame.transform.scale(image, (58, 58))
+    image = pygame.transform.scale(image, (52, 52))
     objet["heart_4"]=image
 
     #coeur à ramasser
     image=pygame.image.load("Source/Lynk/heart_object/life_object_0.png").convert_alpha()
-    image = pygame.transform.scale(image, (58, 58))
+    image = pygame.transform.scale(image, (52, 52))
     objet["vie_0"]=image
     image=pygame.image.load("Source/Lynk/heart_object/life_object_1.png").convert_alpha()
-    image = pygame.transform.scale(image, (58, 58))
+    image = pygame.transform.scale(image, (52, 52))
     objet["vie_1"]=image
     image=pygame.image.load("Source/Lynk/heart_object/life_object_2.png").convert_alpha()
-    image = pygame.transform.scale(image, (58, 58))
+    image = pygame.transform.scale(image, (52, 52))
     objet["vie_2"]=image
     image=pygame.image.load("Source/Lynk/heart_object/life_object_3.png").convert_alpha()
-    image = pygame.transform.scale(image, (58, 58))
+    image = pygame.transform.scale(image, (52, 52))
     objet["vie_3"]=image
 
 
@@ -587,91 +587,91 @@ def lecture_objet():
     objet["Lynk"]["stand_bas"]=[]
     for i in range(4):
         image=pygame.image.load("Source/Lynk/Lynk_stand_bas_"+str(i)+".png").convert_alpha()
-        image = pygame.transform.scale(image, (58, 58))
+        image = pygame.transform.scale(image, (52, 52))
         objet["Lynk"]["stand_bas"].append(image)
 
     #vers la droite
         objet["Lynk"]["stand_droite"]=[]
         for i in range(4):
             image=pygame.image.load("Source/Lynk/Lynk_stand_droite_"+str(i)+".png").convert_alpha()
-            image = pygame.transform.scale(image, (58, 58))
+            image = pygame.transform.scale(image, (52, 52))
             objet["Lynk"]["stand_droite"].append(image)
 
     #vers la gauche
         objet["Lynk"]["stand_gauche"]=[]
         for i in range(4):
             image=pygame.image.load("Source/Lynk/Lynk_stand_gauche_"+str(i)+".png").convert_alpha()
-            image = pygame.transform.scale(image, (58, 58))
+            image = pygame.transform.scale(image, (52, 52))
             objet["Lynk"]["stand_gauche"].append(image)
 
     #vers la haut
         objet["Lynk"]["stand_haut"]=[]
         for i in range(4):
             image=pygame.image.load("Source/Lynk/Lynk_stand_haut_"+str(i)+".png").convert_alpha()
-            image = pygame.transform.scale(image, (58, 58))
+            image = pygame.transform.scale(image, (52, 52))
             objet["Lynk"]["stand_haut"].append(image)
 
     #animation marche droite
     objet["Lynk"]["droite"]=[]
     for i in range(10):
       image = pygame.image.load("Source/Lynk/Lynk_walk_droite_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (58, 58))
+      image = pygame.transform.scale(image, (52, 52))
       objet["Lynk"]["droite"].append(image)
 
     #animation marche gauche
     objet["Lynk"]["gauche"]=[]
     for i in range(10):
       image = pygame.image.load("Source/Lynk/Lynk_walk_gauche_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (58, 58))
+      image = pygame.transform.scale(image, (52, 52))
       objet["Lynk"]["gauche"].append(image)
 
     #animation marche haut
     objet["Lynk"]["haut"]=[]
     for i in range(10):
       image = pygame.image.load("Source/Lynk/Lynk_walk_haut_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (58, 58))
+      image = pygame.transform.scale(image, (52, 52))
       objet["Lynk"]["haut"].append(image)
 
     #animation marche bas
     objet["Lynk"]["bas"]=[]
     for i in range(8):
       image = pygame.image.load("Source/Lynk/Lynk_walk_bas_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (58, 58))
+      image = pygame.transform.scale(image, (52, 52))
       objet["Lynk"]["bas"].append(image)
 
     #animation attaque épée
     objet["Lynk"]["hit_bas"]=[]
     for i in range(6):
       image = pygame.image.load("Source/Lynk/Lynk_hit_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (58, 58))
+      image = pygame.transform.scale(image, (52, 52))
       objet["Lynk"]["hit_bas"].append(image)
 
     #animation attaque épée droite
     objet["Lynk"]["hit_droite"]=[]
     for i in range(8):
       image = pygame.image.load("Source/Lynk/Lynk_hit_droite_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (58, 58))
+      image = pygame.transform.scale(image, (52, 52))
       objet["Lynk"]["hit_droite"].append(image)
 
     #animation attaque épée gauche
     objet["Lynk"]["hit_gauche"]=[]
     for i in range(8):
       image = pygame.image.load("Source/Lynk/Lynk_hit_gauche_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (58, 58))
+      image = pygame.transform.scale(image, (52, 52))
       objet["Lynk"]["hit_gauche"].append(image)
 
     #animation attaque épée haut
     objet["Lynk"]["hit_haut"]=[]
     for i in range(8):
       image = pygame.image.load("Source/Lynk/Lynk_hit_haut_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (58, 58))
+      image = pygame.transform.scale(image, (52, 52))
       objet["Lynk"]["hit_haut"].append(image)
 
     #animation mort
     objet["Lynk"]["dead"]=[]
     for i in range(4):
         image = pygame.image.load("Source/Lynk/Lynk_dead_"+str(i)+".png").convert_alpha()
-        image = pygame.transform.scale(image, (58, 58))
+        image = pygame.transform.scale(image, (52, 52))
         objet["Lynk"]["dead"].append(image)
 
     #image ennemie

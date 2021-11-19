@@ -28,7 +28,7 @@ pygame.display.set_caption("L'épopée_de_Lynk.exe")
 temps=pygame.time.Clock()
 
 #Définition musique
-pygame.mixer.music.load("Source/Musique_&_Son/intro_theme1.ogg")
+#pygame.mixer.music.load("Source/Musique_&_Son/intro_theme1.ogg")
 
 
 #LECTURE DES IMAGES
@@ -77,7 +77,7 @@ while Play:
 		if i>=55:
 			Intro = 0
 			Menu = 1
-			pygame.mixer.music.play()
+			#pygame.mixer.music.play()
 			pygame.display.flip()
 
 
@@ -105,8 +105,8 @@ while Play:
 		if play_button.isClicked or touches[pygame.K_RETURN]:
 			Menu = 0
 			enJeu = 1
-			pygame.mixer.music.load("Source/Musique_&_Son/Village.ogg")
-			pygame.mixer.music.play()
+			# pygame.mixer.music.load("Source/Musique_&_Son/Village.ogg")
+			# pygame.mixer.music.play()
 			pygame.display.flip()
 
 
