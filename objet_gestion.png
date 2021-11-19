@@ -1,0 +1,11 @@
+
+import pygame
+from Fonction import *
+from constantes import *
+from mapgrid import *
+
+
+
+objet_dict = {
+    "Potion" : Objet(image = pygame.image.load("Source/Autre/heal_potion.png"), nom = "Potion", type = "consommable")
+}

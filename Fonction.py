@@ -49,6 +49,19 @@ class pnj(elementgraphique):
     def afficher(self,perso):
         self.fenetre.blit(self.image, (self.rect.x - perso.camerax, self.rect.y - perso.cameray))
 
+#Creation Coffre
+class coffre(elementgraphique):
+    def __init__(self,fenetre,image,x,y, objet, inclinaison, open):
+        image = pygame.transform.scale(image, (60,60))
+        super().__init__(image,fenetre,x,y)
+        self.inclinaison =inclinaison
+        self.open = open
+        self.objet = objet
+
+
+    def afficher(self,perso):
+        self.fenetre.blit(self.image, (self.rect.x - perso.camerax, self.rect.y - perso.cameray))
+
 
 
 class DialogBox(elementgraphique):
@@ -59,6 +72,17 @@ class DialogBox(elementgraphique):
 
     def afficher(self,perso):
         self.fenetre.blit(self.image, (self.rect.x - perso.camerax, self.rect.y - perso.cameray))
+
+
+class Objet():
+    def __init__(self,image,nom,type):
+        self.image = image
+        self.nom = nom
+        self.type = type
+
+
+
+
 
 
 
@@ -76,6 +100,57 @@ class Warp(elementgraphique):
         self.inclinaison = inclinaison
         self.destination = destination
         self.lock = lock
+
+
+class Inventaire(elementgraphique):
+    def __init__(self,fenetre,perso):
+        self.perso = perso
+        self.x = 450
+        self.y = 90
+        self.image = pygame.image.load("Source/Lynk/Inventaire/INVENTAIRE.png")
+        super().__init__(self.image,fenetre,self.x,self.y)
+        self.contenu = []
+        self.open = False
+        self.slot = {
+        "slot1" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 469, y = 319),
+        "slot2" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 529, y = 319),
+        "slot3" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 582, y = 319),
+        "slot4" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 638, y = 319),
+        "slot5" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 694, y = 319),
+
+        "slot6" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 469, y = 370),
+        "slot7" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 525, y = 370),
+        "slot8" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 582, y = 370),
+        "slot9" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 636, y = 370),
+        "slot10" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 694, y = 370),
+
+        "slot11" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 469, y = 421),
+        "slot12" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 525, y = 421),
+        "slot13" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 582, y = 421),
+        "slot14" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 638, y = 421),
+        "slot14" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 694, y = 421),
+        }
+
+    def afficher(self):
+        if keyboard.is_pressed("e") and not self.open:
+            self.open = True
+            self.perso.inDialog = True
+            pygame.time.delay(120)
+        elif keyboard.is_pressed("e") and self.open:
+            self.open = False
+            pygame.time.delay(120)
+            self.perso.inDialog = False
+
+        if self.open:
+            self.fenetre.blit(self.image, (self.rect.x , self.rect.y))
+            for k in range(len(self.contenu)):
+                self.contenu[k].image.rect.x = self.slot["slot"+str(k+1)].rect.x
+                self.contenu[k].image.rect.y = self.slot["slot"+str(k+1)].rect.y
+                self.contenu[k].image.afficher()
+
+
+
+
 
 
 
@@ -134,6 +209,7 @@ class perso(element_anime_dir):
         self.fenetre = fenetre
         self.inDialog = False
         self.pressed = False
+        self.inventaire = Inventaire(fenetre = self.fenetre, perso = self )
 
 
     #Affichage Perso
@@ -370,6 +446,65 @@ class perso(element_anime_dir):
                                 myfont.render_to(self.fenetre, (158,460), p.text[1], (0,0,0))
                             if len(p.text)>2:
                                 myfont.render_to(self.fenetre, (158,490), p.text[2], (0,0,0))
+
+
+    def open(self,COFFRES):
+
+        rectBox = (80,400)
+        boxImage = pygame.image.load("Source/Autre/dialog_box.png")
+        boxImage = pygame.transform.scale(boxImage, (715,144))
+        touches = pygame.key.get_pressed()
+        rect_provisoire = copy.copy(self.rect)
+
+        if(touches[pygame.K_s]):
+            if not self.pressed:
+                self.pressed = True
+        if(touches[pygame.K_q]):
+            if self.inDialog:
+                self.pressed = False
+                self.inDialog = False
+
+
+        if self.pressed:
+            pnj_case = 0
+            if(self.direction == "stand_haut"):
+                pnj_case = self.map[2][(rect_provisoire.y-64)//64][(rect_provisoire.x)//64]
+                rect_provisoire.y-=64
+            if(self.direction == "stand_droite"):
+                pnj_case = self.map[2][(rect_provisoire.y)//64][(rect_provisoire.x+64)//64]
+                rect_provisoire.x+=64
+            if(self.direction == "stand_bas"):
+                pnj_case = self.map[2][(rect_provisoire.y+64)//64][(rect_provisoire.x)//64]
+                rect_provisoire.y+=64
+            if(self.direction == "stand_gauche"):
+                rect_provisoire.x-=64
+                pnj_case = self.map[2][(rect_provisoire.y)//64][(rect_provisoire.x-64)//64]
+
+
+            if pnj_case==5:
+                for coffre in COFFRES:
+                    for c in coffre:
+                        if c.open == False:
+                            if(rect_provisoire.colliderect(c.rect)):
+                                if not c.open:
+
+                                    self.fenetre.blit(boxImage, rectBox)
+                                    myfont.render_to(self.fenetre, (158,458),"Vous avez trouvé " + c.objet.nom+ " !", (0,0,0))
+
+                                    if c.inclinaison ==3:
+                                        c.image = pygame.image.load("Source/Autre/Chest/chest_open_bas.png")
+                                        c.image = pygame.transform.scale(c.image, (60,60))
+
+
+                                        if touches[pygame.K_q]:
+                                            self.inventaire.contenu.append(c.objet)
+                                            c.open = True
+
+
+
+
+
+
 #------------------------------------------------------------------------------------------------------------------#
 
 

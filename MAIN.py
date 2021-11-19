@@ -1,6 +1,7 @@
 #Code principal jeu
 #Importation Fichier
 from pnj_gestion import *
+from coffre_gestion import *
 from constantes import *
 from textBank import *
 from Fonction import *
@@ -173,11 +174,22 @@ while Play:
 		perso.map[0].afficher(perso.camerax,perso.cameray)
 		perso.afficher()
 
+		if perso.map_id in map_having_pnj:
+			for pnj in pnj_liste[perso.map_id]:
+				pnj.afficher(perso = perso)
+
+		if perso.map_id in map_having_coffre:
+			for coffre in coffre_liste[perso.map_id]:
+				coffre.afficher(perso=perso)
+
 		#Gestion Dialogue
 		if(not perso.inDialog):
 			perso.deplacement(warps = Warps)
 		perso.read(DB = DialogBoxes)
 		perso.talk(PNG = pnj_liste)
+		perso.open(COFFRES = coffre_liste)
+
+		perso.inventaire.afficher()
 
 		#Gestion coeurs
 		for w in range(4):
@@ -188,6 +200,8 @@ while Play:
 		#if x>=100:
 			#GameOver=1
 			#enJeu = 0
+		print(perso.rect.y, perso.rect.x, Warps[3][0].rect.y, Warps[3][0].rect.x,"/",Warps[4][0].rect.y, Warps[4][0].rect.x)
+
 
 	##################################
 	############GAME OVER#############
