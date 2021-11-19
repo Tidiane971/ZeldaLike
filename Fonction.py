@@ -82,10 +82,6 @@ class Objet():
 
 
 
-
-
-
-
 #MAP / ChangementMap
 class Map(elementgraphique):
     def __init__(self,image,fenetre,x=0,y=0):
@@ -218,7 +214,6 @@ class perso(element_anime_dir):
             self.attak_fin=True
             self.direction=self.attak.replace("hit_", "stand_")
             self.attak=""
-            print("fin attaque")
             print(self.direction)
 
         if self.direction == self.old_direction :
@@ -547,6 +542,11 @@ class ennemi(elementgraphique):
 #Dictionnaire Images
 def lecture_objet():
     objet={}
+
+    #curseur
+    image=pygame.image.load("Source/Autre/cursor/select.png").convert_alpha()
+    image = pygame.transform.scale(image, (25, 25))
+    objet["select"]=image
 
     #coeur
     image=pygame.image.load("Source/Lynk/heart/heart_0.png").convert_alpha()

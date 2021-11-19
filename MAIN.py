@@ -31,11 +31,8 @@ temps=pygame.time.Clock()
 #pygame.mixer.music.load("Source/Musique_&_Son/intro_theme1.ogg")
 
 
-#LECTURE DES IMAGES
+#--------LECTURE DES IMAGES
 objet = lecture_objet()
-
-#Image Lynk
-perso = perso(objet["Lynk"],fenetre,x=152,y=243,camerax=CameraX,cameray=CameraY,map = actual_map, map_id = 0 )
 
 #Image coeurs
 v=0
@@ -44,11 +41,17 @@ for i in range(4):
 	vie= elementgraphique(objet["heart_"+str(v)],fenetre,x=10+30*i,y=10)
 	tab_vie.append(vie)
 
+#Image Lynk
+perso = perso(objet["Lynk"],fenetre,x=152,y=243,camerax=CameraX,cameray=CameraY,map = actual_map, map_id = 0 )
 
-#Variable utiles
+#Image curseur
+Choix=elementgraphique(objet["select"],fenetre,x=190,y=390)
+
+
+#----------VARIABLES UTILES
 i=0
 Play=True
-flipper=0
+flipper,flipper2=0,0
 Intro,Menu,enJeu,enPause,GameOver=1,0,0,0,0
 
 #Boucle jeu
@@ -119,6 +122,7 @@ while Play:
 		#Activer Pause
 		if keyboard.is_pressed('p'):
 			enPause=1
+			Bouj=True
 			pygame.time.delay(190)
 
 		while enJeu==1 and enPause==1:
@@ -131,6 +135,16 @@ while Play:
 				Pause2.afficher()
 			else:
 				flipper=0
+
+			#Animation curseur
+			if flipper<=75 and Bouj==True:
+				Choix.rect.x-=15
+				Bouj=False
+			elif flipper<=125 and Bouj==False:
+				Choix.rect.x+=15
+				Bouj=True
+			Choix.afficher()
+
 
 			#Quitter Pause
 			if keyboard.is_pressed('p'):
@@ -157,17 +171,17 @@ while Play:
 		if(touches[pygame.K_SPACE]):
 			perso.vitesse = 16
 		else:
-			perso.vitesse = 5.5
+			perso.vitesse = 6
 
-		print("POS : ", perso.rect.x, perso.rect.y, ", CAM : ", perso.camerax, perso.cameray)
-		print("WARP SORTIE GROTTE : ", Warps[2][0].rect.x, Warps[2][0].rect.y)
+		#print("POS : ", perso.rect.x, perso.rect.y, ", CAM : ", perso.camerax, perso.cameray)
+		#print("WARP SORTIE GROTTE : ", Warps[2][0].rect.x, Warps[2][0].rect.y)
 		#print("POS : ", mapgrid.X[perso.rect.y//64][perso.rect.x//64])
 
 		#Gestion Map
 		actual_map = Maps[perso.map_id]
 		perso.map = actual_map
 
-		pygame.display.flip()
+		#pygame.display.flip()
 
 
 
@@ -180,7 +194,7 @@ while Play:
 		perso.map[1].afficher(perso.camerax,perso.cameray)
 
 
-
+		#Gestion coffre
 		if perso.map_id in map_having_coffre:
 			for coffre in coffre_liste[perso.map_id]:
 				coffre.afficher(perso=perso)
