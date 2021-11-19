@@ -9,7 +9,7 @@ fenetre=pygame.display.set_mode((largeur,hauteur))
 
 CameraX=0
 CameraY=0
-Warps = [[0],[0,0,0,0,0],[0], [0],[0],[0]]
+Warps = [[0],[0,0,0,0,0,0],[0], [0],[0],[0],[0]]
 DialogBoxes = [ [0,0] ]
 pnj_liste = [ [0] ]
 coffre_liste = [ [0],[0],[0] ]
@@ -27,22 +27,25 @@ Transi = [pygame.image.load("Source/Transi/1.jpg").convert_alpha(),
           ]
 
 imgHomeBg = pygame.image.load("Source/Map/home.png").convert_alpha()
-imgHomeFront = pygame.image.load("Source/Map/home.png").convert_alpha()
+imgHomeFront = pygame.image.load("Source/Map/home_front.png").convert_alpha()
 
 imgVillageBg = pygame.image.load("Source/Map/Village/bg.png").convert_alpha()
-imgVillageFront = pygame.image.load("Source/Map/Village/front.png").convert_alpha()
+imgVillageFront = pygame.image.load("Source/Map/warp.png").convert_alpha()
 
 imgGrotteBg = pygame.image.load("Source/Map/labyrinthe.png").convert_alpha()
-imgGrotteFront = pygame.image.load("Source/Map/labyrinthe.png").convert_alpha()
+imgGrotteFront = pygame.image.load("Source/Map/warp.png").convert_alpha()
 
 
 imgAubergeBg = pygame.image.load("Source/Map/auberge.png").convert_alpha()
-imgAubergeFront = pygame.image.load("Source/Map/auberge.png").convert_alpha()
+imgAubergeFront = pygame.image.load("Source/Map/warp.png").convert_alpha()
 
 
 imgArmurerieBg = pygame.image.load("Source/Map/weapon_shop.png").convert_alpha()
-imgArmurerieFront = pygame.image.load("Source/Map/weapon_shop.png").convert_alpha()
+imgArmurerieFront = pygame.image.load("Source/Map/weapon_shop_front.png").convert_alpha()
 
 
 imgBoutiqueBg = pygame.image.load("Source/Map/boutique.png").convert_alpha()
-imgBoutiqueFront = pygame.image.load("Source/Map/boutique.png").convert_alpha()
+imgBoutiqueFront = pygame.image.load("Source/Map/warp.png").convert_alpha()
+
+imgWitchBg = pygame.image.load("Source/Map/witch_house.jpg").convert_alpha()
+imgWitchFront = pygame.image.load("Source/Map/warp.png").convert_alpha()

@@ -14,17 +14,17 @@ def collision_grid():
     j=0
     for k in range(0,y,64):
         for i in range(0,x,64):
-            if pix[i+32,k+32] == (255,0,0):
+            if pix[i+32,k+32] == (254,0,0):
                 T[k//64].append(1)
             else:
                 T[k//64].append(0)
     print(T)
 
 def front_grid():
-    img1 = Image.open("grid/front_grid.png")
+    img1 = Image.open("grid/home_front_grid.png")
     img1 = img1.convert("RGBA")
 
-    img2 = Image.open("Source/Map/Village/bg.png")
+    img2 = Image.open("Source/Map/home.png")
     img2 = img2.convert("RGBA")
 
 
@@ -41,6 +41,6 @@ def front_grid():
 
 
     img1.putdata(newData)
-    img1.save("Source/Map/Village/front.png","PNG")
+    img1.save("Source/Map/home_front.png","PNG")
 
 collision_grid()

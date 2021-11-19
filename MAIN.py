@@ -35,7 +35,7 @@ pygame.mixer.music.load("Source/Musique_&_Son/intro_theme1.ogg")
 objet = lecture_objet()
 
 #Image Lynk
-perso = perso(objet["Lynk"],fenetre,x=152,y=203,camerax=CameraX,cameray=CameraY,map = actual_map, map_id = 0 )
+perso = perso(objet["Lynk"],fenetre,x=152,y=243,camerax=CameraX,cameray=CameraY,map = actual_map, map_id = 2 )
 
 #Image coeurs
 v=0
@@ -159,7 +159,8 @@ while Play:
 		else:
 			perso.vitesse = 5.5
 
-		#print("POS : ", perso.rect.x, perso.rect.y, ", CAM : ", perso.camerax, perso.cameray)
+		print("POS : ", perso.rect.x, perso.rect.y, ", CAM : ", perso.camerax, perso.cameray)
+		print("WARP SORTIE GROTTE : ", Warps[2][0].rect.x, Warps[2][0].rect.y)
 		#print("POS : ", mapgrid.X[perso.rect.y//64][perso.rect.x//64])
 
 		#Gestion Map
@@ -173,10 +174,12 @@ while Play:
 		#Affichage perso
 		perso.map[0].afficher(perso.camerax,perso.cameray)
 		perso.afficher()
-
 		if perso.map_id in map_having_pnj:
 			for pnj in pnj_liste[perso.map_id]:
 				pnj.afficher(perso = perso)
+		perso.map[1].afficher(perso.camerax,perso.cameray)
+
+
 
 		if perso.map_id in map_having_coffre:
 			for coffre in coffre_liste[perso.map_id]:
@@ -200,7 +203,7 @@ while Play:
 		#if x>=100:
 			#GameOver=1
 			#enJeu = 0
-		print(perso.rect.y, perso.rect.x, Warps[3][0].rect.y, Warps[3][0].rect.x,"/",Warps[4][0].rect.y, Warps[4][0].rect.x)
+
 
 
 	##################################
