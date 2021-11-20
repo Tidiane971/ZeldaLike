@@ -9,7 +9,7 @@ fenetre=pygame.display.set_mode((largeur,hauteur))
 
 CameraX=0
 CameraY=0
-Warps = [[0],[0,0,0,0,0,0],[0], [0],[0],[0],[0]]
+
 DialogBoxes = [ [0,0] ]
 pnj_liste = [ [0] ]
 coffre_liste = [ [0],[0,0]]
@@ -46,6 +46,3 @@ imgArmurerieFront = pygame.image.load("Source/Map/weapon_shop_front.png").conver
 
 imgBoutiqueBg = pygame.image.load("Source/Map/boutique.png").convert_alpha()
 imgBoutiqueFront = pygame.image.load("Source/Map/warp.png").convert_alpha()
-
-imgWitchBg = pygame.image.load("Source/Map/witch_house.jpg").convert_alpha()
-imgWitchFront = pygame.image.load("Source/Map/warp.png").convert_alpha()
