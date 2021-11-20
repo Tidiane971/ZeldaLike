@@ -172,7 +172,7 @@ while Play:
 				pvie=0
 				pass
 		elif perso.vie<=0:
-			#perso.dead(vie=perso.vie) --- Animation mort raté
+			#perso.dead(vie=perso.vie) ---- Animation mort raté
 			GameOver=1
 			enJeu = 0
 
@@ -240,8 +240,6 @@ while Play:
 			# rafraichissement
 			pygame.display.flip()
 			pass
-
-<<<<<<< Updated upstream
 
 		#Boost Perso
 		if(touches[pygame.K_SPACE]):

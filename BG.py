@@ -35,7 +35,7 @@ pause2 = pygame.image.load("Source/Autre/pause2.png").convert_alpha()
 pause2 = pygame.transform.scale(pause2, (largeur,hauteur))
 Pause2 = elementgraphique(pause2, fenetre)
 
-#CREATION DES IMAGES DE GAME OVER
+#CREATION IMAGES GAME OVER
 gameover = pygame.image.load("Source/Autre/GameOver.png").convert_alpha()
 gameover = pygame.transform.scale(gameover, (largeur,hauteur))
 GAMEOVER1 = elementgraphique(gameover, fenetre)

@@ -248,11 +248,11 @@ class perso(element_anime_dir):
         #super().afficher()
 
     #Déplacement Perso/Focus
-<<<<<<< Updated upstream
-    def deplacement(self):
-=======
+#<<<<<<< Updated upstream
+    #def deplacement(self):
+#=======
     def deplacement(self, warps, vie):
->>>>>>> Stashed changes
+#>>>>>>> Stashed changes
         largeur, hauteur = self.fenetre.get_size()
         rect_provisoire = copy.copy(self.rect)
         cameraxprovisoire = self.camerax
@@ -393,10 +393,7 @@ class perso(element_anime_dir):
             self.cameray = self.rect.y-(hauteur//2)
 
 
-    #Chat avec PNJ
-=======
     #Chat PNJ
->>>>>>> Stashed changes
     def read(self, DB):
         rectBox = (80,400)
         boxImage = pygame.image.load("Source/Autre/dialog_box.png")
