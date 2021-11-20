@@ -46,6 +46,3 @@ imgArmurerieFront = pygame.image.load("Source/Map/weapon_shop_front.png").conver
 
 imgBoutiqueBg = pygame.image.load("Source/Map/boutique.png").convert_alpha()
 imgBoutiqueFront = pygame.image.load("Source/Map/warp.png").convert_alpha()
-
-imgWitchBg = pygame.image.load("Source/Map/witch_house.jpg").convert_alpha()
-imgWitchFront = pygame.image.load("Source/Map/warp.png").convert_alpha()

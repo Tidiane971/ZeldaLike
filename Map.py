@@ -24,8 +24,6 @@ Armurerie_front = Map(imgArmurerieFront, fenetre)
 Boutique_bg = Map(imgBoutiqueBg, fenetre)
 Boutique_front = Map(imgBoutiqueFront, fenetre)
 
-Witch_bg = Map(imgWitchBg, fenetre)
-Witch_front = Map(imgWitchFront, fenetre)
 
 Maps = [
 [Home_bg,Home_front,Home_grid,(1280,1088)],
@@ -34,6 +32,6 @@ Maps = [
 [Auberge_bg,Auberge_front,Auberge_grid,(1422,1088)],
 [Armurerie_bg,Armurerie_front,Armurerie_grid,(1440,768)],
 [Boutique_bg,Boutique_front,Boutique_grid,(1280,960)],
-[Witch_bg,Witch_front,Witch_grid,(1088,832)]
+
 ]
 actual_map = Maps[0]
