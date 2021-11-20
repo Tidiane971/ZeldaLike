@@ -74,6 +74,7 @@ class DialogBox(elementgraphique):
         self.fenetre.blit(self.image, (self.rect.x - perso.camerax, self.rect.y - perso.cameray))
 
 
+# Objet inGame
 class Objet():
     def __init__(self,image,nom,type):
         self.image = image
@@ -98,11 +99,14 @@ class Map(elementgraphique):
 #         self.lock = lock
 
 
+#Gestion inventaire
 class Inventaire(elementgraphique):
     def __init__(self,fenetre,perso):
         self.perso = perso
         self.x = 450
         self.y = 90
+        #self.cursor = pygame.image.load("Source/Autre/cursor/select.png").convert_alpha()
+        #self.image = pygame.transform.scale(image, (25, 25))
         self.image = pygame.image.load("Source/Lynk/Inventaire/INVENTAIRE.png")
         super().__init__(self.image,fenetre,self.x,self.y)
         self.contenu = []
@@ -143,10 +147,6 @@ class Inventaire(elementgraphique):
                 self.contenu[k].image.rect.x = self.slot["slot"+str(k+1)].rect.x
                 self.contenu[k].image.rect.y = self.slot["slot"+str(k+1)].rect.y
                 self.contenu[k].image.afficher()
-
-
-
-
 
 
 
@@ -194,7 +194,7 @@ class element_anime_dir(element_anime):
 class perso(element_anime_dir):
     def __init__(self,image,fenetre,camerax,cameray,map,map_id,x=0,y=0 ):
         super().__init__(image,fenetre,x,y)
-        self.vie=12
+        self.vie=16
         self.vitesse=5.5
         self.attak_fin=True
         self.attak=""
@@ -241,44 +241,54 @@ class perso(element_anime_dir):
             self.fenetre.blit(self.image, (self.rect.x-self.camerax, self.rect.y-self.cameray))
 
 
+    #Mort perso
+    #def dead(self, vie):
+        #if self.vie==0:
+            #self.direction="dead"
+        #super().afficher()
+
     #Déplacement Perso/Focus
+<<<<<<< Updated upstream
     def deplacement(self):
+=======
+    def deplacement(self, warps, vie):
+>>>>>>> Stashed changes
         largeur, hauteur = self.fenetre.get_size()
         rect_provisoire = copy.copy(self.rect)
         cameraxprovisoire = self.camerax
 
         #Lecture Flèches
         touches = pygame.key.get_pressed()
-        if touches[pygame.K_LEFT]:
+        if self.vie!=0 and touches[pygame.K_LEFT]:
             self.delai = 1 #Vitesse animation
             self.direction="gauche" #Direction perso
             rect_provisoire.x-=self.vitesse #Déplacement Focus
-        elif self.direction=="gauche":
+        elif self.vie!=0 and self.direction=="gauche":
             self.direction="stand_gauche"
             self.delai=3
 
-        if touches[pygame.K_RIGHT]:
+        if self.vie!=0 and touches[pygame.K_RIGHT]:
             self.delai = 1 #Vitesse animation
             self.direction="droite" #Direction perso
             rect_provisoire.x+=self.vitesse #Déplacement Focus
 
-        elif self.direction=="droite":
+        elif self.vie!=0 and self.direction=="droite":
             self.direction="stand_droite"
             self.delai=3
 
-        if touches[pygame.K_UP]:
+        if self.vie!=0 and touches[pygame.K_UP]:
             self.delai = 2 #Vitesse animation
             self.direction="haut" #Direction perso
             rect_provisoire.y-=self.vitesse #Déplacement Focus
-        elif self.direction=="haut":
+        elif self.vie!=0 and self.direction=="haut":
             self.direction="stand_haut"
             self.delai=3
 
-        if touches[pygame.K_DOWN]:
+        if self.vie!=0 and touches[pygame.K_DOWN]:
             self.delai = 2 #Vitesse animation
             self.direction="bas" #Direction perso
             rect_provisoire.y+=self.vitesse #Déplacement Focus
-        elif self.direction=="bas":
+        elif self.vie!=0 and self.direction=="bas":
             self.direction="stand_bas"
             self.delai=3
 
@@ -337,6 +347,7 @@ class perso(element_anime_dir):
 #---------------------------------------------DIALOGUE---------------------------------------------------#
 #UTILISE LE MODULE KEYBOARD @Tidiane
 
+<<<<<<< Updated upstream
 
     def warping(self):
         rect_provisoire = copy.copy(self.rect)
@@ -383,6 +394,9 @@ class perso(element_anime_dir):
 
 
     #Chat avec PNJ
+=======
+    #Chat PNJ
+>>>>>>> Stashed changes
     def read(self, DB):
         rectBox = (80,400)
         boxImage = pygame.image.load("Source/Autre/dialog_box.png")
@@ -412,6 +426,7 @@ class perso(element_anime_dir):
                                     myfont.render_to(self.fenetre, (152,460), d.text[1], (0,0,0))
                                 if len(d.text)>2:
                                     myfont.render_to(self.fenetre, (152,490), d.text[2], (0,0,0))
+
 
     def talk(self,PNG):
 
@@ -513,13 +528,7 @@ class perso(element_anime_dir):
                                             c.open = True
 
 
-
-
-
-
-#------------------------------------------------------------------------------------------------------------------#
-
-
+#-----------------------------------------------------ENNEMI------------------------------------------------------#
 
 #Class ennemi
 class ennemi(elementgraphique):
