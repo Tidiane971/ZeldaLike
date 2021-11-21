@@ -21,10 +21,10 @@ def collision_grid():
     print(T)
 
 def front_grid():
-    img1 = Image.open("grid/home_front_grid.png")
+    img1 = Image.open("grid/auberge_font_grid.png")
     img1 = img1.convert("RGBA")
 
-    img2 = Image.open("Source/Map/home.png")
+    img2 = Image.open("Source/Map/auberge.png")
     img2 = img2.convert("RGBA")
 
 
@@ -41,6 +41,6 @@ def front_grid():
 
 
     img1.putdata(newData)
-    img1.save("Source/Map/home_front.png","PNG")
+    img1.save("Source/Map/auberge_font.png","PNG")
 
-collision_grid()
+front_grid()

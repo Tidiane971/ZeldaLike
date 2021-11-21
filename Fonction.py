@@ -42,7 +42,7 @@ class button(elementgraphique):
 #Créeation PNJ
 class pnj(elementgraphique):
     def __init__(self,fenetre,image,x,y, text, inclinaison):
-        image = pygame.transform.scale(image, (52,52))
+        image = pygame.transform.scale(image, (58,58))
         super().__init__(image,fenetre,x,y)
         self.text = text
 
@@ -251,7 +251,7 @@ class perso(element_anime_dir):
 #<<<<<<< Updated upstream
     #def deplacement(self):
 #=======
-    def deplacement(self, warps, vie):
+    def deplacement(self, vie):
 #>>>>>>> Stashed changes
         largeur, hauteur = self.fenetre.get_size()
         rect_provisoire = copy.copy(self.rect)
@@ -347,7 +347,7 @@ class perso(element_anime_dir):
 #---------------------------------------------DIALOGUE---------------------------------------------------#
 #UTILISE LE MODULE KEYBOARD @Tidiane
 
-<<<<<<< Updated upstream
+
 
     def warping(self):
         rect_provisoire = copy.copy(self.rect)
@@ -445,8 +445,13 @@ class perso(element_anime_dir):
         if self.pressed:
             pnj_case = 0
             if(self.direction == "stand_haut"):
-                pnj_case = self.map[2][(rect_provisoire.y-64)//64][(rect_provisoire.x)//64]
-                rect_provisoire.y-=64
+                if(self.map_id==3):
+                    pnj_case = self.map[2][(rect_provisoire.y-128)//64][(rect_provisoire.x)//64]
+                    rect_provisoire.y-=128
+                else:
+                    pnj_case = self.map[2][(rect_provisoire.y-64)//64][(rect_provisoire.x)//64]
+                    rect_provisoire.y-=64
+
             if(self.direction == "stand_droite"):
                 pnj_case = self.map[2][(rect_provisoire.y)//64][(rect_provisoire.x+64)//64]
                 rect_provisoire.x+=64

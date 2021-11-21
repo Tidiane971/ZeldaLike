@@ -151,15 +151,15 @@ while Play:
 
 		#Gestion Dialogue
 		if(not perso.inDialog):
-			perso.deplacement(warps = Warps, vie=perso.vie)
+			perso.deplacement(vie=perso.vie)
 		perso.read(DB = DialogBoxes)
 		perso.talk(PNG = pnj_liste)
 		perso.open(COFFRES = coffre_liste)
+		perso.warping()
 
 		perso.inventaire.afficher()
 
-		#Gestion coeurs
-		x+=1 #-------MORT PRÉDÉFINIE
+		
 		print("PV=", perso.vie)
 		if x==2 and v>0:
 			x=0
@@ -241,44 +241,7 @@ while Play:
 			pygame.display.flip()
 			pass
 
-		#Boost Perso
-		if(touches[pygame.K_SPACE]):
-			perso.vitesse = 16
-		else:
-			perso.vitesse = 6
 
-		#print("POS : ", perso.rect.x, perso.rect.y, ", CAM : ", perso.camerax, perso.cameray)
-		#print("WARP SORTIE GROTTE : ", Warps[2][0].rect.x, Warps[2][0].rect.y)
-		#print("POS : ", mapgrid.X[perso.rect.y//64][perso.rect.x//64])
-
-		#Gestion Map
-		actual_map = Maps[perso.map_id]
-		perso.map = actual_map
-
-
-		#Affichage perso
-		perso.map[0].afficher(perso.camerax,perso.cameray)
-		perso.afficher()
-		if perso.map_id in map_having_pnj:
-			for pnj in pnj_liste[perso.map_id]:
-				pnj.afficher(perso = perso)
-		perso.map[1].afficher(perso.camerax,perso.cameray)
-
-
-		#Gestion coffre
-		if perso.map_id in map_having_coffre:
-			for coffre in coffre_liste[perso.map_id]:
-				coffre.afficher(perso=perso)
-
-		#Gestion Dialogue
-		if(not perso.inDialog):
-			perso.deplacement()
-		perso.read(DB = DialogBoxes)
-		perso.talk(PNG = pnj_liste)
-		perso.open(COFFRES = coffre_liste)
-		perso.warping()
-
-		perso.inventaire.afficher()
 
 		#gestion korogu
 		#if i%1000=0:
@@ -291,8 +254,7 @@ while Play:
 		for w in range(4):
 			tab_vie[w].afficher()
 
-=======
->>>>>>> Stashed changes
+
 		#GameOver programmer
 		#x+=1
 		#if x>=100:
