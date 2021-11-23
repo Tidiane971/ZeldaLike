@@ -42,7 +42,7 @@ class button(elementgraphique):
 #Créeation PNJ
 class pnj(elementgraphique):
     def __init__(self,fenetre,image,x,y, text, inclinaison):
-        image = pygame.transform.scale(image, (52,52))
+        image = pygame.transform.scale(image, (58,58))
         super().__init__(image,fenetre,x,y)
         self.text = text
 
@@ -74,6 +74,7 @@ class DialogBox(elementgraphique):
         self.fenetre.blit(self.image, (self.rect.x - perso.camerax, self.rect.y - perso.cameray))
 
 
+# Objet inGame
 class Objet():
     def __init__(self,image,nom,type):
         self.image = image
@@ -90,19 +91,22 @@ class Map(elementgraphique):
     def afficher(self, camerax, cameray):
         self.fenetre.blit(self.image, (self.rect.x-camerax, self.rect.y -cameray))
 
-class Warp(elementgraphique):
-    def __init__(self,fenetre,x,y, inclinaison, destination, lock,image=pygame.image.load("Source/Map/warp.png").convert_alpha() ):
-        super().__init__(image,fenetre,x,y)
-        self.inclinaison = inclinaison
-        self.destination = destination
-        self.lock = lock
+# class Warp(elementgraphique):
+#     def __init__(self,fenetre,x,y, inclinaison, destination, lock,image=pygame.image.load("Source/Map/warp.png").convert_alpha() ):
+#         super().__init__(image,fenetre,x,y)
+#         self.inclinaison = inclinaison
+#         self.destination = destination
+#         self.lock = lock
 
 
+#Gestion inventaire
 class Inventaire(elementgraphique):
     def __init__(self,fenetre,perso):
         self.perso = perso
         self.x = 450
         self.y = 90
+        #self.cursor = pygame.image.load("Source/Autre/cursor/select.png").convert_alpha()
+        #self.image = pygame.transform.scale(image, (25, 25))
         self.image = pygame.image.load("Source/Lynk/Inventaire/INVENTAIRE.png")
         super().__init__(self.image,fenetre,self.x,self.y)
         self.contenu = []
@@ -124,7 +128,7 @@ class Inventaire(elementgraphique):
         "slot12" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 525, y = 421),
         "slot13" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 522, y = 421),
         "slot14" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 638, y = 421),
-        "slot14" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 694, y = 421),
+        "slot15" : elementgraphique( fenetre = self.fenetre ,image = pygame.image.load("Source/Map/slot.png") , x = 694, y = 421),
         }
 
     def afficher(self):
@@ -143,10 +147,6 @@ class Inventaire(elementgraphique):
                 self.contenu[k].image.rect.x = self.slot["slot"+str(k+1)].rect.x
                 self.contenu[k].image.rect.y = self.slot["slot"+str(k+1)].rect.y
                 self.contenu[k].image.afficher()
-
-
-
-
 
 
 
@@ -194,8 +194,8 @@ class element_anime_dir(element_anime):
 class perso(element_anime_dir):
     def __init__(self,image,fenetre,camerax,cameray,map,map_id,x=0,y=0 ):
         super().__init__(image,fenetre,x,y)
-        self.vie=12
-        self.vitesse=5.5
+        self.vie=16
+        self.vitesse=9
         self.attak_fin=True
         self.attak=""
         self.camerax = camerax
@@ -241,44 +241,54 @@ class perso(element_anime_dir):
             self.fenetre.blit(self.image, (self.rect.x-self.camerax, self.rect.y-self.cameray))
 
 
+    #Mort perso
+    #def dead(self, vie):
+        #if self.vie==0:
+            #self.direction="dead"
+        #super().afficher()
+
     #Déplacement Perso/Focus
-    def deplacement(self, warps):
+#<<<<<<< Updated upstream
+    #def deplacement(self):
+#=======
+    def deplacement(self, vie):
+#>>>>>>> Stashed changes
         largeur, hauteur = self.fenetre.get_size()
         rect_provisoire = copy.copy(self.rect)
         cameraxprovisoire = self.camerax
 
         #Lecture Flèches
         touches = pygame.key.get_pressed()
-        if touches[pygame.K_LEFT]:
+        if self.vie!=0 and touches[pygame.K_LEFT]:
             self.delai = 1 #Vitesse animation
             self.direction="gauche" #Direction perso
             rect_provisoire.x-=self.vitesse #Déplacement Focus
-        elif self.direction=="gauche":
+        elif self.vie!=0 and self.direction=="gauche":
             self.direction="stand_gauche"
             self.delai=3
 
-        if touches[pygame.K_RIGHT]:
+        if self.vie!=0 and touches[pygame.K_RIGHT]:
             self.delai = 1 #Vitesse animation
             self.direction="droite" #Direction perso
             rect_provisoire.x+=self.vitesse #Déplacement Focus
 
-        elif self.direction=="droite":
+        elif self.vie!=0 and self.direction=="droite":
             self.direction="stand_droite"
             self.delai=3
 
-        if touches[pygame.K_UP]:
-            self.delai = 2 #Vitesse animation
+        if self.vie!=0 and touches[pygame.K_UP]:
+            self.delai = 1.5 #Vitesse animation
             self.direction="haut" #Direction perso
             rect_provisoire.y-=self.vitesse #Déplacement Focus
-        elif self.direction=="haut":
+        elif self.vie!=0 and self.direction=="haut":
             self.direction="stand_haut"
             self.delai=3
 
-        if touches[pygame.K_DOWN]:
-            self.delai = 2 #Vitesse animation
+        if self.vie!=0 and touches[pygame.K_DOWN]:
+            self.delai = 1.5 #Vitesse animation
             self.direction="bas" #Direction perso
             rect_provisoire.y+=self.vitesse #Déplacement Focus
-        elif self.direction=="bas":
+        elif self.vie!=0 and self.direction=="bas":
             self.direction="stand_bas"
             self.delai=3
 
@@ -293,55 +303,31 @@ class perso(element_anime_dir):
             self.cameray = self.rect.y-(hauteur//2)
 
 
-        elif(self.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==2 or
-           self.map[2][rect_provisoire.y//64][(rect_provisoire.x+52)//64]==2 or
-           self.map[2][(rect_provisoire.y+52)//64][rect_provisoire.x//64]==2 or
-           self.map[2][(rect_provisoire.y+52)//64][(rect_provisoire.x+52)//64]==2):
-                for warp in warps:
-                    for w in warp:
-                        if(rect_provisoire.colliderect(w.rect)):
-                            for fondu in Transi:
-                                self.fenetre.blit(fondu, (0,0))
-                                pygame.display.flip()
-                                time.sleep(0.05)
-
-                            self.map_id = w.destination[0]
-                            ToWarp = warps[w.destination[0]][w.destination[1]]
-                            self.rect.x = ToWarp.rect.x
-                            self.rect.y = ToWarp.rect.y
-
-                            if(ToWarp.inclinaison==1):
-                                self.rect.y -= 64
-                            if(ToWarp.inclinaison==2):
-                                self.rect.x += 64
-                            if(ToWarp.inclinaison==3):
-                                self.rect.y += 64
-                            if(ToWarp.inclinaison==4):
-                                self.rect.x -= 64
-
-                            self.camerax = self.rect.x-(largeur//2)
-                            self.cameray = self.rect.y-(hauteur//2)
 
         #else:
             #print("BLOQUER")
 
         #Perso attaque
         if touches[pygame.K_a] and self.direction=="stand_bas":
+            self.delai=1
             self.attak="hit_bas"
             self.direction="hit_bas"
             self.attak_fin=False
 
         if touches[pygame.K_a] and self.direction=="stand_haut":
+            self.delai=1
             self.attak="hit_haut"
             self.direction="hit_haut"
             self.attak_fin=False
 
         if touches[pygame.K_a] and self.direction=="stand_gauche":
+            self.delai=1
             self.attak="hit_gauche"
             self.direction="hit_gauche"
             self.attak_fin=False
 
         if touches[pygame.K_a] and self.direction=="stand_droite":
+            self.delai=1
             self.attak="hit_droite"
             self.direction="hit_droite"
             self.attak_fin=False
@@ -365,7 +351,53 @@ class perso(element_anime_dir):
 #---------------------------------------------DIALOGUE---------------------------------------------------#
 #UTILISE LE MODULE KEYBOARD @Tidiane
 
-    #Chat avec PNJ
+
+
+    def warping(self):
+        rect_provisoire = copy.copy(self.rect)
+        warp_case = 0
+        if(self.direction == "haut"):
+            warp_case = self.map[2][(rect_provisoire.y-64+52)//64][(rect_provisoire.x)//64]
+            rect_provisoire.y-=64
+        if(self.direction == "droite"):
+            warp_case = self.map[2][(rect_provisoire.y)//64][(rect_provisoire.x+64)//64]
+            rect_provisoire.x+=64
+        if(self.direction == "bas"):
+            warp_case = self.map[2][(rect_provisoire.y+64)//64][(rect_provisoire.x)//64]
+            rect_provisoire.y+=64
+        if(self.direction == "gauche"):
+            warp_case = self.map[2][(rect_provisoire.y)//64][(rect_provisoire.x-64)//64]
+            rect_provisoire.x-=64
+
+        print(self.direction, int(str(warp_case)[0]))
+        if int(str(warp_case)[0]) == 2:
+            print(self.direction, int(str(warp_case)[0]))
+            for fondu in Transi:
+                self.fenetre.blit(fondu, (0,0))
+                pygame.display.flip()
+                time.sleep(0.05)
+
+            self.map_id = int(str(warp_case)[1])
+            self.rect.x = int(str(warp_case)[2:4])*64
+            self.rect.y = int(str(warp_case)[4:6])*64
+            print(int(str(warp_case)[2:4]), int(str(warp_case)[4:6]))
+
+            inclinaison = int(str(warp_case)[6])
+
+            if(inclinaison==1):
+                self.rect.y -= 64
+            if(inclinaison==2):
+                self.rect.x += 64
+            if(inclinaison==3):
+                self.rect.y += 64
+            if(inclinaison==4):
+                self.rect.x -= 64
+
+            self.camerax = self.rect.x-(largeur//2)
+            self.cameray = self.rect.y-(hauteur//2)
+
+
+    #Chat PNJ
     def read(self, DB):
         rectBox = (80,400)
         boxImage = pygame.image.load("Source/Autre/dialog_box.png")
@@ -396,6 +428,7 @@ class perso(element_anime_dir):
                                 if len(d.text)>2:
                                     myfont.render_to(self.fenetre, (152,490), d.text[2], (0,0,0))
 
+
     def talk(self,PNG):
 
         rectBox = (80,400)
@@ -416,8 +449,13 @@ class perso(element_anime_dir):
         if self.pressed:
             pnj_case = 0
             if(self.direction == "stand_haut"):
-                pnj_case = self.map[2][(rect_provisoire.y-64)//64][(rect_provisoire.x)//64]
-                rect_provisoire.y-=64
+                if(self.map_id==3):
+                    pnj_case = self.map[2][(rect_provisoire.y-128)//64][(rect_provisoire.x)//64]
+                    rect_provisoire.y-=128
+                else:
+                    pnj_case = self.map[2][(rect_provisoire.y-64)//64][(rect_provisoire.x)//64]
+                    rect_provisoire.y-=64
+
             if(self.direction == "stand_droite"):
                 pnj_case = self.map[2][(rect_provisoire.y)//64][(rect_provisoire.x+64)//64]
                 rect_provisoire.x+=64
@@ -425,8 +463,8 @@ class perso(element_anime_dir):
                 pnj_case = self.map[2][(rect_provisoire.y+64)//64][(rect_provisoire.x)//64]
                 rect_provisoire.y+=64
             if(self.direction == "stand_gauche"):
-                rect_provisoire.x-=64
                 pnj_case = self.map[2][(rect_provisoire.y)//64][(rect_provisoire.x-64)//64]
+                rect_provisoire.x-=64
 
 
             if pnj_case==4:
@@ -496,13 +534,7 @@ class perso(element_anime_dir):
                                             c.open = True
 
 
-
-
-
-
-#------------------------------------------------------------------------------------------------------------------#
-
-
+#-----------------------------------------------------ENNEMI------------------------------------------------------#
 
 #Class ennemi
 class ennemi(elementgraphique):
@@ -587,91 +619,91 @@ def lecture_objet():
     objet["Lynk"]["stand_bas"]=[]
     for i in range(4):
         image=pygame.image.load("Source/Lynk/Lynk_stand_bas_"+str(i)+".png").convert_alpha()
-        image = pygame.transform.scale(image, (52, 52))
+        image = pygame.transform.scale(image, (62, 62))
         objet["Lynk"]["stand_bas"].append(image)
 
     #vers la droite
         objet["Lynk"]["stand_droite"]=[]
         for i in range(4):
             image=pygame.image.load("Source/Lynk/Lynk_stand_droite_"+str(i)+".png").convert_alpha()
-            image = pygame.transform.scale(image, (52, 52))
+            image = pygame.transform.scale(image, (62, 62))
             objet["Lynk"]["stand_droite"].append(image)
 
     #vers la gauche
         objet["Lynk"]["stand_gauche"]=[]
         for i in range(4):
             image=pygame.image.load("Source/Lynk/Lynk_stand_gauche_"+str(i)+".png").convert_alpha()
-            image = pygame.transform.scale(image, (52, 52))
+            image = pygame.transform.scale(image, (62, 62))
             objet["Lynk"]["stand_gauche"].append(image)
 
     #vers la haut
         objet["Lynk"]["stand_haut"]=[]
         for i in range(4):
             image=pygame.image.load("Source/Lynk/Lynk_stand_haut_"+str(i)+".png").convert_alpha()
-            image = pygame.transform.scale(image, (52, 52))
+            image = pygame.transform.scale(image, (62, 62))
             objet["Lynk"]["stand_haut"].append(image)
 
     #animation marche droite
     objet["Lynk"]["droite"]=[]
     for i in range(10):
       image = pygame.image.load("Source/Lynk/Lynk_walk_droite_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (52, 52))
+      image = pygame.transform.scale(image, (62, 62))
       objet["Lynk"]["droite"].append(image)
 
     #animation marche gauche
     objet["Lynk"]["gauche"]=[]
     for i in range(10):
       image = pygame.image.load("Source/Lynk/Lynk_walk_gauche_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (52, 52))
+      image = pygame.transform.scale(image, (62, 62))
       objet["Lynk"]["gauche"].append(image)
 
     #animation marche haut
     objet["Lynk"]["haut"]=[]
     for i in range(10):
       image = pygame.image.load("Source/Lynk/Lynk_walk_haut_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (52, 52))
+      image = pygame.transform.scale(image, (62, 62))
       objet["Lynk"]["haut"].append(image)
 
     #animation marche bas
     objet["Lynk"]["bas"]=[]
     for i in range(8):
       image = pygame.image.load("Source/Lynk/Lynk_walk_bas_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (52, 52))
+      image = pygame.transform.scale(image, (62, 62))
       objet["Lynk"]["bas"].append(image)
 
     #animation attaque épée
     objet["Lynk"]["hit_bas"]=[]
-    for i in range(6):
+    for i in range(8):
       image = pygame.image.load("Source/Lynk/Lynk_hit_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (52, 52))
+      image = pygame.transform.scale(image, (62, 62))
       objet["Lynk"]["hit_bas"].append(image)
 
     #animation attaque épée droite
     objet["Lynk"]["hit_droite"]=[]
     for i in range(8):
       image = pygame.image.load("Source/Lynk/Lynk_hit_droite_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (52, 52))
+      image = pygame.transform.scale(image, (62, 62))
       objet["Lynk"]["hit_droite"].append(image)
 
     #animation attaque épée gauche
     objet["Lynk"]["hit_gauche"]=[]
     for i in range(8):
       image = pygame.image.load("Source/Lynk/Lynk_hit_gauche_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (52, 52))
+      image = pygame.transform.scale(image, (62, 62))
       objet["Lynk"]["hit_gauche"].append(image)
 
     #animation attaque épée haut
     objet["Lynk"]["hit_haut"]=[]
     for i in range(8):
       image = pygame.image.load("Source/Lynk/Lynk_hit_haut_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (52, 52))
+      image = pygame.transform.scale(image, (62, 62))
       objet["Lynk"]["hit_haut"].append(image)
 
     #animation mort
     objet["Lynk"]["dead"]=[]
     for i in range(4):
         image = pygame.image.load("Source/Lynk/Lynk_dead_"+str(i)+".png").convert_alpha()
-        image = pygame.transform.scale(image, (52, 52))
+        image = pygame.transform.scale(image, (62, 62))
         objet["Lynk"]["dead"].append(image)
 
     #image ennemie

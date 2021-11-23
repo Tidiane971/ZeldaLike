@@ -18,4 +18,14 @@ def dBox(num, T):
 
 papi = pnj(fenetre,image = pygame.image.load("Source/PNJ/USE/Papi_stand_bas.png") ,x= dBox(1,Home_grid)[0]*64, y = dBox(1,Home_grid)[1]*64,text = ["Bonjour jeune homme"], inclinaison = 3)
 
+armurier = pnj(fenetre,image = pygame.image.load("Source/PNJ/USE/Male7_stand_bas.png") ,x= dBox(1,Armurerie_grid)[0]*64, y = dBox(1,Armurerie_grid)[1]*64,text = ["Voulez-vous une épée ?"], inclinaison = 3)
+
+epiciere = pnj(fenetre,image = pygame.image.load("Source/PNJ/USE/Fille5_stand_bas.png") ,x= dBox(1,Boutique_grid)[0]*64, y = dBox(1,Boutique_grid)[1]*64,text = ["Un thé, jeune homme ?"], inclinaison = 3)
+
+aubergiste = pnj(fenetre,image = pygame.image.load("Source/PNJ/USE/Male8_stand_bas.png") ,x= dBox(1,Auberge_grid)[0]*64, y = dBox(1,Auberge_grid)[1]*64,text = ["Vous cherchez un endroit ou vousr reposer ?"], inclinaison = 3)
+
+
 pnj_liste[0][0] = papi
+pnj_liste[3][0] = aubergiste
+pnj_liste[4][0] = armurier
+pnj_liste[5][0] = epiciere
