@@ -6,7 +6,7 @@ from constantes import *
 from textBank import *
 from Fonction import *
 from Warp import *
-#from Film import *
+import Film as Film
 from Map import *
 from BG import *
 
@@ -81,13 +81,17 @@ while Play:
 		if i>=55:
 			Intro = 0
 			Menu = 1
+			#Vidéo = True
 			#pygame.mixer.music.play()
 			pygame.display.flip()
 
 
 	#Intro vidéo
-	#if not visionneuse:
-		#Intro=1
+	#if Vidéo:
+		#Film()
+	#else:
+		#Vidéo=False
+		#Menu = 1
 
 
 	###########################
@@ -121,10 +125,10 @@ while Play:
 	if enJeu==1 and enPause==0:
 
 		#Boost Perso
-		if(touches[pygame.K_SPACE]):
+		if keyboard.is_pressed('space'):
 			perso.vitesse = 16
 		else:
-			perso.vitesse = 6
+			perso.vitesse = 9
 
 		#print("POS : ", perso.rect.x, perso.rect.y, ", CAM : ", perso.camerax, perso.cameray)
 		#print("WARP SORTIE GROTTE : ", Warps[2][0].rect.x, Warps[2][0].rect.y)
@@ -159,7 +163,7 @@ while Play:
 
 		perso.inventaire.afficher()
 
-		
+
 		print("PV=", perso.vie)
 		if x==2 and v>0:
 			x=0
