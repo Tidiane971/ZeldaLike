@@ -225,7 +225,7 @@ class perso(element_anime_dir):
                 if self.num_image >= len(self.images):
                     self.num_image = 0
                 self.image=self.images[self.num_image]
-                
+
             self.fenetre.blit(self.image, (self.rect.x-self.camerax, self.rect.y-self.cameray))
         else :
             self.images = self.dico_images[self.direction]
@@ -619,10 +619,11 @@ class ennemi(element_anime_dir):
 
 
         if(perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==0):
+            (perso.map[2])[self.rect.y//64][self.rect.x//64] = 0
+            (perso.map[2])[rect_provisoire.y//64][rect_provisoire.x//64] = 6
             self.rect = rect_provisoire
 
-
-        if(perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==1):
+        elif(perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==1):
             if(self.dir == "gauche"):
 
                 self.dir = "droite"
@@ -639,7 +640,9 @@ class ennemi(element_anime_dir):
     def attaque(self, perso):
         if(perso.invincible):
             self.montre+=1
+            perso.image = pygame.image.load("Source/Map/warp.png")
             if(self.montre%50==0):
+
                 perso.invincible=False
 
         if(self.rect.colliderect(perso.rect) and not perso.invincible):

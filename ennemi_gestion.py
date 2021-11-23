@@ -18,5 +18,5 @@ def dBox(num, T):
 
 
 ennemi_grotte_1 = ennemi(objet["ennemi"]["korogu"],fenetre,x=dBox(1,Grotte_grid)[0]*64 ,y=dBox(1,Grotte_grid)[1]*64,perso=perso, dir = "gauche")
-Grotte_grid[ennemi_grotte_1.rect.y//64][ennemi_grotte_1.rect.x//64] = 0;
+# Grotte_grid[ennemi_grotte_1.rect.y//64][ennemi_grotte_1.rect.x//64] = 0;
 ennemi_liste[2][0] = ennemi_grotte_1
