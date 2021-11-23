@@ -2,6 +2,7 @@
 #Importation Fichier
 from pnj_gestion import *
 from coffre_gestion import *
+from ennemi_gestion import *
 from constantes import *
 from textBank import *
 from Fonction import *
@@ -9,6 +10,7 @@ from Warp import *
 import Film as Film
 from Map import *
 from BG import *
+
 
 #Importation module
 import pygame.freetype
@@ -153,6 +155,13 @@ while Play:
 			for coffre in coffre_liste[perso.map_id]:
 				coffre.afficher(perso=perso)
 
+		#Gestion ennemie
+		if perso.map_id in map_having_ennemi:
+			for ennemi in ennemi_liste[perso.map_id]:
+				ennemi.afficher(perso=perso)
+				ennemi.deplacement( perso = perso)
+				ennemi.attaque(perso = perso)
+
 		#Gestion Dialogue
 		if(not perso.inDialog):
 			perso.deplacement(vie=perso.vie)
@@ -163,8 +172,10 @@ while Play:
 
 		perso.inventaire.afficher()
 
+		print(perso.invincible ,perso.vie)
 
-		print("PV=", perso.vie)
+
+
 		if x==2 and v>0:
 			x=0
 			pvie+=1
@@ -212,7 +223,7 @@ while Play:
 				Bouj=True
 			elif i>150:
 				i=0
-			print(i)
+
 
 			if touches[pygame.K_UP] and leave==False:
 				leave=True

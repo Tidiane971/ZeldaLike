@@ -206,6 +206,7 @@ class perso(element_anime_dir):
         self.inDialog = False
         self.pressed = False
         self.inventaire = Inventaire(fenetre = self.fenetre, perso = self )
+        self.invincible = False
 
 
     #Affichage Perso
@@ -224,7 +225,7 @@ class perso(element_anime_dir):
                 if self.num_image >= len(self.images):
                     self.num_image = 0
                 self.image=self.images[self.num_image]
-
+                
             self.fenetre.blit(self.image, (self.rect.x-self.camerax, self.rect.y-self.cameray))
         else :
             self.images = self.dico_images[self.direction]
@@ -536,39 +537,118 @@ class perso(element_anime_dir):
 
 #-----------------------------------------------------ENNEMI------------------------------------------------------#
 
-#Class ennemi
-class ennemi(elementgraphique):
-    def __init__(self, image, fenetre):
-        elementgraphique.__init__(self, image, fenetre)
-        self.vie=3
-        self.spawn=False
-        self.use=False
-
-    #Vitesse ennemi
-    def vitesse(self):
-        self.dx=1
-        self.dy=1
-
-    #Déplacement ennemi
-    def deplacement(self):
-        largeur, hauteur = self.fenetre.get_size()
-        self.rect.x+=self.dx
-        self.rect.y+=self.dy
-
-        #CrossMapping
-        if self.rect.y<0 or self.rect.y>hauteur-self.rect.h:
-            self.dy*=-1
-        if self.rect.x<0 or self.rect.x>largeur-self.rect.w:
-            self.dx*= -1
+class ennemi(element_anime_dir):
+    def __init__(self,image,fenetre,perso,x,y, dir):
+        super().__init__(image,fenetre,x,y)
+        self.vie=16
+        self.vitesse=9
+        self.attak_fin=True
+        self.attak=""
+        self.fenetre = fenetre
+        self.inDialog = False
+        self.pressed = False
+        self.perso =perso
+        self.map = map
+        self.dir = dir
+        self.montre = 0
 
 
-#def creation_ennemi(x,y):
-    #ENNEMI=[]
-    #if ROLE=1:
-        #ennemi = ennemi(objet["ennemi"][random.randint("sauteur","octorok")],window)
-        #ennemi.rect.x = random.randint(ennemi.rect.w,largeur-ennemi.rect.w)
-        #ennemi.rect.y = random.randint(ennemi.rect.h,hauteur-ennemi.rect.h)
-        #ENNEMI.append(ennemi)
+
+
+
+    #Affichage Perso
+    def afficher(self,perso):
+
+
+        if self.direction == self.old_direction :
+            self.timer += 1
+            if self.timer > self.delai:
+                self.timer=0
+                self.num_image += 1
+                if self.num_image >= len(self.images):
+                    self.num_image = 0
+                self.image=self.images[self.num_image]
+
+            self.fenetre.blit(self.image, (self.rect.x - perso.camerax, self.rect.y - perso.cameray))
+        else :
+            self.images = self.dico_images[self.direction]
+            self.num_image = 0
+            self.old_direction = self.direction
+            self.timer += 1
+            if self.timer > self.delai:
+                self.timer=0
+                self.num_image += 1
+                if self.num_image >= len(self.images):
+                    self.num_image = 0
+                self.image=self.images[self.num_image]
+
+            self.fenetre.blit(self.image, (self.rect.x - perso.camerax, self.rect.y-perso.cameray))
+
+
+    def deplacement(self, perso):
+
+
+        rect_provisoire = copy.copy(self.rect)
+
+
+
+        #Lecture Flèches
+        touches = pygame.key.get_pressed()
+        if self.dir == "gauche" :
+            self.delai = 1 #Vitesse animation
+            self.direction="gauche" #Direction perso
+            rect_provisoire.x-=self.vitesse
+
+        if self.dir == "droite":
+            self.delai = 1 #Vitesse animation
+            self.direction="droite" #Direction perso
+            rect_provisoire.x+=self.vitesse #Déplacement Focus
+
+        if self.dir == "haut":
+            self.delai = 1.5 #Vitesse animation
+            self.direction="haut" #Direction perso
+            rect_provisoire.y-=self.vitesse #Déplacement Focus
+
+
+        if self.dir == "bas":
+            self.delai = 1.5 #Vitesse animation
+            self.direction="bas" #Direction perso
+            rect_provisoire.y+=self.vitesse #Déplacement Focus
+
+
+
+
+        if(perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==0):
+            self.rect = rect_provisoire
+
+
+        if(perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==1):
+            if(self.dir == "gauche"):
+
+                self.dir = "droite"
+
+            elif(self.dir == "droite"):
+                self.dir = "gauche"
+
+            elif(self.dir == "haut"):
+                self.dir = "bas"
+
+            elif(self.dir == "bas"):
+                self.dir = "haut"
+
+    def attaque(self, perso):
+        if(perso.invincible):
+            self.montre+=1
+            if(self.montre%50==0):
+                perso.invincible=False
+
+        if(self.rect.colliderect(perso.rect) and not perso.invincible):
+            perso.vie-=2
+            perso.invincible = True
+
+
+
+
 
 
 #Dictionnaire Images
@@ -709,28 +789,37 @@ def lecture_objet():
     #image ennemie
     objet["ennemi"]={}
     objet["ennemi"]["korogu"]={}
-    objet["ennemi"]["korogu"]["walk_bas"]=[]
+    objet["ennemi"]["korogu"]["bas"]=[]
     for i in range(4):
         image = pygame.image.load("Source/Enemy/korogu/korogu_walk_bas_"+str(i)+".png").convert_alpha()
         image = pygame.transform.scale(image, (52, 52))
-        objet["ennemi"]["korogu"]["walk_bas"].append(image)
+        objet["ennemi"]["korogu"]["bas"].append(image)
 
-    objet["ennemi"]["korogu"]["walk_haut"]=[]
+    objet["ennemi"]["korogu"]["haut"]=[]
     for i in range(4):
         image = pygame.image.load("Source/Enemy/korogu/korogu_walk_haut_"+str(i)+".png").convert_alpha()
         image = pygame.transform.scale(image, (52, 52))
-        objet["ennemi"]["korogu"]["walk_haut"].append(image)
+        objet["ennemi"]["korogu"]["haut"].append(image)
 
-    objet["ennemi"]["korogu"]["walk_droite"]=[]
+    objet["ennemi"]["korogu"]["droite"]=[]
     for i in range(4):
         image = pygame.image.load("Source/Enemy/korogu/korogu_walk_droite_"+str(i)+".png").convert_alpha()
         image = pygame.transform.scale(image, (52, 52))
-        objet["ennemi"]["korogu"]["walk_droite"].append(image)
+        objet["ennemi"]["korogu"]["droite"].append(image)
 
-    objet["ennemi"]["korogu"]["walk_gauche_"]=[]
+    objet["ennemi"]["korogu"]["gauche"]=[]
     for i in range(4):
-        image = pygame.image.load("Source/Enemy/korogu/korogu_walk_droite_"+str(i)+".png").convert_alpha()
+        image = pygame.image.load("Source/Enemy/korogu/korogu_walk_gauche_"+str(i)+".png").convert_alpha()
         image = pygame.transform.scale(image, (52, 52))
-        objet["ennemi"]["korogu"]["walk_droite"].append(image)
+        objet["ennemi"]["korogu"]["gauche"].append(image)
 
     return objet
+
+
+def fill(surface, color):
+    w, h = surface.get_size()
+    r,g,b, _ = color
+    for x in range(w):
+        for y in range(h):
+            a = surface.get_at((x,y))[3]
+            surface.set_at((x,y), pygame.Color(r,g,b,a))

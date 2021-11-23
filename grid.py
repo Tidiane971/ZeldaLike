@@ -43,4 +43,4 @@ def front_grid():
     img1.putdata(newData)
     img1.save("Source/Map/auberge_font.png","PNG")
 
-front_grid()
+collision_grid()
