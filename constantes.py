@@ -11,16 +11,16 @@ CameraX=0
 CameraY=0
 
 DialogBoxes = [ [0,0],[], [] ,[], [], [], []]
-pnj_liste = [ [0],[],[],[0],[0],[0],[] ]
-coffre_liste = [ [0],[0,0],[],[],[],[],[]]
-ennemi_liste = [ [],[], [0] ,[], [], [], []]
+pnj_liste = [ [0],[0,0],[],[0],[0],[0],[] ]
+coffre_liste = [ [0],[0,0],[0,0,0],[],[],[],[]]
+ennemi_liste = [ [],[], [0,0,0,0,0] ,[], [], [], [0]]
 
 
 Intro, Menu, enJeu, GameOver = 1,0,0,0
 myfont = pygame.freetype.Font(None, 15)
-map_having_pnj = [0,3,4,5]
-map_having_coffre = [0,1]
-map_having_ennemi = [2]
+map_having_pnj = [0,1,3,4,5]
+map_having_coffre = [0,1,2]
+map_having_ennemi = [2,6]
 
 Transi = [pygame.image.load("Source/Transi/1.jpg").convert_alpha(),
           pygame.image.load("Source/Transi/2.jpg").convert_alpha(),
