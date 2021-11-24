@@ -38,4 +38,4 @@ Maps = [
 [Boss_bg,Boss_front,Salle_boss_grid,(1280,1856)],
 
 ]
-actual_map = Maps[6]
+actual_map = Maps[0]

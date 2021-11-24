@@ -46,7 +46,7 @@ for i in range(4):
 	tab_vie.append(vie)
 
 #Image Lynk
-perso = perso(objet["Lynk"],fenetre,x=350,y=500,camerax=CameraX,cameray=CameraY,map = actual_map, map_id = 6 )
+perso = perso(objet["Lynk"],fenetre,x=152,y=243,camerax=CameraX,cameray=CameraY,map = actual_map, map_id = 0 )
 z=16
 #Image curseur
 Choix=elementgraphique(objet["select"],fenetre,x=270,y=400)
