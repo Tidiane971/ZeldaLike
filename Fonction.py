@@ -161,11 +161,6 @@ class Inventaire(elementgraphique):
 
 
 
-
-
-
-
-
 #Element animé
 class element_anime(elementgraphique):
     def __init__(self, images, fenetre, x=0, y=0):
@@ -258,18 +253,7 @@ class perso(element_anime_dir):
             self.fenetre.blit(self.image, (self.rect.x-self.camerax, self.rect.y-self.cameray))
 
 
-    #Mort perso
-    #def dead(self, vie):
-        #if self.vie==0:
-            #self.direction="dead"
-        #super().afficher()
-
-    #Déplacement Perso/Focus
-#<<<<<<< Updated upstream
-    #def deplacement(self):
-#=======
     def deplacement(self, vie):
-#>>>>>>> Stashed changes
         largeur, hauteur = self.fenetre.get_size()
         rect_provisoire = copy.copy(self.rect)
         cameraxprovisoire = self.camerax
@@ -493,7 +477,6 @@ class perso(element_anime_dir):
 
 
 
-
         if self.pressed:
             pnj_case = 0
             if(self.direction == "stand_haut"):
@@ -601,11 +584,6 @@ class ennemi(element_anime_dir):
 
 
 
-
-
-
-
-
     #Affichage
     def afficher(self,perso):
 
@@ -637,10 +615,7 @@ class ennemi(element_anime_dir):
 
     def deplacement(self, perso):
 
-
         rect_provisoire = copy.copy(self.rect)
-
-
 
         #Lecture Flèches
         touches = pygame.key.get_pressed()
@@ -666,14 +641,10 @@ class ennemi(element_anime_dir):
             rect_provisoire.y+=self.vitesse #Déplacement Focus
 
 
-
-
         if(perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==0 or perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==6):
             (perso.map[2])[self.rect.y//64][self.rect.x//64] = 0
             self.rect = rect_provisoire
             (perso.map[2])[rect_provisoire.y//64][rect_provisoire.x//64] = 6
-
-
 
 
         elif(perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==1):
@@ -705,13 +676,6 @@ class ennemi(element_anime_dir):
 
 
 
-
-
-
-
-
-
-
 #Dictionnaire Images
 def lecture_objet():
     objet={}
@@ -737,20 +701,6 @@ def lecture_objet():
     image=pygame.image.load("Source/Lynk/heart/heart_4.png").convert_alpha()
     image = pygame.transform.scale(image, (52, 52))
     objet["heart_4"]=image
-
-    #coeur à ramasser
-    image=pygame.image.load("Source/Lynk/heart_object/life_object_0.png").convert_alpha()
-    image = pygame.transform.scale(image, (52, 52))
-    objet["vie_0"]=image
-    image=pygame.image.load("Source/Lynk/heart_object/life_object_1.png").convert_alpha()
-    image = pygame.transform.scale(image, (52, 52))
-    objet["vie_1"]=image
-    image=pygame.image.load("Source/Lynk/heart_object/life_object_2.png").convert_alpha()
-    image = pygame.transform.scale(image, (52, 52))
-    objet["vie_2"]=image
-    image=pygame.image.load("Source/Lynk/heart_object/life_object_3.png").convert_alpha()
-    image = pygame.transform.scale(image, (52, 52))
-    objet["vie_3"]=image
 
 
     #animation Lynk
@@ -816,28 +766,28 @@ def lecture_objet():
     objet["Lynk"]["hit_bas"]=[]
     for i in range(6):
       image = pygame.image.load("Source/Lynk/tape/LINKtapebas_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (62, 62))
+      image = pygame.transform.scale(image, (102, 102))
       objet["Lynk"]["hit_bas"].append(image)
 
     #animation attaque épée droite
     objet["Lynk"]["hit_droite"]=[]
     for i in range(7):
       image = pygame.image.load("Source/Lynk/tape/LINKtapedroite_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (62, 62))
+      image = pygame.transform.scale(image, (102, 102))
       objet["Lynk"]["hit_droite"].append(image)
 
     #animation attaque épée gauche
     objet["Lynk"]["hit_gauche"]=[]
     for i in range(7):
       image = pygame.image.load("Source/Lynk/tape/LINKtapegauche_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (62, 62))
+      image = pygame.transform.scale(image, (102, 102))
       objet["Lynk"]["hit_gauche"].append(image)
 
     #animation attaque épée haut
     objet["Lynk"]["hit_haut"]=[]
     for i in range(6):
       image = pygame.image.load("Source/Lynk/tape/LINKtapehaut_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (62, 62))
+      image = pygame.transform.scale(image, (102, 102))
       objet["Lynk"]["hit_haut"].append(image)
 
     #animation mort
@@ -847,7 +797,7 @@ def lecture_objet():
         image = pygame.transform.scale(image, (62, 62))
         objet["Lynk"]["dead"].append(image)
 
-    #image ennemie
+    #image korogu
     objet["ennemi"]={}
     objet["ennemi"]["korogu"]={}
     objet["ennemi"]["korogu"]["bas"]=[]
@@ -874,6 +824,7 @@ def lecture_objet():
         image = pygame.transform.scale(image, (52, 52))
         objet["ennemi"]["korogu"]["gauche"].append(image)
 
+    #image Boss
     objet["ennemi"]["boss"]={}
     objet["ennemi"]["boss"]["bas"]=[]
 
@@ -898,8 +849,6 @@ def lecture_objet():
     image = pygame.image.load("Source/PNJ/Boss/boss_all.png").convert_alpha()
     image = pygame.transform.scale(image, (150, 150))
     objet["ennemi"]["boss"]["gauche"].append(image)
-
-
 
 
     return objet
