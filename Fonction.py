@@ -627,6 +627,7 @@ class perso(element_anime_dir):
                 self.inDialog = False
 
 
+
         if self.pressed:
             pnj_case = 0
             if(self.direction == "stand_haut"):
@@ -644,23 +645,24 @@ class perso(element_anime_dir):
 
 
             if pnj_case==5:
+
                 for coffre in COFFRES:
                     for c in coffre:
-                        if c.open == False:
+                        if c.open == False or self.inDialog:
                             if(rect_provisoire.colliderect(c.rect)):
                                 if not c.open:
-
-                                    self.fenetre.blit(boxImage, rectBox)
-                                    myfont.render_to(self.fenetre, (152,452),"Vous avez trouvé " + c.objet.nom+ " !", (0,0,0))
+                                    self.inventaire.contenu.append(c.objet)
+                                    c.open = True
 
                                     if c.inclinaison ==3:
                                         c.image = pygame.image.load("Source/Autre/Chest/chest_open_bas.png")
                                         c.image = pygame.transform.scale(c.image, (60,60))
+                                        
+                                self.inDialog = True
+                                self.fenetre.blit(boxImage, rectBox)
+                                myfont.render_to(self.fenetre, (152,452),"Vous avez trouvé " + c.objet.nom+ " !", (0,0,0))
 
 
-                                        if touches[pygame.K_q]:
-                                            self.inventaire.contenu.append(c.objet)
-                                            c.open = True
 
 
 #-----------------------------------------------------ENNEMI------------------------------------------------------#

@@ -166,17 +166,6 @@ while Play:
 				pnj.afficher(perso = perso)
 		perso.map[1].afficher(perso.camerax,perso.cameray)
 
-
-		#Gestion ennemis
-		if perso.map_id in map_having_ennemi:
-			for ennemi in ennemi_liste[perso.map_id]:
-				if ennemi.vie > 0:
-					ennemi.afficher(perso=perso)
-					ennemi.deplacement( perso = perso)
-					ennemi.attaque(perso = perso)
-				else:
-					perso.map[2][ennemi.rect.y//64][ennemi.rect.x//64] =0
-
 		#Déplacer perso
 		if(not perso.inDialog):
 			perso.deplacement(vie=perso.vie, ennemiL=ennemi_liste[perso.map_id])
@@ -193,7 +182,15 @@ while Play:
 			for coffre in coffre_liste[perso.map_id]:
 				coffre.afficher(perso=perso)
 
-
+		#Gestion ennemis
+		if perso.map_id in map_having_ennemi:
+			for ennemi in ennemi_liste[perso.map_id]:
+				if ennemi.vie > 0:
+					ennemi.afficher(perso=perso)
+					ennemi.deplacement( perso = perso)
+					ennemi.attaque(perso = perso)
+				else:
+					perso.map[2][ennemi.rect.y//64][ennemi.rect.x//64] =0
 
 
 
@@ -230,8 +227,6 @@ while Play:
 
 		for w in range(4):
 			tab_vie[w].afficher()
-
-		print(perso.map_id)
 
 
 
