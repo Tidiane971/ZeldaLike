@@ -231,11 +231,7 @@ class perso(element_anime_dir):
             self.attak_fin=True
             self.direction=self.attak.replace("hit_", "stand_")
             self.attak=""
-<<<<<<< Updated upstream
 
-=======
-            #print(self.direction)
->>>>>>> Stashed changes
 
         if self.direction == self.old_direction :
             self.timer += 1

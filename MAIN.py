@@ -84,6 +84,7 @@ while Play:
 			Intro = 0
 			import Film as Film
 			Menu = 1
+			pygame.mixer.music.load("Source/Musique_&_Son/intro_theme1.ogg")
 			pygame.mixer.music.play()
 
 
@@ -195,11 +196,8 @@ while Play:
 			tab_vie[w].afficher()
 
 
-<<<<<<< Updated upstream
 
-
-		if perso.vie<=0:
-=======
+		#if perso.vie<=0:
 		#Gestion Dégat
 		#if x==2 and v>0:
 			#x=0
@@ -212,7 +210,6 @@ while Play:
 				#pvie=0
 				#pass
 		#elif perso.vie<=0:
->>>>>>> Stashed changes
 			#perso.dead(vie=perso.vie) ---- Animation mort raté
 			#GameOver=1
 			#enJeu = 0
