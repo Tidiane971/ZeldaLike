@@ -814,29 +814,29 @@ def lecture_objet():
 
     #animation attaque épée
     objet["Lynk"]["hit_bas"]=[]
-    for i in range(8):
-      image = pygame.image.load("Source/Lynk/Lynk_hit_"+str(i)+".png").convert_alpha()
+    for i in range(6):
+      image = pygame.image.load("Source/Lynk/tape/LINKtapebas_"+str(i)+".png").convert_alpha()
       image = pygame.transform.scale(image, (62, 62))
       objet["Lynk"]["hit_bas"].append(image)
 
     #animation attaque épée droite
     objet["Lynk"]["hit_droite"]=[]
-    for i in range(8):
-      image = pygame.image.load("Source/Lynk/Lynk_hit_droite_"+str(i)+".png").convert_alpha()
+    for i in range(7):
+      image = pygame.image.load("Source/Lynk/tape/LINKtapedroite_"+str(i)+".png").convert_alpha()
       image = pygame.transform.scale(image, (62, 62))
       objet["Lynk"]["hit_droite"].append(image)
 
     #animation attaque épée gauche
     objet["Lynk"]["hit_gauche"]=[]
-    for i in range(8):
-      image = pygame.image.load("Source/Lynk/Lynk_hit_gauche_"+str(i)+".png").convert_alpha()
+    for i in range(7):
+      image = pygame.image.load("Source/Lynk/tape/LINKtapegauche_"+str(i)+".png").convert_alpha()
       image = pygame.transform.scale(image, (62, 62))
       objet["Lynk"]["hit_gauche"].append(image)
 
     #animation attaque épée haut
     objet["Lynk"]["hit_haut"]=[]
-    for i in range(8):
-      image = pygame.image.load("Source/Lynk/Lynk_hit_haut_"+str(i)+".png").convert_alpha()
+    for i in range(6):
+      image = pygame.image.load("Source/Lynk/tape/LINKtapehaut_"+str(i)+".png").convert_alpha()
       image = pygame.transform.scale(image, (62, 62))
       objet["Lynk"]["hit_haut"].append(image)
 

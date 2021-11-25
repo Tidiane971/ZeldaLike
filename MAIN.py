@@ -84,7 +84,12 @@ while Play:
 			Intro = 0
 			import Film as Film
 			Menu = 1
+<<<<<<< HEAD
 			# pygame.mixer.music.play()
+=======
+			pygame.mixer.music.load("Source/Musique_&_Son/intro_theme1.ogg")
+			pygame.mixer.music.play()
+>>>>>>> 1db3b383f5b9b906cab3116e3d5197e6f4da967b
 
 
 	###########################
@@ -196,9 +201,13 @@ while Play:
 
 
 
+<<<<<<< HEAD
 
 		# if perso.vie<=0:
 
+=======
+		#if perso.vie<=0:
+>>>>>>> 1db3b383f5b9b906cab3116e3d5197e6f4da967b
 		#Gestion Dégat
 		#if x==2 and v>0:
 			#x=0
@@ -211,7 +220,10 @@ while Play:
 				#pvie=0
 				#pass
 		#elif perso.vie<=0:
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1db3b383f5b9b906cab3116e3d5197e6f4da967b
 			#perso.dead(vie=perso.vie) ---- Animation mort raté
 			#GameOver=1
 			#enJeu = 0
