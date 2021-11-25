@@ -1,4 +1,4 @@
-#Code principal jeu
+#PROGAMME PRINCIPAL
 #Importation Fichier
 from pnj_gestion import *
 from coffre_gestion import *
@@ -8,10 +8,8 @@ from constantes import *
 from textBank import *
 from Fonction import *
 from Warp import *
-import Film as Film
 from Map import *
 from BG import *
-
 
 #Importation module
 import pygame.freetype
@@ -52,10 +50,11 @@ z=16
 Choix=elementgraphique(objet["select"],fenetre,x=270,y=400)
 
 korogu_tab=[]
+
 #----------VARIABLES UTILES
 i=0
-Play=True
 YES=True
+Play=True
 leave=False
 Intro,Menu,enJeu,enPause,flipper,GameOver=1,0,0,0,0,0
 
@@ -63,7 +62,6 @@ Intro,Menu,enJeu,enPause,flipper,GameOver=1,0,0,0,0,0
 while Play:
 
 	i+=1
-	#print(i)
 	temps.tick(30)
 
 	# Lecture clavier
@@ -84,18 +82,9 @@ while Play:
 
 		if i>=55:
 			Intro = 0
+			import Film as Film
 			Menu = 1
-			#Vidéo = True
-			#pygame.mixer.music.play()
-			pygame.display.flip()
-
-
-	#Intro vidéo
-	#if Vidéo:
-		#Film()
-	#else:
-		#Vidéo=False
-		#Menu = 1
+			pygame.mixer.music.play()
 
 
 	###########################
@@ -104,8 +93,6 @@ while Play:
 
 	if Menu:
 		menu_background.afficher()
-		#play_button.afficher()
-		#play_button.click()
 
 		#Gestion start
 		if i<=35:
@@ -143,7 +130,6 @@ while Play:
 		perso.map = actual_map
 
 
-
 		#Affichage perso
 		perso.map[0].afficher(perso.camerax,perso.cameray)
 		perso.afficher()
@@ -151,7 +137,6 @@ while Play:
 			for pnj in pnj_liste[perso.map_id]:
 				pnj.afficher(perso = perso)
 		perso.map[1].afficher(perso.camerax,perso.cameray)
-
 
 		#Gestion coffre
 		if perso.map_id in map_having_coffre:
@@ -168,6 +153,8 @@ while Play:
 		#Gestion Dialogue
 		if(not perso.inDialog):
 			perso.deplacement(vie=perso.vie)
+
+		#Gestion Dialogue
 		perso.read(DB = DialogBoxes)
 		perso.talk(PNG = pnj_liste)
 		perso.open(COFFRES = coffre_liste)
@@ -176,6 +163,7 @@ while Play:
 			print("dedans")
 
 
+		#Gestion Inventaire
 		perso.inventaire.afficher()
 		mouse_pos = pygame.mouse.get_pos()
 
@@ -207,12 +195,27 @@ while Play:
 			tab_vie[w].afficher()
 
 
+<<<<<<< Updated upstream
 
 
 		if perso.vie<=0:
+=======
+		#Gestion Dégat
+		#if x==2 and v>0:
+			#x=0
+			#pvie+=1
+			#perso.vie-=1 #perso.vie-Ennemi.attak
+			#vie=elementgraphique(objet["heart_"+str(pvie)],fenetre,x=10+50*(v-1),y=10)
+			#tab_vie[v-1]=vie
+			#if pvie==4: #Changement coeur
+				#v-=1
+				#pvie=0
+				#pass
+		#elif perso.vie<=0:
+>>>>>>> Stashed changes
 			#perso.dead(vie=perso.vie) ---- Animation mort raté
-			GameOver=1
-			enJeu = 0
+			#GameOver=1
+			#enJeu = 0
 
 
 
@@ -294,13 +297,6 @@ while Play:
 		#Gestion coeurs
 		for w in range(4):
 			tab_vie[w].afficher()
-
-
-		#GameOver programmer
-		#x+=1
-		#if x>=100:
-			#GameOver=1
-			#enJeu = 0
 
 
 	##################################

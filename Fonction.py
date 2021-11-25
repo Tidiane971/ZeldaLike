@@ -231,7 +231,11 @@ class perso(element_anime_dir):
             self.attak_fin=True
             self.direction=self.attak.replace("hit_", "stand_")
             self.attak=""
+<<<<<<< Updated upstream
 
+=======
+            #print(self.direction)
+>>>>>>> Stashed changes
 
         if self.direction == self.old_direction :
             self.timer += 1
@@ -319,10 +323,9 @@ class perso(element_anime_dir):
             self.camerax = self.rect.x-(largeur//2)
             self.cameray = self.rect.y-(hauteur//2)
 
-
-
         #else:
             #print("BLOQUER")
+
 
         #Perso attaque
         if touches[pygame.K_a] and self.direction=="stand_bas":
@@ -607,7 +610,7 @@ class ennemi(element_anime_dir):
 
 
 
-    #Affichage Perso
+    #Affichage
     def afficher(self,perso):
 
 
