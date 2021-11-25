@@ -7,7 +7,6 @@ from objet_gestion import *
 from constantes import *
 from textBank import *
 from Fonction import *
-from Warp import *
 from Map import *
 from BG import *
 
@@ -29,7 +28,7 @@ pygame.display.set_caption("L'épopée_de_Lynk.exe")
 temps=pygame.time.Clock()
 
 #Définition musique
-# pygame.mixer.music.load("Source/Musique_&_Son/intro_theme1.ogg")
+pygame.mixer.music.load("Source/Musique_&_Son/intro_theme1.ogg")
 
 
 #--------LECTURE DES IMAGES
@@ -53,10 +52,9 @@ korogu_tab=[]
 
 #----------VARIABLES UTILES
 i=0
-YES=True
-Play=True
-leave=False
-Intro,Menu,enJeu,enPause,flipper,GameOver=1,0,0,0,0,0
+Play,YES=True,True
+leave,Chanj=False,False
+Intro,Menu,enJeu,Old_id,enPause,flipper,GameOver=1,0,0,0,0,0,0
 
 #Boucle jeu
 while Play:
@@ -79,12 +77,15 @@ while Play:
 
 	if Intro:
 		intro_background.afficher()
-
+		
 		if i>=55:
+			NOIR.afficher()
 			Intro = 0
+			pygame.display.flip()
+			pygame.mixer.music.load("Source/Musique_&_Son/intro_theme2.ogg")
+			pygame.mixer.music.play()
 			import Film as Film
 			Menu = 1
-			# pygame.mixer.music.play()
 			pygame.mixer.music.load("Source/Musique_&_Son/intro_theme1.ogg")
 			pygame.mixer.music.play()
 
@@ -106,8 +107,8 @@ while Play:
 		if play_button.isClicked or touches[pygame.K_RETURN]:
 			Menu,x,v = 0,0,4
 			enJeu = 1
-			# pygame.mixer.music.load("Source/Musique_&_Son/Village.ogg")
-			# pygame.mixer.music.play()
+			pygame.mixer.music.load("Source/Musique_&_Son/House_Theme.ogg")
+			pygame.mixer.music.play()
 			pygame.display.flip()
 
 
@@ -131,6 +132,28 @@ while Play:
 		actual_map = Maps[perso.map_id]
 		perso.map = actual_map
 
+		#Gestion Musique
+		if Old_id!=perso.map_id:
+			pygame.mixer.music.stop()
+			Old_id=perso.map_id
+			Chanj=True
+
+		if Old_id==0 and Chanj==True:
+			pygame.mixer.music.load("Source/Musique_&_Son/House_Theme.ogg")
+		elif Old_id==1 and Chanj==True:
+			pygame.mixer.music.load("Source/Musique_&_Son/Village.ogg")
+		elif perso.map_id==2 and Chanj==True:
+			pygame.mixer.music.load("Source/Musique_&_Son/Donjon_Theme.ogg")
+		elif perso.map_id==3 and Chanj==True:
+			pygame.mixer.music.load("Source/Musique_&_Son/Autre_Theme.ogg")
+		elif perso.map_id==4 and Chanj==True:
+			pygame.mixer.music.load("Source/Musique_&_Son/Autre_Theme.ogg")
+		elif perso.map_id==5 and Chanj==True:
+			pygame.mixer.music.load("Source/Musique_&_Son/Autre_Theme.ogg")
+
+		if Chanj==True:
+			pygame.mixer.music.play()
+			Chanj=False
 
 		#Affichage perso
 		perso.map[0].afficher(perso.camerax,perso.cameray)
@@ -140,19 +163,7 @@ while Play:
 				pnj.afficher(perso = perso)
 		perso.map[1].afficher(perso.camerax,perso.cameray)
 
-		#Gestion coffre
-		if perso.map_id in map_having_coffre:
-			for coffre in coffre_liste[perso.map_id]:
-				coffre.afficher(perso=perso)
-
-		#Gestion ennemie
-		if perso.map_id in map_having_ennemi:
-			for ennemi in ennemi_liste[perso.map_id]:
-				ennemi.afficher(perso=perso)
-				ennemi.deplacement( perso = perso)
-				ennemi.attaque(perso = perso)
-
-		#Gestion Dialogue
+		#Déplacer perso
 		if(not perso.inDialog):
 			perso.deplacement(vie=perso.vie)
 
@@ -161,7 +172,23 @@ while Play:
 		perso.talk(PNG = pnj_liste)
 		perso.open(COFFRES = coffre_liste)
 		perso.warping(objet_dict = objet_dict)
+
+		#Gestion coffre
+		if perso.map_id in map_having_coffre:
+			for coffre in coffre_liste[perso.map_id]:
+				coffre.afficher(perso=perso)
+
+		#Gestion ennemis
+		if perso.map_id in map_having_ennemi:
+			for ennemi in ennemi_liste[perso.map_id]:
+				ennemi.afficher(perso=perso)
+				ennemi.deplacement( perso = perso)
+				ennemi.attaque(perso = perso)
+
+		#Gestion Donjon
 		if(objet_dict["Clé1"] in perso.inventaire.contenu and objet_dict["Clé2"] in perso.inventaire.contenu and objet_dict["Clé3"] in perso.inventaire.contenu ):
+			pygame.mixer.music.load("Source/Musique_&_Son/Boss_Theme.ogg")
+			pygame.mixer.music.play()
 			print("dedans")
 
 
@@ -175,7 +202,6 @@ while Play:
 
 
 	    #GESTION DE VIE
-
 		entier = int(str(perso.vie//4)[0])
 		valeur_virgule =  int(str(((perso.vie / 4) - entier) *4)[0])
 
@@ -193,37 +219,9 @@ while Play:
 
 		for j in range(entier+virgule,4):
 			tab_vie[j] = elementgraphique(objet["heart_4"],fenetre,x=10+50*(j),y=10)
+
 		for w in range(4):
 			tab_vie[w].afficher()
-
-
-
-
-		# if perso.vie<=0:
-
-		#if perso.vie<=0:
-		#Gestion Dégat
-		#if x==2 and v>0:
-			#x=0
-			#pvie+=1
-			#perso.vie-=1 #perso.vie-Ennemi.attak
-			#vie=elementgraphique(objet["heart_"+str(pvie)],fenetre,x=10+50*(v-1),y=10)
-			#tab_vie[v-1]=vie
-			#if pvie==4: #Changement coeur
-				#v-=1
-				#pvie=0
-				#pass
-		#elif perso.vie<=0:
-
-			#perso.dead(vie=perso.vie) ---- Animation mort raté
-			#GameOver=1
-			#enJeu = 0
-
-
-
-
-
-
 
 
 		#----------Activer Pause

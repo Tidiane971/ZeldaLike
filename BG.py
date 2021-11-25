@@ -7,6 +7,10 @@ background_intro = pygame.image.load("Source/Menu/TiMaWy.png").convert_alpha()
 background_intro = pygame.transform.scale(background_intro, (largeur,hauteur))
 intro_background = elementgraphique(background_intro, fenetre)
 
+noir = pygame.image.load("Source/Menu/FondNoir.png").convert_alpha()
+noir = pygame.transform.scale(noir, (largeur,hauteur))
+NOIR = elementgraphique(noir, fenetre)
+
 #CREATION DE L'IMAGE DE FOND
 background_img = pygame.image.load("Source/Menu/Menu.png").convert_alpha()
 background_img = pygame.transform.scale(background_img, (largeur,hauteur))
