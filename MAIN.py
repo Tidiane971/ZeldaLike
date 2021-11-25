@@ -150,6 +150,9 @@ while Play:
 			pygame.mixer.music.load("Source/Musique_&_Son/Autre_Theme.ogg")
 		elif perso.map_id==5 and Chanj==True:
 			pygame.mixer.music.load("Source/Musique_&_Son/Autre_Theme.ogg")
+		elif perso.map_id==6 and Chanj == True:
+			pygame.mixer.music.load("Source/Musique_&_Son/Boss_Theme.ogg")
+
 
 		if Chanj==True:
 			pygame.mixer.music.play()
@@ -163,9 +166,20 @@ while Play:
 				pnj.afficher(perso = perso)
 		perso.map[1].afficher(perso.camerax,perso.cameray)
 
+
+		#Gestion ennemis
+		if perso.map_id in map_having_ennemi:
+			for ennemi in ennemi_liste[perso.map_id]:
+				if ennemi.vie > 0:
+					ennemi.afficher(perso=perso)
+					ennemi.deplacement( perso = perso)
+					ennemi.attaque(perso = perso)
+				else:
+					perso.map[2][ennemi.rect.y//64][ennemi.rect.x//64] =0
+
 		#Déplacer perso
 		if(not perso.inDialog):
-			perso.deplacement(vie=perso.vie)
+			perso.deplacement(vie=perso.vie, ennemiL=ennemi_liste[perso.map_id])
 
 		#Gestion Dialogue
 		perso.read(DB = DialogBoxes)
@@ -173,23 +187,17 @@ while Play:
 		perso.open(COFFRES = coffre_liste)
 		perso.warping(objet_dict = objet_dict)
 
+
 		#Gestion coffre
 		if perso.map_id in map_having_coffre:
 			for coffre in coffre_liste[perso.map_id]:
 				coffre.afficher(perso=perso)
 
-		#Gestion ennemis
-		if perso.map_id in map_having_ennemi:
-			for ennemi in ennemi_liste[perso.map_id]:
-				ennemi.afficher(perso=perso)
-				ennemi.deplacement( perso = perso)
-				ennemi.attaque(perso = perso)
 
-		#Gestion Donjon
-		if(objet_dict["Clé1"] in perso.inventaire.contenu and objet_dict["Clé2"] in perso.inventaire.contenu and objet_dict["Clé3"] in perso.inventaire.contenu ):
-			pygame.mixer.music.load("Source/Musique_&_Son/Boss_Theme.ogg")
-			pygame.mixer.music.play()
-			print("dedans")
+
+
+
+
 
 
 		#Gestion Inventaire
@@ -223,8 +231,10 @@ while Play:
 		for w in range(4):
 			tab_vie[w].afficher()
 
+		print(perso.map_id)
 
-<<<<<<< HEAD
+
+
 
 
 		# if perso.vie<=0:
@@ -256,8 +266,6 @@ while Play:
 
 
 
-=======
->>>>>>> 6b1cb5dbe259b3636161e87ecdbb098dfaf957f5
 		#----------Activer Pause
 		if keyboard.is_pressed('p'):
 			enPause=1

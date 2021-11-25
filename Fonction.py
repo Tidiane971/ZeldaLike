@@ -253,7 +253,7 @@ class perso(element_anime_dir):
             self.fenetre.blit(self.image, (self.rect.x-self.camerax, self.rect.y-self.cameray))
 
 
-    def deplacement(self, vie):
+    def deplacement(self, vie, ennemiL):
         largeur, hauteur = self.fenetre.get_size()
         rect_provisoire = copy.copy(self.rect)
         cameraxprovisoire = self.camerax
@@ -308,29 +308,124 @@ class perso(element_anime_dir):
 
 
         #Perso attaque
-        if touches[pygame.K_a] and self.direction=="stand_bas":
+        if touches[pygame.K_a] and self.direction=="stand_bas" or  touches[pygame.K_a] and self.direction=="bas":
             self.delai=1
             self.attak="hit_bas"
             self.direction="hit_bas"
             self.attak_fin=False
+            attack_rect = copy.copy(self.rect)
+            attack_rect.y += 64
 
-        if touches[pygame.K_a] and self.direction=="stand_haut":
+            if(self.map[2][attack_rect.y//64][attack_rect.x//64]==6 or
+               self.map[2][attack_rect.y//64][(attack_rect.x+52)//64]==6 or
+               self.map[2][(attack_rect.y+52)//64][attack_rect.x//64]==6 or
+               self.map[2][(attack_rect.y+52)//64][(attack_rect.x+52)//64]==6):
+                if self.map_id in map_having_ennemi:
+
+                    for ennemi in ennemiL:
+                        if(attack_rect.colliderect(ennemi.rect) and not ennemi.invincible):
+                                ennemi.vie-=4
+                                global b
+                                b = pygame.time.get_ticks()
+                                ennemi.invincible = True
+                                print(ennemi.vie)
+
+
+
+
+
+
+
+        if touches[pygame.K_a] and self.direction=="stand_haut" or  touches[pygame.K_a] and self.direction=="haut":
             self.delai=1
             self.attak="hit_haut"
             self.direction="hit_haut"
             self.attak_fin=False
+            attack_rect = copy.copy(self.rect)
+            attack_rect.y -= 64
 
-        if touches[pygame.K_a] and self.direction=="stand_gauche":
+            if(self.map[2][attack_rect.y//64][attack_rect.x//64]==6 or
+               self.map[2][attack_rect.y//64][(attack_rect.x+52)//64]==6 or
+               self.map[2][(attack_rect.y+52)//64][attack_rect.x//64]==6 or
+               self.map[2][(attack_rect.y+52)//64][(attack_rect.x+52)//64]==6):
+
+                if self.map_id in map_having_ennemi:
+                    for ennemi in ennemiL:
+                        if(attack_rect.colliderect(ennemi.rect)):
+                            for ennemi in ennemiL:
+                                if(attack_rect.colliderect(ennemi.rect) and not ennemi.invincible):
+                                        ennemi.vie-=4
+
+                                        b = pygame.time.get_ticks()
+                                        ennemi.invincible = True
+                                        print(ennemi.vie)
+
+
+        if touches[pygame.K_a] and self.direction=="stand_gauche" or  touches[pygame.K_a] and self.direction=="gauche":
             self.delai=1
             self.attak="hit_gauche"
             self.direction="hit_gauche"
             self.attak_fin=False
+            attack_rect = copy.copy(self.rect)
+            attack_rect.x -= 64
 
-        if touches[pygame.K_a] and self.direction=="stand_droite":
+            if(self.map[2][attack_rect.y//64][attack_rect.x//64]==6 or
+               self.map[2][attack_rect.y//64][(attack_rect.x+52)//64]==6 or
+               self.map[2][(attack_rect.y+52)//64][attack_rect.x//64]==6 or
+               self.map[2][(attack_rect.y+52)//64][(attack_rect.x+52)//64]==6):
+
+                if self.map_id in map_having_ennemi:
+
+                    for ennemi in ennemiL:
+                        if(attack_rect.colliderect(ennemi.rect)):
+                            for ennemi in ennemiL:
+                                if(attack_rect.colliderect(ennemi.rect) and not ennemi.invincible):
+                                        ennemi.vie-=4
+
+                                        b = pygame.time.get_ticks()
+                                        ennemi.invincible = True
+                                        print(ennemi.vie)
+
+
+
+
+
+        if touches[pygame.K_a] and self.direction=="stand_droite" or  touches[pygame.K_a] and self.direction=="droite":
             self.delai=1
             self.attak="hit_droite"
             self.direction="hit_droite"
             self.attak_fin=False
+            attack_rect = copy.copy(self.rect)
+            attack_rect.x += 64
+
+            if(self.map[2][attack_rect.y//64][attack_rect.x//64]==6 or
+               self.map[2][attack_rect.y//64][(attack_rect.x+52)//64]==6 or
+               self.map[2][(attack_rect.y+52)//64][attack_rect.x//64]==6 or
+               self.map[2][(attack_rect.y+52)//64][(attack_rect.x+52)//64]==6):
+
+                if self.map_id in map_having_ennemi:
+
+                    for ennemi in ennemiL:
+                        if(attack_rect.colliderect(ennemi.rect)):
+                            for ennemi in ennemiL:
+                                if(attack_rect.colliderect(ennemi.rect) and not ennemi.invincible):
+                                        ennemi.vie-=4
+
+                                        b = pygame.time.get_ticks()
+                                        ennemi.invincible = True
+                                        print(ennemi.vie)
+
+
+        if self.map_id in map_having_ennemi:
+            for ennemi in ennemiL:
+                if(ennemi.invincible):
+                    ennemi.image = pygame.image.load("Source/Map/warp.png")
+                    if( pygame.time.get_ticks() - b > 2500):
+                        ennemi.invincible=False
+
+
+
+
 
         if self.rect.x<0:
             self.rect.x=0
@@ -373,6 +468,7 @@ class perso(element_anime_dir):
         if int(str(warp_case)[0]) == 2:
 
             if(len(str(warp_case))<8):
+
                 for fondu in Transi:
                     self.fenetre.blit(fondu, (0,0))
                     pygame.display.flip()
@@ -397,6 +493,7 @@ class perso(element_anime_dir):
                 self.camerax = self.rect.x-(largeur//2)
                 self.cameray = self.rect.y-(hauteur//2)
             else:
+
 
                 if(objet_dict["Clé1"] in self.inventaire.contenu and objet_dict["Clé2"] in self.inventaire.contenu and objet_dict["Clé3"] in self.inventaire.contenu ):
                     for fondu in Transi:
@@ -507,7 +604,7 @@ class perso(element_anime_dir):
                             self.fenetre.blit(boxImage, rectBox)
                             myfont.render_to(self.fenetre, (152,432), p.text[0], (0,0,0))
                             if len(p.text)>1:
-                                myfont.render_to(self.fenetre, (152,462), p.text[1], (0,0,0))
+                                myfont.render_to(self.fenetre, (152,451), p.text[1], (0,0,0))
                             if len(p.text)>2:
 
                                 myfont.render_to(self.fenetre, (152,492), p.text[2], (0,0,0))
@@ -581,6 +678,7 @@ class ennemi(element_anime_dir):
         self.perso =perso
         self.map = map
         self.dir = dir
+        self.invincible = False
 
 
 
@@ -662,7 +760,7 @@ class ennemi(element_anime_dir):
                 self.dir = "haut"
 
     def attaque(self, perso):
-        if(self.rect.colliderect(perso.rect) and not perso.invincible):
+        if(self.rect.colliderect(perso.rect) and not perso.invincible and not self.invincible):
             perso.vie-=1
             global a
             a = pygame.time.get_ticks()
@@ -710,56 +808,56 @@ def lecture_objet():
     objet["Lynk"]["stand_bas"]=[]
     for i in range(4):
         image=pygame.image.load("Source/Lynk/Lynk_stand_bas_"+str(i)+".png").convert_alpha()
-        image = pygame.transform.scale(image, (62, 62))
+        image = pygame.transform.scale(image, (51, 51))
         objet["Lynk"]["stand_bas"].append(image)
 
     #vers la droite
         objet["Lynk"]["stand_droite"]=[]
         for i in range(4):
             image=pygame.image.load("Source/Lynk/Lynk_stand_droite_"+str(i)+".png").convert_alpha()
-            image = pygame.transform.scale(image, (62, 62))
+            image = pygame.transform.scale(image, (51, 51))
             objet["Lynk"]["stand_droite"].append(image)
 
     #vers la gauche
         objet["Lynk"]["stand_gauche"]=[]
         for i in range(4):
             image=pygame.image.load("Source/Lynk/Lynk_stand_gauche_"+str(i)+".png").convert_alpha()
-            image = pygame.transform.scale(image, (62, 62))
+            image = pygame.transform.scale(image, (51, 51))
             objet["Lynk"]["stand_gauche"].append(image)
 
     #vers la haut
         objet["Lynk"]["stand_haut"]=[]
         for i in range(4):
             image=pygame.image.load("Source/Lynk/Lynk_stand_haut_"+str(i)+".png").convert_alpha()
-            image = pygame.transform.scale(image, (62, 62))
+            image = pygame.transform.scale(image, (51, 51))
             objet["Lynk"]["stand_haut"].append(image)
 
     #animation marche droite
     objet["Lynk"]["droite"]=[]
     for i in range(10):
       image = pygame.image.load("Source/Lynk/Lynk_walk_droite_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (62, 62))
+      image = pygame.transform.scale(image, (51, 51))
       objet["Lynk"]["droite"].append(image)
 
     #animation marche gauche
     objet["Lynk"]["gauche"]=[]
     for i in range(10):
       image = pygame.image.load("Source/Lynk/Lynk_walk_gauche_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (62, 62))
+      image = pygame.transform.scale(image, (51, 51))
       objet["Lynk"]["gauche"].append(image)
 
     #animation marche haut
     objet["Lynk"]["haut"]=[]
     for i in range(10):
       image = pygame.image.load("Source/Lynk/Lynk_walk_haut_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (62, 62))
+      image = pygame.transform.scale(image, (51, 51))
       objet["Lynk"]["haut"].append(image)
 
     #animation marche bas
     objet["Lynk"]["bas"]=[]
     for i in range(8):
       image = pygame.image.load("Source/Lynk/Lynk_walk_bas_"+str(i)+".png").convert_alpha()
-      image = pygame.transform.scale(image, (62, 62))
+      image = pygame.transform.scale(image, (51, 51))
       objet["Lynk"]["bas"].append(image)
 
     #animation attaque épée
@@ -794,7 +892,7 @@ def lecture_objet():
     objet["Lynk"]["dead"]=[]
     for i in range(4):
         image = pygame.image.load("Source/Lynk/Lynk_dead_"+str(i)+".png").convert_alpha()
-        image = pygame.transform.scale(image, (62, 62))
+        image = pygame.transform.scale(image, (51, 51))
         objet["Lynk"]["dead"].append(image)
 
     #image korogu
