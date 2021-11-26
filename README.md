@@ -17,6 +17,8 @@ A: attaquer
 
 P: PLAY/PAUSE
 
-S: Dialoguer
+S: Dialoguer / Ouvrir coffre 
 
-Q: quitter dialogue
+Q: quitter dialogue / quiter coffre
+
+E: Ouvrir inventaire
