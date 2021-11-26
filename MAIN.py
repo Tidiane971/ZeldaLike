@@ -170,6 +170,15 @@ while Play:
 		if(not perso.inDialog):
 			perso.deplacement(vie=perso.vie, ennemiL=ennemi_liste[perso.map_id])
 
+		if perso.map_id in map_having_ennemi:
+			for ennemi in ennemi_liste[perso.map_id]:
+				if ennemi.vie > 0:
+					ennemi.afficher(perso=perso)
+					ennemi.deplacement( perso = perso)
+					ennemi.attaque(perso = perso)
+				else:
+					perso.map[2][ennemi.rect.y//64][ennemi.rect.x//64] =0
+
 		#Gestion Dialogue
 		perso.read(DB = DialogBoxes)
 		perso.talk(PNG = pnj_liste)
@@ -179,18 +188,17 @@ while Play:
 
 		#Gestion coffre
 		if perso.map_id in map_having_coffre:
-			for coffre in coffre_liste[perso.map_id]:
-				coffre.afficher(perso=perso)
+			if perso.map_id == 6:
+				for ennemi in ennemi_liste[perso.map_id]:
+					if ennemi.vie <= 0:
+						for coffre in coffre_liste[perso.map_id]:
+							coffre.afficher(perso=perso)
+			else:
+				for coffre in coffre_liste[perso.map_id]:
+					coffre.afficher(perso=perso)
 
 		#Gestion ennemis
-		if perso.map_id in map_having_ennemi:
-			for ennemi in ennemi_liste[perso.map_id]:
-				if ennemi.vie > 0:
-					ennemi.afficher(perso=perso)
-					ennemi.deplacement( perso = perso)
-					ennemi.attaque(perso = perso)
-				else:
-					perso.map[2][ennemi.rect.y//64][ennemi.rect.x//64] =0
+
 
 
 

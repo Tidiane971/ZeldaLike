@@ -11,5 +11,6 @@ objet_dict = {
     "Clé1" : Objet(image = elementgraphique(pygame.image.load("Source/Autre/key.png"), fenetre), nom = "cle1", type = "quete"),
     "Clé2" : Objet(image = elementgraphique(pygame.image.load("Source/Autre/key.png"), fenetre), nom = "cle2", type = "quete"),
     "Clé3" : Objet(image = elementgraphique(pygame.image.load("Source/Autre/key.png"), fenetre), nom = "cle3", type = "quete"),
+    "Collier" : Objet(image = elementgraphique(pygame.image.load("Source/Autre/collier.png"), fenetre), nom = "collier", type = "quete"),
 
     }

@@ -26,7 +26,7 @@ aubergiste = pnj(fenetre,image = pygame.image.load("Source/Map/warp.png") ,x= dB
 
 niece = pnj(fenetre,image = pygame.image.load("Source/PNJ/USE/solider_stand_bas.png") ,x= dBox(1,Village_grid)[0]*64, y = dBox(1,Village_grid)[1]*64,text = ["C'était ton collier ! Oh non... Qu'est ce que je vais faire...","Pour tout te dire hier en allant patrouiller dans la grotte, le collier est tomber lors d'un combat", "Si tu y tient vraiment je peux te laisser passer..."], inclinaison = 3)
 
-soldat2 = pnj(fenetre,image = pygame.image.load("Source/PNJ/USE/solider_stand_bas.png") ,x= (dBox(2,Village_grid)[0]*64)+15, y = dBox(2,Village_grid)[1]*64,text = ["Un enfant de 8 ans dans une grotte pleine de monstres...","...Je refléchis trop ! Qu'est ce qu'il pourrait bien lui arriver de pire",], inclinaison = 3)
+# soldat2 = pnj(fenetre,image = pygame.image.load("Source/PNJ/USE/solider_stand_bas.png") ,x= (dBox(2,Village_grid)[0]*64)+15, y = dBox(2,Village_grid)[1]*64,text = ["Un enfant de 8 ans dans une grotte pleine de monstres...","...Je refléchis trop ! Qu'est ce qu'il pourrait bien lui arriver de pire",], inclinaison = 3)
 
 
 
@@ -36,4 +36,4 @@ pnj_liste[4][0] = armurier
 pnj_liste[5][0] = epiciere
 
 pnj_liste[1][0] = niece
-pnj_liste[1][1] = soldat2
+# pnj_liste[1][1] = soldat2

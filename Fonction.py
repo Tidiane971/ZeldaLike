@@ -348,7 +348,6 @@ class perso(element_anime_dir):
                self.map[2][attack_rect.y//64][(attack_rect.x+52)//64]==6 or
                self.map[2][(attack_rect.y+52)//64][attack_rect.x//64]==6 or
                self.map[2][(attack_rect.y+52)//64][(attack_rect.x+52)//64]==6):
-
                 if self.map_id in map_having_ennemi:
                     for ennemi in ennemiL:
                         if(attack_rect.colliderect(ennemi.rect)):
@@ -657,7 +656,7 @@ class perso(element_anime_dir):
                                     if c.inclinaison ==3:
                                         c.image = pygame.image.load("Source/Autre/Chest/chest_open_bas.png")
                                         c.image = pygame.transform.scale(c.image, (60,60))
-                                        
+
                                 self.inDialog = True
                                 self.fenetre.blit(boxImage, rectBox)
                                 myfont.render_to(self.fenetre, (152,452),"Vous avez trouvé " + c.objet.nom+ " !", (0,0,0))
@@ -741,7 +740,7 @@ class ennemi(element_anime_dir):
             rect_provisoire.y+=self.vitesse #Déplacement Focus
 
 
-        if(perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==0 or perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==6):
+        if((perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==0) or perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==6):
             (perso.map[2])[self.rect.y//64][self.rect.x//64] = 0
             self.rect = rect_provisoire
             (perso.map[2])[rect_provisoire.y//64][rect_provisoire.x//64] = 6
@@ -929,25 +928,25 @@ def lecture_objet():
     objet["ennemi"]["boss"]["bas"]=[]
 
     image = pygame.image.load("Source/PNJ/Boss/boss_all.png").convert_alpha()
-    image = pygame.transform.scale(image, (150, 150))
+    image = pygame.transform.scale(image, (80, 80))
     objet["ennemi"]["boss"]["bas"].append(image)
 
     objet["ennemi"]["boss"]["haut"]=[]
 
     image = pygame.image.load("Source/PNJ/Boss/boss_all.png").convert_alpha()
-    image = pygame.transform.scale(image, (150, 150))
+    image = pygame.transform.scale(image, (80, 80))
     objet["ennemi"]["boss"]["haut"].append(image)
 
     objet["ennemi"]["boss"]["droite"]=[]
 
     image = pygame.image.load("Source/PNJ/Boss/boss_all.png").convert_alpha()
-    image = pygame.transform.scale(image, (150, 150))
+    image = pygame.transform.scale(image, (80, 80))
     objet["ennemi"]["boss"]["droite"].append(image)
 
     objet["ennemi"]["boss"]["gauche"]=[]
 
     image = pygame.image.load("Source/PNJ/Boss/boss_all.png").convert_alpha()
-    image = pygame.transform.scale(image, (150, 150))
+    image = pygame.transform.scale(image, (80, 80))
     objet["ennemi"]["boss"]["gauche"].append(image)
 
 

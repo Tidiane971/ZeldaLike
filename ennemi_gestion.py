@@ -32,3 +32,4 @@ ennemi_liste[2][3] = ennemi_grotte_4
 ennemi_liste[2][4] = ennemi_grotte_5
 
 ennemi_liste[6][0] = boss
+ennemi_liste[6][0].vie = 30
