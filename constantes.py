@@ -33,7 +33,7 @@ imgHomeBg = pygame.image.load("Source/Map/home.png").convert_alpha()
 imgHomeFront = pygame.image.load("Source/Map/home_front.png").convert_alpha()
 
 imgVillageBg = pygame.image.load("Source/Map/Village/bg.png").convert_alpha()
-imgVillageFront = pygame.image.load("Source/Map/warp.png").convert_alpha()
+imgVillageFront = pygame.image.load("Source/Map/Village/front.png").convert_alpha()
 
 imgGrotteBg = pygame.image.load("Source/Map/dungeon.png").convert_alpha()
 imgGrotteFront = pygame.image.load("Source/Map/warp.png").convert_alpha()

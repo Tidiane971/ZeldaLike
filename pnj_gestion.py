@@ -24,7 +24,7 @@ epiciere = pnj(fenetre,image = pygame.image.load("Source/Map/warp.png") ,x= dBox
 
 aubergiste = pnj(fenetre,image = pygame.image.load("Source/Map/warp.png") ,x= dBox(1,Auberge_grid)[0]*64, y = dBox(1,Auberge_grid)[1]*64,text = ["Un collier en perle ? J'en ai effectivement trouvé un il y'a de cela quelque jour ","Je l'ai emmener dans le magasin au sud-est de la ville pour connaitre son prix", "Il devrait encore y être"], inclinaison = 3)
 
-niece = pnj(fenetre,image = pygame.image.load("Source/PNJ/USE/solider_stand_bas.png") ,x= dBox(1,Village_grid)[0]*64, y = dBox(1,Village_grid)[1]*64,text = ["C'était ton collier ! Oh non... Qu'est ce que je vais faire...","Pour tout te dire hier en allant patrouiller dans la grotte, le collier est tomber lors d'un combat", "Si tu y tient vraiment je peux te laisser passer..."], inclinaison = 3)
+niece = pnj(fenetre,image = pygame.image.load("Source/PNJ/USE/solider_stand_bas.png") ,x= dBox(1,Village_grid)[0]*64, y = dBox(1,Village_grid)[1]*64,text = ["C'était ton collier ! Oh non...Pour tout te dire"," hier en allant patrouiller dans la grotte, le collier est tomber lors d'un combat", "Si tu y tient vraiment je peux te laisser passer..."], inclinaison = 3)
 
 random1 = pnj(fenetre,image = pygame.image.load("Source/PNJ/USE/Male7_stand_bas.png") ,x= dBox(2,Village_grid)[0]*64, y = dBox(2,Village_grid)[1]*64,text = ["Ne le dis à personne, mais dans ce coffre j'ai caché une potion de soin..."], inclinaison = 3)
 

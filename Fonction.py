@@ -43,7 +43,7 @@ class button(elementgraphique):
 #Créeation PNJ
 class pnj(elementgraphique):
     def __init__(self,fenetre,image,x,y, text, inclinaison):
-        image = pygame.transform.scale(image, (60,60))
+        image = pygame.transform.scale(image, (60,65))
         super().__init__(image,fenetre,x,y)
         self.text = text
 
@@ -607,7 +607,7 @@ class perso(element_anime_dir):
                                 myfont.render_to(self.fenetre, (152,451), p.text[1], (0,0,0))
                             if len(p.text)>2:
 
-                                myfont.render_to(self.fenetre, (152,492), p.text[2], (0,0,0))
+                                myfont.render_to(self.fenetre, (152,472), p.text[2], (0,0,0))
 
 
     def open(self,COFFRES):
@@ -670,7 +670,7 @@ class perso(element_anime_dir):
 class ennemi(element_anime_dir):
     def __init__(self,image,fenetre,perso,x,y, dir):
         super().__init__(image,fenetre,x,y)
-        self.vie=16
+        self.vie=12
         self.vitesse=9
         self.attak_fin=True
         self.attak=""
