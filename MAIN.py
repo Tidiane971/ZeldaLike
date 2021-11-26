@@ -170,7 +170,7 @@ while Play:
 		if(not perso.inDialog):
 			perso.deplacement(vie=perso.vie, ennemiL=ennemi_liste[perso.map_id])
 
-		if perso.map_id in map_having_ennemi:
+		if perso.map_id in map_having_ennemi and perso.map_id != 6:
 			for ennemi in ennemi_liste[perso.map_id]:
 				if ennemi.vie > 0:
 					ennemi.afficher(perso=perso)
@@ -178,6 +178,15 @@ while Play:
 					ennemi.attaque(perso = perso)
 				else:
 					perso.map[2][ennemi.rect.y//64][ennemi.rect.x//64] =0
+		else:
+			for ennemi in ennemi_liste[perso.map_id]:
+				if ennemi.vie > 0:
+					ennemi.afficher(perso=perso)
+					ennemi.deplacementBoss( perso = perso)
+					ennemi.attaque(perso = perso)
+				else:
+					perso.map[2][ennemi.rect.y//64][ennemi.rect.x//64] =0
+
 
 		#Gestion Dialogue
 		perso.read(DB = DialogBoxes)

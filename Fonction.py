@@ -8,6 +8,7 @@ import pygame
 #import random
 import copy
 import time
+import random
 
 #Créeation image
 class elementgraphique:
@@ -494,7 +495,7 @@ class perso(element_anime_dir):
             else:
 
 
-                if(objet_dict["Clé1"] in self.inventaire.contenu and objet_dict["Clé2"] in self.inventaire.contenu and objet_dict["Clé3"] in self.inventaire.contenu ):
+                if(objet_dict["Clé1"] in self.inventaire.contenu or objet_dict["Clé2"] in self.inventaire.contenu or objet_dict["Clé3"] in self.inventaire.contenu ):
                     for fondu in Transi:
                         self.fenetre.blit(fondu, (0,0))
                         pygame.display.flip()
@@ -683,6 +684,7 @@ class ennemi(element_anime_dir):
 
 
 
+
     #Affichage
     def afficher(self,perso):
 
@@ -760,6 +762,38 @@ class ennemi(element_anime_dir):
             elif(self.dir == "bas"):
                 self.dir = "haut"
 
+    def deplacementBoss(self, perso):
+
+        rect_provisoire = copy.copy(self.rect)
+        #Lecture Flèches
+        touches = pygame.key.get_pressed()
+        knock = [-10,10]
+
+        if(perso.rect.x > self.rect.x):
+            rect_provisoire.x += 4
+        if(perso.rect.x < self.rect.x):
+            rect_provisoire.x -= 4
+        if(perso.rect.y > self.rect.y):
+            rect_provisoire.y += 4
+        if(perso.rect.y < self.rect.y):
+            rect_provisoire.y -= 4
+
+        if self.invincible or perso.vie % 4 == 0:
+            rect_provisoire.x -= 5
+            rect_provisoire.y -= 5
+
+
+
+        if((perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==0) or perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==6):
+            (perso.map[2])[self.rect.y//64][self.rect.x//64] = 0
+            self.rect = rect_provisoire
+            (perso.map[2])[rect_provisoire.y//64][rect_provisoire.x//64] = 6
+
+
+
+
+
+
     def attaque(self, perso):
         if(self.rect.colliderect(perso.rect) and not perso.invincible and not self.invincible):
             perso.vie-=1
@@ -768,10 +802,13 @@ class ennemi(element_anime_dir):
             perso.invincible = True
 
 
+
         if(perso.invincible):
             perso.image = pygame.image.load("Source/Map/warp.png")
             if( pygame.time.get_ticks() - a > 2500):
                 perso.invincible=False
+
+
 
 
 
@@ -928,25 +965,25 @@ def lecture_objet():
     objet["ennemi"]["boss"]["bas"]=[]
 
     image = pygame.image.load("Source/PNJ/Boss/boss_all.png").convert_alpha()
-    image = pygame.transform.scale(image, (80, 80))
+    image = pygame.transform.scale(image, (110, 110))
     objet["ennemi"]["boss"]["bas"].append(image)
 
     objet["ennemi"]["boss"]["haut"]=[]
 
     image = pygame.image.load("Source/PNJ/Boss/boss_all.png").convert_alpha()
-    image = pygame.transform.scale(image, (80, 80))
+    image = pygame.transform.scale(image, (110, 110))
     objet["ennemi"]["boss"]["haut"].append(image)
 
     objet["ennemi"]["boss"]["droite"]=[]
 
     image = pygame.image.load("Source/PNJ/Boss/boss_all.png").convert_alpha()
-    image = pygame.transform.scale(image, (80, 80))
+    image = pygame.transform.scale(image, (110, 110))
     objet["ennemi"]["boss"]["droite"].append(image)
 
     objet["ennemi"]["boss"]["gauche"]=[]
 
     image = pygame.image.load("Source/PNJ/Boss/boss_all.png").convert_alpha()
-    image = pygame.transform.scale(image, (80, 80))
+    image = pygame.transform.scale(image, (110, 110))
     objet["ennemi"]["boss"]["gauche"].append(image)
 
 

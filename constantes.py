@@ -13,7 +13,7 @@ CameraY=0
 DialogBoxes = [ [0,0],[], [] ,[], [], [], []]
 pnj_liste = [ [0],[0],[],[0],[0],[0],[] ]
 coffre_liste = [ [0],[0,0],[0,0,0],[],[],[],[0]]
-ennemi_liste = [ [],[], [0,0,0,0,0] ,[], [], [], [0]]
+ennemi_liste = [ [],[], [0,0,0,0] ,[], [], [], [0]]
 
 
 Intro, Menu, enJeu, GameOver = 1,0,0,0
