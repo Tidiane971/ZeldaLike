@@ -43,7 +43,7 @@ for i in range(4):
 	tab_vie.append(vie)
 
 #Image Lynk
-perso = perso(objet["Lynk"],fenetre,x=152,y=243,camerax=CameraX,cameray=CameraY,map = actual_map, map_id = 0 )
+perso = perso(objet["Lynk"],fenetre,x=153,y=243,camerax=CameraX,cameray=CameraY,map = actual_map, map_id = 0 )
 z=16
 #Image curseur
 Choix=elementgraphique(objet["select"],fenetre,x=270,y=400)
@@ -188,6 +188,10 @@ while Play:
 					perso.map[2][ennemi.rect.y//64][ennemi.rect.x//64] =0
 
 
+		if objet_dict["Collier"] in perso.inventaire.contenu and perso.map_id == 0:
+			pnj_liste[0][0].text = ["Merci beaucoup fiston de m'avoir rapporter le collier"]
+			perso.inventaire.contenu.remove(objet_dict["Collier"])
+
 		#Gestion Dialogue
 		perso.read(DB = DialogBoxes)
 		perso.talk(PNG = pnj_liste)
@@ -245,6 +249,12 @@ while Play:
 		for w in range(4):
 			tab_vie[w].afficher()
 
+		if perso.vie<=0:
+
+
+			GameOver=1
+			enJeu = 0
+
 
 
 
@@ -265,11 +275,7 @@ while Play:
 				#v-=1
 				#pvie=0
 				#pass
-		#elif perso.vie<=0:
 
-			#perso.dead(vie=perso.vie) ---- Animation mort raté
-			#GameOver=1
-			#enJeu = 0
 
 
 

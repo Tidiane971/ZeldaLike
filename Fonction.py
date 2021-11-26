@@ -43,7 +43,7 @@ class button(elementgraphique):
 #Créeation PNJ
 class pnj(elementgraphique):
     def __init__(self,fenetre,image,x,y, text, inclinaison):
-        image = pygame.transform.scale(image, (70,70))
+        image = pygame.transform.scale(image, (60,60))
         super().__init__(image,fenetre,x,y)
         self.text = text
 
@@ -108,7 +108,7 @@ class Inventaire(elementgraphique):
         self.y = 90
         #self.cursor = pygame.image.load("Source/Autre/cursor/select.png").convert_alpha()
         #self.image = pygame.transform.scale(image, (25, 25))
-        self.image = pygame.image.load("Source/Lynk/Inventaire/INVENTAIRE.png")
+        self.image = pygame.image.load("Source/Lynk/Inventaire/INVENTAIRE2.png")
         super().__init__(self.image,fenetre,self.x,self.y)
         self.contenu = []
         self.open = False
@@ -778,7 +778,9 @@ class ennemi(element_anime_dir):
         if(perso.rect.y < self.rect.y):
             rect_provisoire.y -= 4
 
-        if self.invincible or perso.vie % 4 == 0:
+
+
+        if self.invincible or perso.vie %4 ==0:
             rect_provisoire.x -= 5
             rect_provisoire.y -= 5
 
