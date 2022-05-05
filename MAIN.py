@@ -43,7 +43,7 @@ for i in range(4):
 	tab_vie.append(vie)
 
 #Image Lynk
-perso = perso(objet["Lynk"],fenetre,x=152,y=243,camerax=CameraX,cameray=CameraY,map = actual_map, map_id = 0 )
+perso = perso(objet["Lynk"],fenetre,x=153,y=243,camerax=CameraX,cameray=CameraY,map = actual_map, map_id = 0 )
 z=16
 #Image curseur
 Choix=elementgraphique(objet["select"],fenetre,x=270,y=400)
@@ -166,9 +166,11 @@ while Play:
 				pnj.afficher(perso = perso)
 		perso.map[1].afficher(perso.camerax,perso.cameray)
 
+		#Déplacer perso
+		if(not perso.inDialog):
+			perso.deplacement(vie=perso.vie, ennemiL=ennemi_liste[perso.map_id])
 
-		#Gestion ennemis
-		if perso.map_id in map_having_ennemi:
+		if perso.map_id in map_having_ennemi and perso.map_id != 6:
 			for ennemi in ennemi_liste[perso.map_id]:
 				if ennemi.vie > 0:
 					ennemi.afficher(perso=perso)
@@ -176,10 +178,19 @@ while Play:
 					ennemi.attaque(perso = perso)
 				else:
 					perso.map[2][ennemi.rect.y//64][ennemi.rect.x//64] =0
+		else:
+			for ennemi in ennemi_liste[perso.map_id]:
+				if ennemi.vie > 0:
+					ennemi.afficher(perso=perso)
+					ennemi.deplacementBoss( perso = perso)
+					ennemi.attaque(perso = perso)
+				else:
+					perso.map[2][ennemi.rect.y//64][ennemi.rect.x//64] =0
 
-		#Déplacer perso
-		if(not perso.inDialog):
-			perso.deplacement(vie=perso.vie, ennemiL=ennemi_liste[perso.map_id])
+
+		if objet_dict["Collier"] in perso.inventaire.contenu and perso.map_id == 0:
+			pnj_liste[0][0].text = ["Merci beaucoup fiston de m'avoir rapporter le collier"]
+			perso.inventaire.contenu.remove(objet_dict["Collier"])
 
 		#Gestion Dialogue
 		perso.read(DB = DialogBoxes)
@@ -190,9 +201,16 @@ while Play:
 
 		#Gestion coffre
 		if perso.map_id in map_having_coffre:
-			for coffre in coffre_liste[perso.map_id]:
-				coffre.afficher(perso=perso)
+			if perso.map_id == 6:
+				for ennemi in ennemi_liste[perso.map_id]:
+					if ennemi.vie <= 0:
+						for coffre in coffre_liste[perso.map_id]:
+							coffre.afficher(perso=perso)
+			else:
+				for coffre in coffre_liste[perso.map_id]:
+					coffre.afficher(perso=perso)
 
+		#Gestion ennemis
 
 
 
@@ -231,7 +249,11 @@ while Play:
 		for w in range(4):
 			tab_vie[w].afficher()
 
-		print(perso.map_id)
+		if perso.vie<=0:
+
+
+			GameOver=1
+			enJeu = 0
 
 
 
@@ -253,11 +275,7 @@ while Play:
 				#v-=1
 				#pvie=0
 				#pass
-		#elif perso.vie<=0:
 
-			#perso.dead(vie=perso.vie) ---- Animation mort raté
-			#GameOver=1
-			#enJeu = 0
 
 
 

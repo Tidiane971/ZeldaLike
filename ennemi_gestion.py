@@ -21,7 +21,6 @@ ennemi_grotte_1 = ennemi(objet["ennemi"]["korogu"],fenetre,x=dBox(1,Grotte_grid)
 ennemi_grotte_2 = ennemi(objet["ennemi"]["korogu"],fenetre,x=dBox(2,Grotte_grid)[0]*64 ,y=dBox(2,Grotte_grid)[1]*64,perso=perso, dir = "gauche")
 ennemi_grotte_3 = ennemi(objet["ennemi"]["korogu"],fenetre,x=dBox(3,Grotte_grid)[0]*64 ,y=dBox(3,Grotte_grid)[1]*64,perso=perso, dir = "gauche")
 ennemi_grotte_4 = ennemi(objet["ennemi"]["korogu"],fenetre,x=dBox(4,Grotte_grid)[0]*64 ,y=dBox(4,Grotte_grid)[1]*64,perso=perso, dir = "gauche")
-ennemi_grotte_5 = ennemi(objet["ennemi"]["korogu"],fenetre,x=dBox(5,Grotte_grid)[0]*64 ,y=dBox(5,Grotte_grid)[1]*64,perso=perso, dir = "gauche")
 
 boss = ennemi(objet["ennemi"]["boss"],fenetre,x=dBox(1,Salle_boss_grid)[0]*64 ,y=dBox(1,Salle_boss_grid)[1]*64,perso=perso, dir = "gauche")
 
@@ -29,6 +28,6 @@ ennemi_liste[2][0] = ennemi_grotte_1
 ennemi_liste[2][1] = ennemi_grotte_2
 ennemi_liste[2][2] = ennemi_grotte_3
 ennemi_liste[2][3] = ennemi_grotte_4
-ennemi_liste[2][4] = ennemi_grotte_5
+
 
 ennemi_liste[6][0] = boss

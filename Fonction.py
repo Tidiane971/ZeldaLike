@@ -8,6 +8,7 @@ import pygame
 #import random
 import copy
 import time
+import random
 
 #Créeation image
 class elementgraphique:
@@ -42,7 +43,7 @@ class button(elementgraphique):
 #Créeation PNJ
 class pnj(elementgraphique):
     def __init__(self,fenetre,image,x,y, text, inclinaison):
-        image = pygame.transform.scale(image, (70,70))
+        image = pygame.transform.scale(image, (60,65))
         super().__init__(image,fenetre,x,y)
         self.text = text
 
@@ -107,7 +108,7 @@ class Inventaire(elementgraphique):
         self.y = 90
         #self.cursor = pygame.image.load("Source/Autre/cursor/select.png").convert_alpha()
         #self.image = pygame.transform.scale(image, (25, 25))
-        self.image = pygame.image.load("Source/Lynk/Inventaire/INVENTAIRE.png")
+        self.image = pygame.image.load("Source/Lynk/Inventaire/INVENTAIRE2.png")
         super().__init__(self.image,fenetre,self.x,self.y)
         self.contenu = []
         self.open = False
@@ -348,7 +349,6 @@ class perso(element_anime_dir):
                self.map[2][attack_rect.y//64][(attack_rect.x+52)//64]==6 or
                self.map[2][(attack_rect.y+52)//64][attack_rect.x//64]==6 or
                self.map[2][(attack_rect.y+52)//64][(attack_rect.x+52)//64]==6):
-
                 if self.map_id in map_having_ennemi:
                     for ennemi in ennemiL:
                         if(attack_rect.colliderect(ennemi.rect)):
@@ -495,7 +495,7 @@ class perso(element_anime_dir):
             else:
 
 
-                if(objet_dict["Clé1"] in self.inventaire.contenu and objet_dict["Clé2"] in self.inventaire.contenu and objet_dict["Clé3"] in self.inventaire.contenu ):
+                if(objet_dict["Clé1"] in self.inventaire.contenu or objet_dict["Clé2"] in self.inventaire.contenu or objet_dict["Clé3"] in self.inventaire.contenu ):
                     for fondu in Transi:
                         self.fenetre.blit(fondu, (0,0))
                         pygame.display.flip()
@@ -607,7 +607,7 @@ class perso(element_anime_dir):
                                 myfont.render_to(self.fenetre, (152,451), p.text[1], (0,0,0))
                             if len(p.text)>2:
 
-                                myfont.render_to(self.fenetre, (152,492), p.text[2], (0,0,0))
+                                myfont.render_to(self.fenetre, (152,472), p.text[2], (0,0,0))
 
 
     def open(self,COFFRES):
@@ -627,6 +627,7 @@ class perso(element_anime_dir):
                 self.inDialog = False
 
 
+
         if self.pressed:
             pnj_case = 0
             if(self.direction == "stand_haut"):
@@ -644,23 +645,24 @@ class perso(element_anime_dir):
 
 
             if pnj_case==5:
+
                 for coffre in COFFRES:
                     for c in coffre:
-                        if c.open == False:
+                        if c.open == False or self.inDialog:
                             if(rect_provisoire.colliderect(c.rect)):
                                 if not c.open:
-
-                                    self.fenetre.blit(boxImage, rectBox)
-                                    myfont.render_to(self.fenetre, (152,452),"Vous avez trouvé " + c.objet.nom+ " !", (0,0,0))
+                                    self.inventaire.contenu.append(c.objet)
+                                    c.open = True
 
                                     if c.inclinaison ==3:
                                         c.image = pygame.image.load("Source/Autre/Chest/chest_open_bas.png")
                                         c.image = pygame.transform.scale(c.image, (60,60))
 
+                                self.inDialog = True
+                                self.fenetre.blit(boxImage, rectBox)
+                                myfont.render_to(self.fenetre, (152,452),"Vous avez trouvé " + c.objet.nom+ " !", (0,0,0))
 
-                                        if touches[pygame.K_q]:
-                                            self.inventaire.contenu.append(c.objet)
-                                            c.open = True
+
 
 
 #-----------------------------------------------------ENNEMI------------------------------------------------------#
@@ -668,7 +670,7 @@ class perso(element_anime_dir):
 class ennemi(element_anime_dir):
     def __init__(self,image,fenetre,perso,x,y, dir):
         super().__init__(image,fenetre,x,y)
-        self.vie=16
+        self.vie=12
         self.vitesse=9
         self.attak_fin=True
         self.attak=""
@@ -679,6 +681,7 @@ class ennemi(element_anime_dir):
         self.map = map
         self.dir = dir
         self.invincible = False
+
 
 
 
@@ -739,7 +742,7 @@ class ennemi(element_anime_dir):
             rect_provisoire.y+=self.vitesse #Déplacement Focus
 
 
-        if(perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==0 or perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==6):
+        if((perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==0) or perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==6):
             (perso.map[2])[self.rect.y//64][self.rect.x//64] = 0
             self.rect = rect_provisoire
             (perso.map[2])[rect_provisoire.y//64][rect_provisoire.x//64] = 6
@@ -759,6 +762,40 @@ class ennemi(element_anime_dir):
             elif(self.dir == "bas"):
                 self.dir = "haut"
 
+    def deplacementBoss(self, perso):
+
+        rect_provisoire = copy.copy(self.rect)
+        #Lecture Flèches
+        touches = pygame.key.get_pressed()
+        knock = [-10,10]
+
+        if(perso.rect.x > self.rect.x):
+            rect_provisoire.x += 4
+        if(perso.rect.x < self.rect.x):
+            rect_provisoire.x -= 4
+        if(perso.rect.y > self.rect.y):
+            rect_provisoire.y += 4
+        if(perso.rect.y < self.rect.y):
+            rect_provisoire.y -= 4
+
+
+
+        if self.invincible or perso.vie %4 ==0:
+            rect_provisoire.x -= 5
+            rect_provisoire.y -= 5
+
+
+
+        if((perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==0) or perso.map[2][rect_provisoire.y//64][rect_provisoire.x//64]==6):
+            (perso.map[2])[self.rect.y//64][self.rect.x//64] = 0
+            self.rect = rect_provisoire
+            (perso.map[2])[rect_provisoire.y//64][rect_provisoire.x//64] = 6
+
+
+
+
+
+
     def attaque(self, perso):
         if(self.rect.colliderect(perso.rect) and not perso.invincible and not self.invincible):
             perso.vie-=1
@@ -767,10 +804,13 @@ class ennemi(element_anime_dir):
             perso.invincible = True
 
 
+
         if(perso.invincible):
             perso.image = pygame.image.load("Source/Map/warp.png")
             if( pygame.time.get_ticks() - a > 2500):
                 perso.invincible=False
+
+
 
 
 
@@ -927,25 +967,25 @@ def lecture_objet():
     objet["ennemi"]["boss"]["bas"]=[]
 
     image = pygame.image.load("Source/PNJ/Boss/boss_all.png").convert_alpha()
-    image = pygame.transform.scale(image, (150, 150))
+    image = pygame.transform.scale(image, (110, 110))
     objet["ennemi"]["boss"]["bas"].append(image)
 
     objet["ennemi"]["boss"]["haut"]=[]
 
     image = pygame.image.load("Source/PNJ/Boss/boss_all.png").convert_alpha()
-    image = pygame.transform.scale(image, (150, 150))
+    image = pygame.transform.scale(image, (110, 110))
     objet["ennemi"]["boss"]["haut"].append(image)
 
     objet["ennemi"]["boss"]["droite"]=[]
 
     image = pygame.image.load("Source/PNJ/Boss/boss_all.png").convert_alpha()
-    image = pygame.transform.scale(image, (150, 150))
+    image = pygame.transform.scale(image, (110, 110))
     objet["ennemi"]["boss"]["droite"].append(image)
 
     objet["ennemi"]["boss"]["gauche"]=[]
 
     image = pygame.image.load("Source/PNJ/Boss/boss_all.png").convert_alpha()
-    image = pygame.transform.scale(image, (150, 150))
+    image = pygame.transform.scale(image, (110, 110))
     objet["ennemi"]["boss"]["gauche"].append(image)
 
 
