@@ -28,7 +28,7 @@ pygame.display.set_caption("L'épopée_de_Lynk.exe")
 temps=pygame.time.Clock()
 
 #Définition musique
-pygame.mixer.music.load("Source/Musique_&_Son/intro_theme1.ogg")
+# pygame.mixer.music.load("Source/Musique_&_Son/intro_theme1.ogg")
 
 
 #--------LECTURE DES IMAGES
@@ -82,12 +82,12 @@ while Play:
 			NOIR.afficher()
 			Intro = 0
 			pygame.display.flip()
-			pygame.mixer.music.load("Source/Musique_&_Son/intro_theme2.ogg")
-			pygame.mixer.music.play()
+			# pygame.mixer.music.load("Source/Musique_&_Son/intro_theme2.ogg")
+			# pygame.mixer.music.play()
 			import Film as Film
 			Menu = 1
-			pygame.mixer.music.load("Source/Musique_&_Son/intro_theme1.ogg")
-			pygame.mixer.music.play()
+			# pygame.mixer.music.load("Source/Musique_&_Son/intro_theme1.ogg")
+			# pygame.mixer.music.play()
 
 
 	###########################
@@ -107,8 +107,8 @@ while Play:
 		if play_button.isClicked or touches[pygame.K_RETURN]:
 			Menu,x,v = 0,0,4
 			enJeu = 1
-			pygame.mixer.music.load("Source/Musique_&_Son/House_theme.ogg")
-			pygame.mixer.music.play()
+			# pygame.mixer.music.load("Source/Musique_&_Son/House_theme.ogg")
+			# pygame.mixer.music.play()
 			pygame.display.flip()
 
 
@@ -134,28 +134,28 @@ while Play:
 
 		#Gestion Musique
 		if Old_id!=perso.map_id:
-			pygame.mixer.music.stop()
+			# pygame.mixer.music.stop()
 			Old_id=perso.map_id
 			Chanj=True
 
-		if Old_id==0 and Chanj==True:
-			pygame.mixer.music.load("Source/Musique_&_Son/House_Theme.ogg")
-		elif Old_id==1 and Chanj==True:
-			pygame.mixer.music.load("Source/Musique_&_Son/Village.ogg")
-		elif perso.map_id==2 and Chanj==True:
-			pygame.mixer.music.load("Source/Musique_&_Son/Donjon_Theme.ogg")
-		elif perso.map_id==3 and Chanj==True:
-			pygame.mixer.music.load("Source/Musique_&_Son/Autre_Theme.ogg")
-		elif perso.map_id==4 and Chanj==True:
-			pygame.mixer.music.load("Source/Musique_&_Son/Autre_Theme.ogg")
-		elif perso.map_id==5 and Chanj==True:
-			pygame.mixer.music.load("Source/Musique_&_Son/Autre_Theme.ogg")
-		elif perso.map_id==6 and Chanj == True:
-			pygame.mixer.music.load("Source/Musique_&_Son/Boss_Theme.ogg")
+		# if Old_id==0 and Chanj==True:
+		# 	pygame.mixer.music.load("Source/Musique_&_Son/House_Theme.ogg")
+		# elif Old_id==1 and Chanj==True:
+		# 	pygame.mixer.music.load("Source/Musique_&_Son/Village.ogg")
+		# elif perso.map_id==2 and Chanj==True:
+		# 	pygame.mixer.music.load("Source/Musique_&_Son/Donjon_Theme.ogg")
+		# elif perso.map_id==3 and Chanj==True:
+		# 	pygame.mixer.music.load("Source/Musique_&_Son/Autre_Theme.ogg")
+		# elif perso.map_id==4 and Chanj==True:
+		# 	pygame.mixer.music.load("Source/Musique_&_Son/Autre_Theme.ogg")
+		# elif perso.map_id==5 and Chanj==True:
+		# 	pygame.mixer.music.load("Source/Musique_&_Son/Autre_Theme.ogg")
+		# elif perso.map_id==6 and Chanj == True:
+		# 	pygame.mixer.music.load("Source/Musique_&_Son/Boss_Theme.ogg")
 
 
 		if Chanj==True:
-			pygame.mixer.music.play()
+			# pygame.mixer.music.play()
 			Chanj=False
 
 		#Affichage perso
