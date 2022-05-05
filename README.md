@@ -11,7 +11,7 @@ Le cas echeant vous ne pourrez pas faire pause.
 
 ------------------COMMANDES------------------
 
-Fleche :diriger le personnage
+Fleche du clavier : diriger le personnage
 
 A: attaquer
 
