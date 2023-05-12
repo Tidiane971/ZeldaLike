@@ -1,15 +1,16 @@
 # ZeldaLike
-Le Jeu de IBO Mathys, DYLAS William et ARISTIDE-LADAL Tidiane
-
-
+Un jeu créer par Mathys IBO, William DYLAS et Tidiane ARISTIDE-LADAL
 
 
 ------------------PREREQUIS------------------
+Python 3.9 car Les fichiers musicaux .ogg sont mieux supportés par cette version.*
 
-installer le module "keyboard" avec de lancer le programme :
+Avoir le module "keyboard" installé :
   python3 -m pip install keyboard
 
 Le cas echeant vous ne pourrez pas faire pause.
+
+*Voir ligne 21
 
 ------------------LANCER LE JEU------------------
 Executez le programme "MAIN.py"
@@ -33,4 +34,3 @@ S: Dialoguer / Ouvrir coffre
 Q: quitter dialogue / quiter coffre
 
 E: Ouvrir inventaire
-
