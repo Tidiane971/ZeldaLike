@@ -1,5 +1,0 @@
-Mathys: Map
-
-Tidiane: autres fonctions utiles
-
-William: Perso/Ennemi
